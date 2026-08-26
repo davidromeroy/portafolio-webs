@@ -1,0 +1,388 @@
+/* ============================================================
+   theme.css — Gabriela Andrade Contadora
+   Navy de confianza + dorado de detalle. Bloques sólidos, títulos
+   centrados, íconos en círculo: siguiendo la referencia real del
+   sector (El Contador EC) en vez de un tono editorial contenido.
+   Se carga DESPUES de base.css.
+   ============================================================ */
+
+:root {
+  --bg: #f8f6f1;
+  --surface: #ffffff;
+  --surface-2: #f1ede4;
+  --text: #101828;
+  --text-muted: #5d6879;
+  --border: #ded7ca;
+  --border-strong: #8e8779;  /* borde de controles: >=3:1 (WCAG 1.4.11) */
+  --accent: #101828;
+  --accent-contrast: #ffffff;
+  --nav-bg: rgba(248, 246, 241, 0.92);
+
+  /* Dorado: subrayados, numerales, íconos. Nunca como fondo de botón
+     (navy-sobre-dorado no llega a 4.5:1; blanco-sobre-navy sí). */
+  --gold: #a16207;
+
+  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --tracking-display: -0.02em;
+  --weight-display: 600;
+
+  --radius: 4px;
+  --radius-sm: 3px;
+
+  --shadow-md: 0 14px 32px -16px rgba(16, 24, 40, 0.22);
+  --shadow-lg: 0 34px 68px -32px rgba(16, 24, 40, 0.3);
+
+  --map-filter: saturate(0.4) contrast(1.03);
+
+  /* Ritmo vertical ajustado: la página se sentía pesada de recorrer
+     con el --section-y por defecto. */
+  --section-y: clamp(2.5rem, 5.5vw, 4rem);
+}
+
+h1 { font-size: clamp(2.4rem, 5.4vw, 4.2rem); }
+h2 { font-size: clamp(2.1rem, 4.4vw, 3.3rem); }
+
+/* Marca gráfica repetida: un punto dorado antes de cada eyebrow, en vez
+   de solo texto en mayúsculas como cualquier plantilla. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--gold);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.section-head .eyebrow { justify-content: center; }
+
+/* Títulos de sección centrados en todo el template, como en la
+   referencia (no solo en las secciones marcadas --center). */
+.section-head {
+  max-width: 62ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-head h2::after {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 4px;
+  margin: 1.2rem auto 0;
+  background: var(--gold);
+}
+
+.site-nav { border-bottom-color: var(--border); }
+
+.brand { letter-spacing: -0.01em; }
+
+/* ---------- Hero: texto en el fondo claro + foto como tarjeta flotante ----------
+   Columnas desiguales (no 50/50) y la tarjeta con sombra propia en vez de
+   una línea recta dividiendo el hero en dos mitades: así no se siente
+   "partido" como la versión split original. */
+
+.hero-asym {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  padding-block: clamp(3rem, 6vw, 4.5rem);
+}
+
+.hero-text .hero-lead { max-width: 46ch; }
+
+.hero-card {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  /* Corrida hacia arriba: rompe el alineamiento perfecto con el bloque
+     de texto para reforzar que no es una grilla rígida de dos mitades. */
+  transform: translateY(-14px);
+}
+
+.hero-card img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+}
+
+/* Sello circular en vez de tarjeta rectangular: motivo de "certificación"
+   propio de una contadora, no un badge genérico de SaaS. */
+.hero-card .hero-badge {
+  left: auto;
+  right: 1rem;
+  top: 1rem;
+  bottom: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  width: 108px;
+  height: 108px;
+  padding: 0.4rem;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: var(--text);
+  box-shadow: 0 12px 26px -10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  transform: rotate(-6deg);
+}
+
+.hero-card .hero-badge::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(161, 98, 7, 0.55);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-card .hero-badge strong {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.hero-card .hero-badge span {
+  color: #b8c2d1;
+  font-size: 0.58rem;
+  line-height: 1.25;
+}
+
+@media (max-width: 760px) {
+  .hero-card .hero-badge { width: 84px; height: 84px; }
+  .hero-card .hero-badge strong { font-size: 1.25rem; }
+  .hero-card .hero-badge span { font-size: 0.54rem; }
+}
+
+@media (max-width: 900px) {
+  .hero-asym { grid-template-columns: 1fr; padding-block: clamp(2rem, 6vw, 2.75rem); }
+  .hero-card { order: -1; max-width: 420px; margin-inline: auto; transform: none; }
+}
+
+/* ---------- Cifras: banda navy de ancho completo ---------- */
+
+.stats-band {
+  position: relative;
+  padding-block: clamp(2.25rem, 4.5vw, 3.5rem);
+  background: var(--text);
+  overflow: hidden;
+}
+
+/* Textura de puntos: le da profundidad a la banda sólida en vez de
+   quedar un rectángulo navy plano. */
+.stats-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.09) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+  pointer-events: none;
+}
+
+.stats-band > .container { position: relative; z-index: 1; }
+
+.stats-band .stats-row {
+  border: 0;
+  background: none;
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.stats-band .stat {
+  background: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.stats-band .stat:last-child { border-right: 0; }
+
+/* Círculo blanco sólido, no dorado translúcido: el translúcido sobre
+   navy quedaba marrón oscuro y el ícono casi no se veía.
+   Selector reforzado (.stats-band .stat .stat-icon): base.css tiene
+   ".stat span { color: var(--text-muted) }" con más especificidad que
+   una sola clase, y le ganaba al color dorado. */
+.stats-band .stat .stat-icon,
+.stat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 0.85rem;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--gold);
+  box-shadow: 0 8px 18px -6px rgba(0, 0, 0, 0.45);
+}
+
+.stat-icon svg { width: 22px; height: 22px; }
+
+.stats-band .stat strong {
+  font-family: var(--font-heading);
+  font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+  color: #fff;
+}
+
+/* :not() necesario: el ícono también es un <span>, y sin excluirlo esta
+   regla (más específica que .stat-icon) le pisaba el color dorado. */
+.stats-band .stat span:not(.stat-icon) { color: #b8c2d1; }
+
+/* ---------- Blobs orgánicos de fondo ---------- */
+
+#servicios { position: relative; overflow: hidden; }
+
+#servicios::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  right: -160px;
+  width: 480px;
+  height: 480px;
+  background: var(--gold);
+  opacity: 0.08;
+  border-radius: 42% 58% 65% 35% / 45% 45% 55% 55%;
+  pointer-events: none;
+}
+
+#servicios > .container,
+#perfil > .container { position: relative; z-index: 1; }
+
+#perfil { position: relative; overflow: hidden; }
+
+#perfil::before {
+  content: "";
+  position: absolute;
+  bottom: -140px;
+  left: -140px;
+  width: 380px;
+  height: 380px;
+  background: var(--text);
+  opacity: 0.05;
+  border-radius: 58% 42% 35% 65% / 55% 60% 40% 45%;
+  pointer-events: none;
+}
+
+/* ---------- Tarjetas de servicio: bloque sólido, no tarjeta blanca ---------- */
+
+.service-card {
+  position: relative;
+  padding: 2.75rem 1.75rem 1.9rem;
+  border-radius: 20px;
+  background: var(--text);
+  box-shadow: 0 22px 40px -18px rgba(16, 24, 40, 0.45);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.service-card:hover { transform: translateY(-6px); box-shadow: 0 30px 52px -18px rgba(16, 24, 40, 0.5); }
+
+.service-icon {
+  position: absolute;
+  top: -26px;
+  left: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--gold);
+  box-shadow: 0 10px 20px -8px rgba(16, 24, 40, 0.5);
+}
+
+.service-icon svg { width: 28px; height: 28px; }
+
+.service-card h3 {
+  margin-top: 0.6rem;
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+.service-card p { color: #cbd5e1; font-size: 0.95rem; }
+
+/* ---------- Lista de valores con badge de check ---------- */
+
+.check-list { display: grid; gap: 1.6rem; margin-top: 1.75rem; text-align: left; }
+
+.check-list li { display: flex; gap: 1.1rem; align-items: flex-start; }
+
+.check-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #fff;
+  box-shadow: 0 8px 16px -6px rgba(161, 98, 7, 0.55);
+}
+
+.check-badge svg { width: 18px; height: 18px; }
+
+.check-list h3 { font-size: 1.08rem; }
+
+.check-list p { margin-top: 0.35rem; color: var(--text-muted); font-size: 0.94rem; }
+
+/* #perfil sigue con texto a la izquierda: solo el encabezado va centrado
+   como el resto del sitio, el bloque de contenido se lee mejor alineado. */
+#perfil .reveal:not(.section-head) { text-align: left; }
+
+.testimonial blockquote {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+.stars { color: var(--gold); }
+
+/* ---------- Planes: ícono circular por tarjeta ---------- */
+
+.plan-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--gold);
+}
+
+.plan-icon svg { width: 22px; height: 22px; }
+
+.plan--featured .plan-icon { background: rgba(161, 98, 7, 0.15); }
+
+.plan--featured { border-color: var(--gold); border-width: 2px; }
+.plan-tag { background: var(--gold); color: #fff; }
+.plan-price { font-family: var(--font-heading); font-weight: 600; }
+
+.person img { border-color: var(--gold); }
+
+.hours .is-closed td { color: var(--gold); }
+
+/* Contacto sin mapa: dos columnas de datos, alineadas a la izquierda
+   aunque el encabezado de la sección esté centrado. */
+.contact-grid { text-align: left; }
+
+/* Aviso legal al pie, en letra chica como corresponde */
+.legal-note {
+  max-width: 70ch;
+  margin-top: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.site-footer { background: var(--surface-2); }

@@ -1,0 +1,117 @@
+/* ============================================================
+   theme.css — Luna Studio
+   Rosa empolvado, ciruela y curvas. Elegante sin ser dulce.
+   Se carga DESPUES de base.css.
+   ============================================================ */
+
+:root {
+  --bg: #fbf7f5;
+  --surface: #ffffff;
+  --surface-2: #f5ece9;
+  --text: #2c1f26;
+  --text-muted: #7c6771;
+  --border: #e8dad6;
+  --border-strong: #998584;  /* borde de controles: >=3:1 (WCAG 1.4.11) */
+  --accent: #8c4a63;
+  --accent-contrast: #ffffff;
+  --nav-bg: rgba(251, 247, 245, 0.9);
+
+  /* Serif en itálica: solo para el logo y las citas. Sin abusar. */
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-heading: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --tracking-display: -0.015em;
+  --weight-display: 600;
+
+  --radius: 18px;
+  --radius-sm: 12px;
+
+  --shadow-md: 0 14px 32px -18px rgba(140, 74, 99, 0.4);
+  --shadow-lg: 0 34px 64px -32px rgba(140, 74, 99, 0.45);
+
+  --map-filter: saturate(0.55) sepia(0.08);
+}
+
+/* Logo en itálica: es el único lugar donde aparece la serif */
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.brand small {
+  font-family: var(--font-body);
+  font-style: normal;
+}
+
+.hero { background: radial-gradient(120% 90% at 85% 0%, #f7e9e6 0%, var(--bg) 55%); }
+
+/* Arco: la foto del hero recortada como espejo de tocador */
+.hero-visual {
+  border-radius: 220px 220px var(--radius) var(--radius);
+  overflow: hidden;
+}
+
+.hero-visual img { aspect-ratio: 4 / 5; }
+
+.hero-badge { border-radius: var(--radius-sm); }
+
+/* Los subtítulos de sección respiran mejor con la serif */
+.section-head .eyebrow + h2 { font-weight: 600; }
+
+.hero h1 em {
+  font-family: var(--font-display);
+  font-size: 1.12em;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.card { border-radius: var(--radius); }
+
+.card:hover { box-shadow: var(--shadow-md); }
+
+/* Lista de servicios: el precio en ciruela, la línea en rosa */
+.menu-item { border-bottom-color: var(--border); }
+
+.menu-col {
+  padding: clamp(1.5rem, 3vw, 2.2rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.menu-col > h3 {
+  margin-bottom: 1.4rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 1.3rem;
+}
+
+.gallery-item { border-radius: var(--radius); }
+
+.person { border-radius: var(--radius); }
+.person img { width: 118px; height: 118px; }
+
+.testimonial { border-radius: var(--radius); }
+
+.testimonial blockquote {
+  font-family: var(--font-display);
+  font-size: 1.28rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.plan { border-radius: var(--radius); }
+.plan-price { font-weight: 600; }
+
+.cta-band {
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, #f7e9e6 0%, var(--surface) 100%);
+}
+
+.site-footer { background: var(--surface-2); }
+
+.btn { font-weight: 600; }
