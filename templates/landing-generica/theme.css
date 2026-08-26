@@ -1,0 +1,160 @@
+/* ============================================================
+   theme.css — Vértice Estudio Web (landing de servicio)
+   Tinta casi negra, retícula técnica y un verde-agua de señal.
+   Se carga DESPUES de base.css.
+   ============================================================ */
+
+:root {
+  --bg: #0e0e13;
+  --surface: #16161d;
+  --surface-2: #1d1d26;
+  --text: #f1f1f5;
+  --text-muted: #9393a4;
+  --border: #262631;
+  --border-strong: #65656f;  /* borde de controles: >=3:1 (WCAG 1.4.11) */
+  --accent: #19e3be;
+  --accent-contrast: #06120f;
+  --nav-bg: rgba(14, 14, 19, 0.88);
+
+  --font-heading: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --tracking-display: -0.035em;
+  --weight-display: 700;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+
+  --map-filter: invert(0.9) hue-rotate(165deg) saturate(0.3) brightness(0.95);
+}
+
+/* Retícula técnica de fondo: da textura sin robar atención */
+body {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-attachment: fixed;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -25%;
+  left: 50%;
+  width: 90vw;
+  height: 50vw;
+  max-height: 620px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(25, 227, 190, 0.11) 0%,
+    transparent 62%
+  );
+  pointer-events: none;
+}
+
+.hero .container { position: relative; }
+
+.eyebrow {
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  letter-spacing: 0.1em;
+}
+
+.hero h1 u {
+  text-decoration: none;
+  background: linear-gradient(transparent 66%, rgba(25, 227, 190, 0.28) 66%);
+}
+
+.card-num {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.8rem;
+}
+
+/* Tarjetas del portafolio: la foto manda, el texto acompaña */
+.work {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.work:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+.work img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.work-body { padding: 1.25rem 1.35rem 1.5rem; }
+
+.work-body h3 { font-size: 1.15rem; }
+
+.work-body .role {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.work-body p { color: var(--text-muted); font-size: 0.92rem; }
+
+.work-body .go {
+  display: inline-block;
+  margin-top: 0.9rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.plan-price { font-variant-numeric: tabular-nums; }
+
+.stat strong { font-variant-numeric: tabular-nums; }
+
+/* Preguntas frecuentes en acordeón nativo, sin JS extra */
+.faq {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.faq details + details { border-top: 1px solid var(--border); }
+
+.faq summary {
+  padding: 1.15rem 1.4rem;
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.2s var(--ease);
+}
+
+.faq summary::-webkit-details-marker { display: none; }
+
+.faq summary::after {
+  content: "+";
+  float: right;
+  color: var(--accent);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.faq details[open] summary::after { content: "–"; }
+
+.faq summary:hover { color: var(--accent); }
+
+.faq p {
+  padding: 0 1.4rem 1.35rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
