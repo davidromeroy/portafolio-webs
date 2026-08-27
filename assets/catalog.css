@@ -1,0 +1,192 @@
+/* ============================================================
+   catalog.css — portada del catálogo de demos
+   Monocromo a propósito: el color lo ponen los cinco previews.
+   Se carga DESPUES de base.css.
+   ============================================================ */
+
+:root {
+  --bg: #0a0a0b;
+  --surface: #121214;
+  --surface-2: #191a1d;
+  --text: #fafafa;
+  --text-muted: #8b8b93;
+  --border: #232327;
+  --border-strong: #63636b;  /* borde de controles: >=3:1 (WCAG 1.4.11) */
+  --accent: #fafafa;
+  --accent-contrast: #0a0a0b;
+  --nav-bg: rgba(10, 10, 11, 0.86);
+
+  --font-heading: "Instrument Serif", Georgia, serif;
+  --font-body: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --tracking-display: -0.02em;
+  --weight-display: 400;
+
+  --radius: 12px;
+  --radius-sm: 7px;
+
+  --maxw: 1240px;
+}
+
+h1, h2 { font-weight: 400; }
+
+h1 { font-size: clamp(2.8rem, 7vw, 5rem); line-height: 1.02; }
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.eyebrow {
+  color: var(--text-muted);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+}
+
+.brand { font-family: var(--font-body); font-size: 1rem; font-weight: 600; }
+
+.btn { font-weight: 600; }
+
+/* ---------- Rejilla de demos ---------- */
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+}
+
+.demo {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+  transition: transform 0.35s var(--ease), border-color 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
+}
+
+.demo:hover {
+  transform: translateY(-6px);
+  border-color: #3d3d45;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.85);
+}
+
+/* Marco del preview: recorta el iframe y le da chrome de navegador */
+.demo-preview {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+/* El iframe se renderiza a 2.5x el ancho del marco y se reduce a escala.
+   Así el preview muestra la versión de escritorio, no la móvil. */
+.demo-preview iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250%;
+  height: 250%;
+  /* base.css limita todo iframe a max-width:100%; acá hay que soltarlo
+     o el preview se renderiza con el ancho del marco y sale en versión móvil. */
+  max-width: none;
+  border: 0;
+  transform: scale(0.4);
+  transform-origin: 0 0;
+  pointer-events: none; /* el clic lo maneja la tarjeta, no el iframe */
+}
+
+.demo-preview::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 10, 11, 0.35), transparent 45%);
+  pointer-events: none;
+}
+
+.demo-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.demo-rubro {
+  margin-bottom: 0.55rem;
+  color: var(--text-muted);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.demo-body h2 { font-size: clamp(1.5rem, 2.6vw, 1.95rem); }
+
+.demo-body > p {
+  margin-top: 0.6rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 1.15rem 0 1.5rem;
+}
+
+.tags li {
+  padding: 0.28rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--text-muted);
+  font-size: 0.74rem;
+  font-weight: 500;
+}
+
+.demo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: auto;
+}
+
+.demo-actions .btn { padding: 0.7rem 1.2rem; font-size: 0.88rem; }
+
+/* La demo destacada ocupa el ancho completo de la rejilla */
+.demo--wide { grid-column: 1 / -1; }
+
+.demo--wide .demo-preview { aspect-ratio: 21 / 9; }
+
+@media (min-width: 961px) {
+  .demo--wide {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+  }
+  .demo--wide .demo-preview {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 380px;
+    border-bottom: 0;
+    border-right: 1px solid var(--border);
+  }
+}
+
+/* ---------- Nota al pie de la portada ---------- */
+
+.disclaimer {
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.disclaimer strong { color: var(--text); }
+
+@media (max-width: 960px) {
+  .demo-grid { grid-template-columns: 1fr; }
+  .demo--wide .demo-preview { aspect-ratio: 16 / 10; }
+}

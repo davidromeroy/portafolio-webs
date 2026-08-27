@@ -1,0 +1,111 @@
+/* ============================================================
+   theme.css — La Parrilla del Sur
+   Ascua sobre madera quemada. Se carga DESPUES de base.css.
+   ============================================================ */
+
+:root {
+  --bg: #14100d;
+  --surface: #1d1815;
+  --surface-2: #262019;
+  --text: #f6efe6;
+  --text-muted: #a8998a;
+  --border: #33291f;
+  --border-strong: #736659;  /* borde de controles: >=3:1 (WCAG 1.4.11) */
+  --accent: #d2622c;
+  /* Tinta oscura sobre la ascua: con crema (#fff6ee) el texto del botón
+     daba 3.56:1 y no llegaba a AA. Así queda en 4.95:1. */
+  --accent-contrast: #1a0f07;
+  --nav-bg: rgba(20, 16, 13, 0.86);
+
+  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Karla", ui-sans-serif, system-ui, sans-serif;
+  --tracking-display: -0.015em;
+  --weight-display: 700;
+
+  --radius: 6px;
+  --radius-sm: 4px;
+
+  /* El mapa de Google viene claro; lo bajamos al tono del salon. */
+  --map-filter: invert(0.9) hue-rotate(180deg) saturate(0.45) brightness(0.92);
+}
+
+/* Brasa detras del hero */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -18%;
+  right: -12%;
+  width: 60vw;
+  height: 60vw;
+  max-width: 780px;
+  max-height: 780px;
+  background: radial-gradient(
+    circle,
+    rgba(210, 98, 44, 0.22) 0%,
+    rgba(210, 98, 44, 0.07) 42%,
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+.hero .container { position: relative; }
+
+/* Titulares con una bajada en italica, no en negrita */
+.hero h1 em {
+  display: block;
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* Filete de brasa arriba de la navbar */
+.site-nav {
+  border-top: 3px solid var(--accent);
+}
+
+/* La carta se lee mejor con lineas punteadas mas calidas */
+.menu-item { border-bottom-color: #3b2f24; }
+
+.menu-col {
+  padding: clamp(1.5rem, 3vw, 2.2rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.menu-col > h3 {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--accent);
+  font-size: 1.5rem;
+}
+
+.menu-col--full { grid-column: 1 / -1; }
+
+/* Nota manuscrita del parrillero */
+.chef-note {
+  margin-top: 1.75rem;
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--accent);
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.chef-note span {
+  display: block;
+  margin-top: 0.6rem;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.testimonial blockquote { font-family: var(--font-heading); font-size: 1.08rem; }
+
+.brand { letter-spacing: 0; }
