@@ -31,6 +31,10 @@
 
   --map-filter: grayscale(0.35) contrast(1.05);
 
+  /* Landing más compacta: menos aire vertical entre secciones que el
+     valor por defecto del catálogo (clamp 4rem–7.5rem). */
+  --section-y: clamp(2.75rem, 5.5vw, 4.75rem);
+
   /* Único color fuera de blanco/negro: verde musgo, solo para precios
      y el estado activo de los chips. Ver Patrones Luna Studio. */
   --moss: #4a5c44;
@@ -66,7 +70,7 @@
 
 .hero-photo {
   position: relative;
-  min-height: clamp(26rem, 58vw, 34rem);
+  min-height: clamp(22rem, 46vw, 28rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,7 +89,7 @@
   background: linear-gradient(180deg, rgba(15, 15, 13, 0.32) 0%, rgba(15, 15, 13, 0.66) 100%);
 }
 
-.hero-photo-inner { max-width: 42rem; padding: clamp(3rem, 8vw, 5rem) 1.5rem; }
+.hero-photo-inner { max-width: 42rem; padding: clamp(2.25rem, 5vw, 3.5rem) 1.5rem; }
 
 .hero-photo .eyebrow { color: rgba(255, 255, 255, 0.82); justify-content: center; gap: 0.7rem; }
 .hero-photo .eyebrow::before { background: rgba(255, 255, 255, 0.55); }
@@ -253,7 +257,16 @@
   font-size: 1.3rem;
 }
 
+/* 4 columnas parejas en vez de 3 con una foto ancha — mismas 8 fotos,
+   2 filas en vez de 3. La foto ancha original ahora recorta como 4:3. */
+.gallery { grid-template-columns: repeat(4, 1fr); }
 .gallery-item { border-radius: var(--radius); }
+.gallery-item--wide { grid-column: span 1; }
+.gallery-item--wide img { aspect-ratio: 4 / 3; }
+
+@media (max-width: 760px) {
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+}
 
 .person { border-radius: var(--radius); }
 .person img { width: 118px; height: 118px; }
@@ -280,3 +293,5 @@
 .btn { font-weight: 600; border-radius: var(--radius-pill); }
 
 .wa-float { background: var(--accent); }
+
+.map-frame iframe { min-height: 280px; }
