@@ -230,11 +230,24 @@
 }
 
 .chip-panel { display: none; }
-.chip-panel.is-active { display: grid; }
+
+/* Un panel ocupa el ancho completo (ya no comparte fila con otras dos
+   columnas como antes), así que entra en 2 columnas — la mitad de alto
+   que una lista de 6 ítems en una sola columna. */
+.chip-panel.is-active {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2.5rem;
+  row-gap: 0;
+}
 
 .chip-panel .menu-item { border-bottom-color: var(--border); }
 
 .chip-panel .price { color: var(--moss); }
+
+@media (max-width: 640px) {
+  .chip-panel.is-active { grid-template-columns: 1fr; }
+}
 
 /* ================= RESTO DE COMPONENTES ================= */
 
