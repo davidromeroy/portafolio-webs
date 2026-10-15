@@ -1933,3 +1933,48 @@ main img[src$="coloracion.webp"] {
 .hero-arch::after { border-radius: 999px 999px 0 0; }
 .work-track .gallery-item figcaption { z-index: 2; }
 
+
+
+/* ##### Volver arriba (oct 2026) ##### */
+
+/* Encima del botón de WhatsApp, más chico y en segundo plano: no
+   compite con el CTA. Aparece recién después de bajar un tramo. */
+.to-top {
+  position: fixed;
+  right: 1.1rem;
+  bottom: calc(1.1rem + 48px + 0.6rem);
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--mist);
+  border-radius: 3px;
+  background: rgba(255, 254, 252, 0.94);
+  color: var(--slate);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 220ms var(--ease), transform 220ms var(--ease),
+    visibility 0s linear 220ms, border-color 200ms ease;
+}
+
+.to-top svg { width: 18px; height: 18px; }
+
+.to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 220ms var(--ease), transform 220ms var(--ease),
+    visibility 0s, border-color 200ms ease;
+}
+
+.to-top:active { transform: scale(0.94); }
+
+@media (hover: hover) and (pointer: fine) {
+  .to-top:hover { border-color: var(--slate); }
+}
+
+@media print { .to-top { display: none; } }
