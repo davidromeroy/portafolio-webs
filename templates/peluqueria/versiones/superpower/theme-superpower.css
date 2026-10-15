@@ -1,0 +1,564 @@
+/* ============================================================
+   theme-superpower.css — Luna Studio, variante "Superpower"
+   Se carga DESPUES de base.css y theme.css: reutiliza la estructura
+   y el movimiento de la versión editorial, y cambia la piel.
+
+   Fuente del estilo: design.md "Superpower — Style Reference"
+   (oct 2026). Desvíos deliberados respecto al documento:
+   - NB International Pro es de pago: se usa Switzer (Fontshare),
+     neo-grotesca de la misma familia de forma; Inter Tight de respaldo.
+   - Blanco sobre #fc5f2b da 3.0:1 y no pasa AA a 15-17px. El relleno
+     de los botones usa un coral más profundo (--coral-ink, 4.6:1);
+     el #fc5f2b puro queda para la tarjeta de membresía y acentos.
+   - Neutros apenas teñidos hacia el zinc en vez de #fff / #000 puros.
+   ============================================================ */
+
+:root {
+  /* Superficies: blanco -> niebla -> carbón. Nada cromático en medio. */
+  --paper: #fcfcfd;
+  --fog: #f4f4f5;
+  --mist: #e4e4e7;
+  --ash: #a1a1aa;
+  --zinc: #71717a;
+  --carbon: #18181b;
+
+  --coral: #fc5f2b;         /* acento de marca, decorativo */
+  --coral-ink: #d34214;     /* relleno de CTA con texto blanco (4.6:1) */
+  --coral-ink-hover: #bd3a10;
+
+  --bg: var(--paper);
+  --surface: var(--paper);
+  --surface-2: var(--fog);
+  --text: var(--carbon);
+  --text-muted: var(--zinc);
+  --border: var(--mist);
+  --border-strong: var(--ash);
+  --accent: var(--carbon);
+  --accent-contrast: var(--paper);
+  --nav-bg: var(--carbon);
+
+  --font-display: "Switzer", "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-display);
+  --font-body: var(--font-display);
+  --weight-display: 400;
+  --tracking-display: -0.022em;
+  --tracking-eyebrow: 0;
+
+  --radius: 15px;
+  --radius-sm: 7.5px;
+  --radius-pill: 9999px;
+
+  --shadow-subtle: 0 2px 2px rgba(24, 24, 27, 0.05);
+  --shadow-md: var(--shadow-subtle);
+  --shadow-lg: var(--shadow-subtle);
+
+  --maxw: 1200px;
+  --section-y: clamp(3.5rem, 7vw, 4.75rem);   /* ~75px de separación */
+  --map-filter: grayscale(1) contrast(1.05);
+}
+
+body {
+  font-size: 0.9375rem;               /* 15px */
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  font-feature-settings: "ss01", "tnum" 0;
+}
+
+/* Sin serif itálica en ningún lado: la voz es una sola sans,
+   con el peso en 400 hasta en display. */
+.brand,
+.hero-photo h1,
+.category-row h2,
+.section-head h2,
+.about-split blockquote,
+.testimonial blockquote,
+.stat strong {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 400;
+}
+
+:focus-visible { outline: 2px solid var(--coral-ink); outline-offset: 3px; }
+
+::selection { background: var(--coral); color: var(--carbon); }
+
+/* ---------- Etiquetas: sentence case, chicas, en zinc ---------- */
+
+.eyebrow {
+  margin-bottom: 0.75rem;
+  color: var(--zinc);
+  font-size: 0.8125rem;               /* 13px */
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  text-transform: none;
+}
+
+.eyebrow::before { display: none; }
+
+/* ---------- Navegación: cápsula oscura flotante ---------- */
+
+.site-nav {
+  position: fixed;
+  inset: 12px var(--gutter) auto;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  border: 0;
+  border-radius: 15px;
+  background: var(--carbon);
+  color: var(--paper);
+}
+
+.site-nav::before { display: none; }
+
+.site-nav.is-scrolled {
+  box-shadow: 0 12px 32px -16px rgba(24, 24, 27, 0.45);
+}
+
+.site-nav .container { padding-inline: 1.15rem 0.5rem; }
+
+.nav-inner { min-height: 56px; }
+
+.site-nav .brand {
+  color: var(--paper);
+  font-size: 1.1875rem;               /* 19px */
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.site-nav .brand small { color: rgba(252, 252, 253, 0.55); font-weight: 500; letter-spacing: 0.02em; }
+
+.nav-actions .btn { padding: 0.6rem 1.1rem; font-size: 0.875rem; }
+
+.nav-toggle { border-color: rgba(252, 252, 253, 0.25); border-radius: 9999px; }
+.nav-toggle span { background: var(--paper); }
+
+.site-nav :focus-visible { outline-color: var(--paper); }
+
+@media (min-width: 901px) {
+  .nav-links { gap: 1.6rem; }
+
+  .nav-links a {
+    color: rgba(252, 252, 253, 0.62);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+
+  .nav-links a::after { display: none; }
+
+  .nav-links a:hover,
+  .nav-links a.is-active { color: var(--paper); }
+}
+
+/* ---------- Botones: todos píldora ---------- */
+
+.btn {
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: var(--carbon);
+  color: var(--paper);
+  font-weight: 700;
+  letter-spacing: -0.009em;
+}
+
+.btn--lg { padding: 0.95rem 1.6rem; font-size: 1.0625rem; }   /* 17px */
+
+.btn--primary { background: var(--coral-ink); color: #fff; }
+
+.btn--ghost {
+  border-color: var(--mist);
+  background: transparent;
+  color: var(--carbon);
+}
+
+.btn-arrow {
+  width: 1em;
+  height: 1em;
+  transition: transform 200ms var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { transform: none; box-shadow: none; }
+  .btn--primary:hover { background: var(--coral-ink-hover); }
+  .btn:hover .btn-arrow { transform: translateX(3px); }
+  .btn--ghost:hover { border-color: var(--carbon); color: var(--carbon); }
+}
+
+.btn:active { transform: scale(0.97); }
+
+.link-ghost {
+  color: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.3em;
+  transition: text-decoration-color 200ms ease;
+}
+
+.link-ghost:hover { text-decoration-color: currentColor; }
+
+/* Fila de confianza: siempre debajo de un CTA primario */
+.trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin-top: 1.25rem;
+  color: var(--zinc);
+  font-size: 0.8125rem;
+  letter-spacing: -0.005em;
+}
+
+.trust li { display: inline-flex; align-items: center; gap: 0.35rem; }
+
+.trust svg { width: 14px; height: 14px; color: var(--carbon); flex-shrink: 0; }
+
+/* ---------- Hero: foto a sangre, oscura, titular susurrado ---------- */
+
+.hero-photo {
+  min-height: clamp(34rem, 88svh, 48rem);
+  padding-top: 76px;                  /* aire para la cápsula del nav */
+}
+
+.hero-photo::before {
+  background:
+    radial-gradient(120% 80% at 50% 35%, rgba(24, 24, 27, 0.35) 0%, rgba(24, 24, 27, 0.78) 100%),
+    linear-gradient(180deg, rgba(24, 24, 27, 0.25) 0%, rgba(24, 24, 27, 0.6) 100%);
+}
+
+.hero-photo-inner { max-width: 46rem; }
+
+.hero-photo .eyebrow { color: rgba(252, 252, 253, 0.7); }
+
+.hero-photo h1 {
+  margin-top: 0.75rem;
+  font-size: clamp(2.75rem, 6.6vw, 4.125rem);   /* hasta 66px */
+  line-height: 1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.hero-photo .hero-lead {
+  margin-top: 1.25rem;
+  max-width: 30rem;
+  color: rgba(252, 252, 253, 0.74);
+  font-size: 1.0625rem;
+  line-height: 1.45;
+  letter-spacing: -0.009em;
+}
+
+.hero-photo .hero-actions {
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.hero-photo .link-ghost { color: var(--paper); }
+
+.hero-photo .trust {
+  justify-content: center;
+  margin-top: 1.5rem;
+  color: rgba(252, 252, 253, 0.62);
+}
+
+.hero-photo .trust svg { color: var(--paper); }
+
+/* ---------- Encabezados de sección: grandes, livianos, a la izquierda ---------- */
+
+.section-head,
+.section-head--center {
+  max-width: 44rem;
+  margin-inline: 0;
+  margin-bottom: clamp(2rem, 4vw, 2.75rem);
+  text-align: left;
+}
+
+.section-head h2,
+.category-row h2 {
+  font-size: clamp(2.25rem, 4.8vw, 3.5rem);     /* 36 -> 56px */
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+}
+
+.section-sub {
+  max-width: 34rem;
+  margin-top: 1rem;
+  color: var(--zinc);
+  font-size: 1.0625rem;
+  line-height: 1.45;
+  letter-spacing: -0.009em;
+}
+
+.section--alt { background: var(--fog); }
+
+/* ---------- Cifras: línea de hechos, no tablero de métricas ---------- */
+
+.stat strong {
+  font-size: clamp(1.625rem, 2.6vw, 1.875rem);  /* 26 -> 30px */
+  letter-spacing: -0.013em;
+}
+
+.stat span { font-size: 0.8125rem; color: var(--zinc); }
+
+/* ---------- Categoría + fotos ---------- */
+
+.category-row .cat-photo,
+.about-split .about-photo { border-radius: 15px; }
+
+.link {
+  color: var(--carbon);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  text-transform: none;
+  border-bottom-color: var(--mist);
+}
+
+.link:hover { color: var(--carbon); border-color: var(--carbon); }
+
+/* ---------- Chips y carta ---------- */
+
+.chip {
+  padding: 0.6rem 1.15rem;
+  border-color: var(--mist);
+  color: var(--zinc);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+.chip:hover { border-color: var(--ash); color: var(--carbon); }
+
+.chip[aria-selected="true"] { background: var(--carbon); border-color: var(--carbon); color: var(--paper); }
+
+.chip-indicator { background: var(--carbon); }
+
+.menu-item { border-bottom: 1px solid var(--mist); }
+
+.menu-item h4 {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.009em;
+}
+
+.menu-item .price,
+.chip-panel .price {
+  color: var(--carbon);
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-style: normal;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.menu-item p { color: var(--zinc); font-size: 0.9375rem; }
+
+/* ---------- Galería ---------- */
+
+.gallery { gap: 11px; }
+.gallery-item { border-radius: 15px; }
+.gallery-item figcaption { font-weight: 500; letter-spacing: -0.005em; }
+
+/* ---------- Quiénes somos ---------- */
+
+.about-split blockquote {
+  font-size: clamp(1.875rem, 3.4vw, 2.8125rem);  /* 30 -> 45px */
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.about-split .body-copy { color: var(--zinc); font-size: 1.0625rem; line-height: 1.45; max-width: 34rem; }
+
+/* ---------- Equipo: sin tarjetas, retrato + texto ---------- */
+
+.people { gap: clamp(1.5rem, 3vw, 2.5rem); }
+
+.person {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.person:hover { transform: none; }
+
+.person img {
+  width: 88px;
+  height: 88px;
+  margin: 0 0 1rem;
+  border: 0;
+  border-radius: 15px;
+}
+
+.person h3 { font-size: 1.1875rem; font-weight: 500; letter-spacing: -0.009em; }
+
+.person .role {
+  color: var(--zinc);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  text-transform: none;
+}
+
+.person p { color: var(--zinc); font-size: 0.9375rem; }
+
+/* ---------- Paquetes ---------- */
+
+.plan {
+  padding: 1.75rem;
+  border: 1px solid var(--mist);
+  border-radius: 15px;
+  background: var(--paper);
+}
+
+.plan h3 { font-size: 1.375rem; font-weight: 500; letter-spacing: -0.012em; }
+
+.plan-price {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4vw, 2.8125rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  font-variant-numeric: tabular-nums;
+}
+
+.plan-note { color: var(--zinc); font-size: 0.875rem; }
+
+.plan-list { border-top-color: var(--mist); font-size: 0.9375rem; gap: 11px; }
+
+/* Checks: cuadrito coral relleno con tilde blanca (no contorno) */
+.plan-list li { grid-template-columns: 18px 1fr; }
+
+.plan-list li::before {
+  width: 18px;
+  height: 18px;
+  margin-top: 0.12rem;
+  border-radius: 6px;
+  background: var(--coral-ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 8.2 2.8 2.8 6.2-6.4' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px no-repeat;
+  -webkit-mask: none;
+  mask: none;
+}
+
+.plan-tag {
+  border-radius: 9999px;
+  background: var(--carbon);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  text-transform: none;
+}
+
+/* Tarjeta de membresía: el único lugar con el marmolado coral */
+.plan--membership {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  color: #fff;
+  background:
+    radial-gradient(60% 55% at 18% 22%, rgba(255, 196, 168, 0.55) 0%, transparent 60%),
+    radial-gradient(70% 60% at 85% 70%, rgba(214, 62, 18, 0.55) 0%, transparent 65%),
+    radial-gradient(45% 40% at 70% 15%, rgba(255, 139, 100, 0.7) 0%, transparent 70%),
+    linear-gradient(88deg, #fc5f2b 0%, #ff8b64 90%, #ffd9c9 100%);
+  box-shadow: var(--shadow-subtle);
+}
+
+.plan--membership .plan-tag { background: #fff; color: var(--carbon); }
+
+.plan--membership h3,
+.plan--membership .plan-price { color: #fff; }
+
+.plan--membership .plan-note { color: rgba(255, 255, 255, 0.85); }
+
+.plan--membership .plan-list { border-top-color: rgba(255, 255, 255, 0.35); }
+
+.plan--membership .plan-list li::before {
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 8.2 2.8 2.8 6.2-6.4' fill='none' stroke='%23d34214' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.plan--membership .btn { background: var(--carbon); color: #fff; }
+
+/* ---------- Testimonios ---------- */
+
+.testimonial { border-top-color: var(--mist); }
+
+.testimonial .stars { color: var(--carbon); }
+
+.testimonial blockquote {
+  font-size: clamp(1.1875rem, 1.8vw, 1.375rem);  /* 19 -> 22px */
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+}
+
+.testimonial cite { font-weight: 500; }
+
+.testimonial img { border-radius: 7.5px; filter: none; }
+
+/* ---------- Visitanos ---------- */
+
+.contact-list dt,
+.contact-list .label {
+  color: var(--zinc);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  text-transform: none;
+}
+
+.hours caption { text-transform: none; letter-spacing: -0.005em; font-weight: 500; }
+.hours th, .hours td { border-color: var(--mist); }
+.hours .is-closed td { color: var(--zinc); }
+
+.map-frame { border-color: var(--mist); border-radius: 15px; }
+
+/* ---------- CTA final: la superficie carbón ---------- */
+
+.cta-band {
+  padding: clamp(2.25rem, 5vw, 3.75rem);
+  border-radius: 15px;
+  background: var(--carbon);
+  color: var(--paper);
+  text-align: left;
+}
+
+.cta-band h2 {
+  max-width: 16ch;
+  font-size: clamp(2.25rem, 4.6vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+}
+
+.cta-band p { max-width: 34rem; margin-inline: 0; color: rgba(252, 252, 253, 0.68); font-size: 1.0625rem; }
+
+.cta-band .hero-actions { justify-content: flex-start; align-items: center; gap: 1.5rem; }
+
+.cta-band .link-ghost { color: var(--paper); }
+
+.cta-band .trust { color: rgba(252, 252, 253, 0.55); }
+.cta-band .trust svg { color: var(--paper); }
+
+.cta-band :focus-visible { outline-color: var(--paper); }
+
+/* ---------- Footer y flotante ---------- */
+
+.site-footer { background: var(--fog); }
+
+.footer-col h4 { font-weight: 500; text-transform: none; letter-spacing: -0.005em; }
+
+.wa-float {
+  background: var(--carbon);
+  box-shadow: 0 12px 30px -14px rgba(24, 24, 27, 0.55);
+  font-weight: 500;
+}
+
+/* ---------- Móvil ---------- */
+
+@media (max-width: 760px) {
+  .site-nav { inset: 8px 8px auto; }
+  .hero-photo { min-height: 36rem; }
+  .hero-photo .hero-actions { flex-direction: column; gap: 1rem; }
+  .hero-photo .btn--primary,
+  .cta-band .btn--primary { width: 100%; }
+  .cta-band .hero-actions { flex-direction: column; align-items: stretch; text-align: center; }
+}
