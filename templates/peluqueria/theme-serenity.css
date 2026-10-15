@@ -14,7 +14,7 @@
   --rose: #d8b8b5;
   --rose-wash: #ecdcda;     /* rose al 50 % sobre blanco */
   --terracotta: #d9a89e;    /* 2.2:1 sobre blanco: solo decorativo */
-  --ash-text: #666666;
+  --ash-text: #555555;     /* más oscuro que el #666 original: 7.4:1 sobre blanco */
   --slate: #3f444b;
   --cream: #f9f8f5;
 
@@ -38,7 +38,9 @@
   --accent: var(--ash-text);
   --accent-contrast: #fff;
 
-  --font-display: "Nixie One", Georgia, serif;
+  /* Young Serif en vez de Nixie One: el trazo fino del original se
+     perdía sobre las bandas de color. Cálido, grueso, una sola fuente. */
+  --font-display: "Young Serif", Georgia, serif;
   --font-heading: var(--font-display);
   --font-body: "Raleway", ui-sans-serif, system-ui, sans-serif;
   --font-script: "Qwitcher Grypen", cursive;
@@ -70,7 +72,7 @@ body {
   font-family: var(--font-display);
   font-weight: 400;
   font-style: normal;
-  color: var(--ash-text);
+  color: var(--slate);
 }
 
 :focus-visible { outline: 2px solid var(--slate); outline-offset: 3px; }
@@ -81,8 +83,8 @@ body {
   margin-bottom: -0.35em;
   color: var(--terracotta);
   font-family: var(--font-script);
-  font-size: clamp(3rem, 6vw, 4.5rem);
-  font-weight: 400;
+  font-size: clamp(3.25rem, 6.4vw, 4.75rem);
+  font-weight: 700;
   line-height: 1;
   /* rotate (no transform): la animación de entrada del hero termina
      en transform: none y si no, se comería la inclinación. */
@@ -120,7 +122,7 @@ body {
 .nav-inner { min-height: 72px; }
 
 .site-nav .brand {
-  color: var(--ash-text);
+  color: var(--slate);
   font-size: 1.5rem;
   letter-spacing: 0.04em;
 }
@@ -133,9 +135,9 @@ body {
 
 @media (min-width: 901px) {
   .nav-links a {
-    color: var(--ash-text);
+    color: var(--slate);
     font-size: 0.8125rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
@@ -241,11 +243,10 @@ body {
 
 .hero-split h1 {
   margin-top: 0;
-  color: var(--ash-text);
-  font-size: clamp(1.875rem, 3.4vw, 2.5rem);
-  line-height: 1.2;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  color: var(--slate);
+  font-size: clamp(2.25rem, 4.2vw, 3.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
 }
 
 .hero-split .eyebrow { display: none; }
@@ -405,7 +406,7 @@ body {
 }
 
 .closing .script { color: var(--terracotta); }
-.closing h2 { color: var(--ash-text); }
+.closing h2 { color: var(--slate); }
 .closing-cta p { color: var(--ash-text); }
 .closing .link-ghost { color: var(--ash-text); }
 .closing .trust { color: var(--ash-text); }
@@ -454,3 +455,48 @@ body {
 
   .work { padding-top: clamp(3.5rem, 7vw, 4.75rem); }
 }
+
+
+/* ---------- Gradación pastel común a todas las fotos ----------
+   Las fotos de Unsplash traen contrastes y saturaciones distintas;
+   en Serenity la foto ya trae la paleta. Esto las lleva a la misma
+   temperatura: más luz, menos contraste y saturación, velo rosado. */
+
+main img:not([src$=".svg"]) {
+  filter: brightness(1.06) contrast(0.9) saturate(0.78) sepia(0.08);
+}
+
+/* Las tres más oscuras (luz promedio 93-119 de 255) necesitan más */
+main img[src$="lavado.webp"],
+main img[src$="ondas.webp"],
+main img[src$="coloracion.webp"] {
+  filter: brightness(1.22) contrast(0.82) saturate(0.7) sepia(0.12);
+}
+
+/* Avatares chicos: sin gradación, se verían lavados */
+.testimonial img,
+.people--rows .person img { filter: none; }
+
+.hero-arch,
+.work-track .gallery-item,
+.services-photo,
+.salon-photo { position: relative; isolation: isolate; }
+
+.hero-arch::after,
+.work-track .gallery-item::before,
+.services-photo::after,
+.salon-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #f4c6c0;
+  mix-blend-mode: soft-light;
+  opacity: 0.55;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* El arco del hero recorta también el velo */
+.hero-arch::after { border-radius: 999px 999px 0 0; }
+.work-track .gallery-item figcaption { z-index: 2; }
