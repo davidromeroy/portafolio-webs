@@ -467,3 +467,48 @@
 .no-js .about-split .about-photo { clip-path: none; }
 .no-js .category-row .cat-photo img,
 .no-js .about-split .about-photo img { transform: none; }
+
+/* ---------- Pulido: cifras sin cajas ---------- */
+
+.stats-row {
+  gap: 0;
+  border: 0;
+  border-block: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+}
+
+.stat { background: transparent; padding-block: clamp(1.4rem, 3vw, 2rem); }
+.stat + .stat { border-left: 1px solid var(--border); }
+
+.stat strong {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+}
+
+@media (max-width: 760px) {
+  .stat + .stat { border-left: 0; border-top: 1px solid var(--border); }
+}
+
+/* ---------- Pulido: testimonios editoriales, sin tarjeta ---------- */
+
+.testimonials { gap: clamp(1.5rem, 4vw, 3rem); }
+
+.testimonial {
+  padding: 1.6rem 0 0;
+  border: 0;
+  border-top: 1px solid var(--text);
+  border-radius: 0;
+  background: transparent;
+}
+
+.testimonial .stars { color: var(--moss); letter-spacing: 0.25em; }
+
+.testimonial figcaption { border-top: 0; padding-top: 0; margin-top: 1.1rem; }
+
+.testimonial img {
+  width: 38px;
+  height: 38px;
+  filter: grayscale(1);
+}
