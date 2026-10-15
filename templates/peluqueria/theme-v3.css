@@ -1,0 +1,324 @@
+/* ============================================================
+   theme-v3.css — Luna Studio v3: estructura, no piel
+   Se carga después de theme-superpower.css. Mismos tokens; cambia
+   el recorrido: promesa -> prueba -> precio -> proceso -> opiniones
+   -> paquetes -> salón -> reserva.
+   ============================================================ */
+
+/* ---------- Trabajos: tira horizontal a sangre ---------- */
+
+.work { padding-block: clamp(3.5rem, 7vw, 4.75rem) 0; }
+
+.work-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+}
+
+.work-head h2 {
+  font-size: clamp(2.25rem, 4.8vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+}
+
+.work-controls { display: flex; gap: 0.5rem; }
+
+.work-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--mist);
+  border-radius: 9999px;
+  background: var(--paper);
+  color: var(--carbon);
+  cursor: pointer;
+  transition: border-color 200ms ease, transform 160ms var(--ease), opacity 200ms ease;
+}
+
+.work-btn svg { width: 16px; height: 16px; }
+.work-btn:active { transform: scale(0.94); }
+.work-btn:disabled { opacity: 0.35; cursor: default; }
+
+@media (hover: hover) and (pointer: fine) {
+  .work-btn:not(:disabled):hover { border-color: var(--carbon); }
+}
+
+/* El track se alinea con el borde izquierdo del contenedor pero
+   sangra hasta el borde derecho de la ventana. */
+.work-track {
+  --edge: max(var(--gutter), calc((100vw - var(--maxw)) / 2 + var(--gutter)));
+  display: flex;
+  gap: 11px;
+  overflow-x: auto;
+  padding: 4px var(--edge) 0.75rem;   /* la siguiente sección ya trae su aire */
+  scroll-padding-inline: var(--edge);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.work-track::-webkit-scrollbar { display: none; }
+
+.work-track:focus-visible { outline-offset: -2px; }
+
+.work-track .gallery-item {
+  flex: 0 0 clamp(240px, 26vw, 340px);
+  scroll-snap-align: start;
+  border-radius: 15px;
+}
+
+.work-track .gallery-item img,
+.work-track .gallery-item--wide img { aspect-ratio: 3 / 4; height: 100%; }
+
+.work-track .gallery-item--wide { flex-basis: clamp(320px, 40vw, 520px); }
+
+/* Sin esto el snap frena antes del final y "siguiente" nunca se
+   deshabilita: la última tarjeta se alinea al borde derecho. */
+.work-track .gallery-item:last-child { scroll-snap-align: end; }
+.work-track .gallery-item--wide img { aspect-ratio: auto; }
+
+/* ---------- Servicios: columna fija + lista ---------- */
+
+.services-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.services-aside {
+  position: sticky;
+  top: 96px;                         /* debajo de la cápsula del nav */
+}
+
+.services-aside h2 {
+  font-size: clamp(2.25rem, 4.8vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+}
+
+.services-aside .chips-row { margin: 1.75rem 0 1.5rem; }
+
+.services-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 15px;
+  overflow: hidden;
+  background: var(--fog);
+}
+
+.services-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 450ms var(--ease), transform 900ms var(--ease);
+}
+
+.services-photo img.is-active { opacity: 1; transform: none; }
+
+/* En la columna derecha la lista va a una sola columna: ya tiene su
+   propio ancho, no compite con nada. */
+.services-list .chip-panel.is-active { grid-template-columns: 1fr; }
+
+.services-list .menu-item { padding-block: 1.1rem; }
+.services-list .menu-item:first-child { padding-top: 0; }
+
+/* ---------- Cómo es tu cita ---------- */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  counter-reset: none;
+}
+
+.steps li {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--carbon);
+}
+
+.step-num {
+  display: block;
+  margin-bottom: 1.5rem;
+  color: var(--ash);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.005em;
+}
+
+.steps h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 2.2vw, 1.875rem);   /* 22 -> 30px */
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.013em;
+}
+
+.steps p { margin-top: 0.75rem; color: var(--zinc); max-width: 34ch; }
+
+/* ---------- Opiniones: una destacada + dos ---------- */
+
+.testimonials--featured {
+  grid-template-columns: 1.35fr 1fr;
+  grid-template-rows: auto auto;
+  gap: clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 5vw, 4rem);
+}
+
+.testimonials--featured .testimonial:first-child { grid-row: 1 / span 2; }
+
+.testimonials--featured .testimonial:first-child blockquote {
+  font-size: clamp(1.75rem, 3.2vw, 2.3125rem);   /* 28 -> 37px */
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.testimonials--featured .testimonial:first-child figcaption { margin-top: 2rem; }
+
+/* ---------- El salón: foto + texto + equipo en filas ---------- */
+
+.salon-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+
+.salon-photo {
+  aspect-ratio: 4 / 5;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.salon-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.salon-copy h2 {
+  font-size: clamp(2.25rem, 4.8vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+}
+
+.people--rows {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: 2rem;
+  border-top: 1px solid var(--mist);
+}
+
+.people--rows .person {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  column-gap: 1rem;
+  align-items: start;
+  padding-block: 1.1rem;
+  border-bottom: 1px solid var(--mist);
+}
+
+.people--rows .person img {
+  grid-row: 1 / span 3;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  border-radius: 12px;
+}
+
+.people--rows .person h3 { font-size: 1.0625rem; }
+.people--rows .person .role { margin-top: 0.1rem; }
+.people--rows .person p:not(.role) { margin-top: 0.4rem; font-size: 0.875rem; }
+
+/* ---------- Cierre: reserva + cómo llegar en un solo bloque ---------- */
+
+.closing {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 3rem);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  border-radius: 15px;
+  background: var(--carbon);
+  color: var(--paper);
+}
+
+.closing .eyebrow { color: rgba(252, 252, 253, 0.55); }
+
+.closing h2 {
+  font-size: clamp(2.25rem, 4.8vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+}
+
+.closing-cta p {
+  max-width: 30rem;
+  margin-top: 1rem;
+  color: rgba(252, 252, 253, 0.68);
+  font-size: 1.0625rem;
+  line-height: 1.45;
+}
+
+.closing .hero-actions { align-items: center; gap: 1.5rem; margin-top: 2rem; }
+.closing .link-ghost { color: var(--paper); }
+.closing .trust { color: rgba(252, 252, 253, 0.55); }
+.closing .trust svg { color: var(--paper); }
+.closing :focus-visible { outline-color: var(--paper); }
+
+.closing-info {
+  display: grid;
+  gap: 1.75rem;
+  align-content: start;
+}
+
+.closing .contact-list { gap: 1rem; }
+.closing .contact-list dt { color: rgba(252, 252, 253, 0.5); }
+.closing .contact-list dd,
+.closing .contact-list a { color: var(--paper); }
+
+.closing .hours caption { color: rgba(252, 252, 253, 0.5); text-align: left; }
+.closing .hours th,
+.closing .hours td { border-color: rgba(252, 252, 253, 0.14); color: var(--paper); }
+.closing .hours td { color: rgba(252, 252, 253, 0.7); }
+.closing .hours .is-closed th,
+.closing .hours .is-closed td { color: rgba(252, 252, 253, 0.4); }
+
+.closing .map-frame {
+  grid-column: 1 / -1;
+  min-height: 240px;
+  border: 0;
+  border-radius: 11px;
+}
+
+.closing .map-frame iframe { min-height: 240px; filter: grayscale(1) invert(0.9) contrast(0.9); }
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .services-grid,
+  .salon-grid,
+  .closing { grid-template-columns: 1fr; }
+
+  .services-aside { position: static; }
+  .services-photo { display: none; }   /* en móvil la lista va directo */
+
+  .steps { grid-template-columns: 1fr; }
+
+  .testimonials--featured { grid-template-columns: 1fr; }
+  .testimonials--featured .testimonial:first-child { grid-row: auto; }
+
+  .salon-photo { aspect-ratio: 4 / 3; }
+}
+
+@media (max-width: 560px) {
+  .work-controls { display: none; }   /* en táctil se desliza con el dedo */
+  .work-track .gallery-item { flex-basis: 74vw; }
+  .work-track .gallery-item--wide { flex-basis: 86vw; }
+}
