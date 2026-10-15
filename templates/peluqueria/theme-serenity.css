@@ -1,0 +1,456 @@
+/* ============================================================
+   theme-serenity.css — Luna Studio con la piel de Serenity Hair
+   Referencia: design-serenity.md (valores extraídos del sitio real
+   serenityhairblaxland.com.au, Awwwards Nominee 2025).
+   Se carga después de theme-superpower.css + theme-v3.css: reusa la
+   estructura v3 y redefine los mismos tokens, así cada sección
+   hereda la paleta sin duplicar layout.
+   ============================================================ */
+
+:root {
+  --sage: #c3ccc3;
+  --sage-wash: #e1e6e1;     /* sage al 50 % sobre blanco, como el original */
+  --peach: #ffe4cf;
+  --rose: #d8b8b5;
+  --rose-wash: #ecdcda;     /* rose al 50 % sobre blanco */
+  --terracotta: #d9a89e;    /* 2.2:1 sobre blanco: solo decorativo */
+  --ash-text: #666666;
+  --slate: #3f444b;
+  --cream: #f9f8f5;
+
+  /* Tokens de Superpower/v3 reasignados */
+  --paper: #fffefc;
+  --fog: var(--sage-wash);
+  --mist: #e3e3e3;
+  --ash: #a3a3a3;
+  --zinc: var(--ash-text);
+  --carbon: var(--slate);
+  --coral: var(--terracotta);
+  --coral-ink: var(--ash-text);        /* botón: #666 con texto blanco, 5.7:1 */
+  --coral-ink-hover: #555555;
+
+  --bg: var(--paper);
+  --surface: var(--paper);
+  --surface-2: var(--sage-wash);
+  --text: var(--slate);
+  --text-muted: var(--ash-text);
+  --border: var(--mist);
+  --accent: var(--ash-text);
+  --accent-contrast: #fff;
+
+  --font-display: "Nixie One", Georgia, serif;
+  --font-heading: var(--font-display);
+  --font-body: "Raleway", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Qwitcher Grypen", cursive;
+  --font-button: "Open Sans", var(--font-body);
+
+  --radius: 3px;
+  --radius-sm: 3px;
+}
+
+body {
+  color: var(--ash-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-feature-settings: normal;
+}
+
+.brand,
+.hero-photo h1,
+.section-head h2,
+.services-aside h2,
+.work-head h2,
+.salon-copy h2,
+.closing h2,
+.steps h3,
+.plan h3,
+.cta-band h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: normal;
+  color: var(--ash-text);
+}
+
+:focus-visible { outline: 2px solid var(--slate); outline-offset: 3px; }
+::selection { background: var(--peach); color: var(--slate); }
+
+/* Script: una vez por pantalla, montado sobre el título */
+.script {
+  margin-bottom: -0.35em;
+  color: var(--terracotta);
+  font-family: var(--font-script);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1;
+  /* rotate (no transform): la animación de entrada del hero termina
+     en transform: none y si no, se comería la inclinación. */
+  rotate: -5deg;
+  transform-origin: left bottom;
+  pointer-events: none;
+}
+
+.eyebrow {
+  color: var(--ash-text);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ---------- Nav: barra blanca clásica, no cápsula ---------- */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  inset: 0 auto auto;
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--mist);
+  background: rgba(255, 254, 252, 0.96);
+  color: var(--ash-text);
+}
+
+.site-nav.is-scrolled { box-shadow: 0 6px 18px -14px rgba(63, 68, 75, 0.4); }
+
+.site-nav .container { padding-inline: var(--gutter); }
+.nav-inner { min-height: 72px; }
+
+.site-nav .brand {
+  color: var(--ash-text);
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+.site-nav .brand small { color: var(--ash); }
+
+.nav-toggle { border-color: var(--mist); border-radius: 3px; }
+.nav-toggle span { background: var(--ash-text); }
+.site-nav :focus-visible { outline-color: var(--slate); }
+
+@media (min-width: 901px) {
+  .nav-links a {
+    color: var(--ash-text);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .nav-links a::after {
+    display: block;
+    height: 1px;
+    bottom: -4px;
+    background: var(--terracotta);
+  }
+
+  .nav-links a:hover,
+  .nav-links a.is-active { color: var(--slate); }
+}
+
+/* ---------- Botones: #666, radio 3px, mayúsculas espaciadas ---------- */
+
+.btn,
+.btn--primary {
+  border-radius: 3px;
+  background: var(--ash-text);
+  color: #fff;
+  font-family: var(--font-button);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.btn--lg { padding: 0.9rem 1.6rem; font-size: 0.875rem; }
+.btn-arrow { display: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover,
+  .btn--primary:hover { background: var(--coral-ink-hover); }
+}
+
+.btn--ghost { border-color: var(--ash-text); background: transparent; color: var(--ash-text); }
+
+.link-ghost {
+  color: var(--ash-text);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration-color: var(--terracotta);
+}
+
+.trust { color: var(--ash-text); }
+.trust svg { color: var(--terracotta); }
+
+/* ---------- Hero partido: foto con arco sobre bloque durazno ---------- */
+
+.hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  min-height: 0;
+  padding: 0 max(var(--gutter), calc((100vw - var(--maxw)) / 2 + var(--gutter)));
+  overflow: visible;
+  background: var(--sage-wash);
+  color: var(--ash-text);
+  text-align: left;
+}
+
+.hero-split::before,
+.hero-split::after { display: none; }
+
+.hero-arch {
+  position: relative;
+  justify-self: end;
+  width: min(100%, 440px);
+  margin: clamp(2rem, 4vw, 3rem) 0 calc(-1 * clamp(2.5rem, 5vw, 3.5rem));
+  z-index: 1;
+  animation: hero-rise 1s var(--ease) both;
+}
+
+/* El bloque durazno nace en el borde de la ventana y queda detrás
+   de la foto: es el gesto más reconocible del original. */
+.hero-arch::before {
+  content: "";
+  position: absolute;
+  top: calc(-1 * clamp(2rem, 4vw, 3rem));
+  bottom: 22%;
+  left: -50vw;
+  right: 28%;
+  z-index: -1;
+  background: var(--peach);
+}
+
+.hero-arch img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 999px 999px 0 0;
+}
+
+.hero-split .hero-photo-inner {
+  max-width: 30rem;
+  padding: clamp(3rem, 6vw, 4.5rem) 0;
+}
+
+.hero-split h1 {
+  margin-top: 0;
+  color: var(--ash-text);
+  font-size: clamp(1.875rem, 3.4vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.hero-split .eyebrow { display: none; }
+
+.hero-split .hero-lead {
+  max-width: 28rem;
+  margin: 1.1rem 0 0;
+  color: var(--ash-text);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.hero-split .hero-actions { justify-content: flex-start; gap: 1.25rem; }
+.hero-split .link-ghost { color: var(--ash-text); }
+.hero-split .trust { justify-content: flex-start; color: var(--ash-text); }
+.hero-split .trust svg { color: var(--slate); }
+
+/* ---------- Encabezados de sección ---------- */
+
+.section-head h2,
+.services-aside h2,
+.work-head h2,
+.salon-copy h2,
+.closing h2 {
+  font-size: clamp(1.875rem, 3.6vw, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+.section-sub { color: var(--ash-text); }
+
+/* La tira de trabajos deja espacio para que el arco del hero entre */
+.work { padding-top: clamp(5rem, 9vw, 6.5rem); }
+
+/* ---------- Fotos con marco fino interior ---------- */
+
+.work-track .gallery-item,
+.services-photo,
+.salon-photo { border-radius: 0; }
+
+.work-track .gallery-item::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+}
+
+.work-track .gallery-item figcaption { font-family: var(--font-body); letter-spacing: 0.02em; }
+
+.work-btn { border-radius: 3px; border-color: var(--mist); }
+
+/* ---------- Servicios ---------- */
+
+.chip {
+  border-radius: 3px;
+  border-color: var(--mist);
+  color: var(--ash-text);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.chip-indicator { border-radius: 3px; background: var(--ash-text); }
+.chip[aria-selected="true"] { background: var(--ash-text); border-color: var(--ash-text); }
+
+.services-photo {
+  aspect-ratio: 1 / 1;
+  border-radius: 999px 999px 0 0;
+  background: var(--peach);
+}
+
+.menu-item h4 { font-family: var(--font-body); font-weight: 600; color: var(--slate); }
+
+.menu-item .price,
+.chip-panel .price { color: var(--slate); font-family: var(--font-body); font-weight: 600; }
+
+/* ---------- Cómo es tu cita ---------- */
+
+.steps li { border-top-color: var(--rose); }
+
+.step-num {
+  color: var(--terracotta);
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  letter-spacing: 0.02em;
+}
+
+.steps h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); color: var(--slate); }
+
+/* ---------- Opiniones: banda sage ---------- */
+
+#opiniones { background: var(--sage-wash); }
+
+.testimonial { border-top-color: rgba(102, 102, 102, 0.25); }
+.testimonial .stars { color: var(--terracotta); }
+
+.testimonial blockquote {
+  color: var(--slate);
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.testimonials--featured .testimonial:first-child blockquote {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+/* ---------- Paquetes: banda rosa; la destacada en durazno ---------- */
+
+#paquetes { background: var(--rose-wash); }
+
+.plan { border-radius: 3px; border-color: rgba(102, 102, 102, 0.18); background: var(--paper); }
+.plan h3 { color: var(--slate); }
+.plan-price { font-family: var(--font-display); color: var(--slate); }
+.plan-tag { border-radius: 3px; background: var(--ash-text); letter-spacing: 0.12em; text-transform: uppercase; }
+
+.plan-list li::before { border-radius: 3px; background-color: var(--ash-text); }
+
+.plan--membership {
+  color: var(--slate);
+  background: var(--peach);
+  box-shadow: none;
+}
+
+.plan--membership h3,
+.plan--membership .plan-price { color: var(--slate); }
+.plan--membership .plan-note { color: var(--ash-text); }
+.plan--membership .plan-list { border-top-color: rgba(102, 102, 102, 0.25); }
+
+.plan--membership .plan-list li::before {
+  background-color: var(--ash-text);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 8.2 2.8 2.8 6.2-6.4' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.plan--membership .plan-tag { background: var(--ash-text); color: #fff; }
+.plan--membership .btn { background: var(--ash-text); }
+
+/* ---------- El salón: foto con arco ---------- */
+
+.salon-photo { border-radius: 999px 999px 0 0; }
+.people--rows .person img { border-radius: 50%; }
+.person h3 { font-family: var(--font-body); font-weight: 600; color: var(--slate); }
+
+/* ---------- Cierre: bloque durazno, no carbón ---------- */
+
+.closing {
+  border-radius: 0;
+  background: var(--peach);
+  color: var(--ash-text);
+}
+
+.closing .script { color: var(--terracotta); }
+.closing h2 { color: var(--ash-text); }
+.closing-cta p { color: var(--ash-text); }
+.closing .link-ghost { color: var(--ash-text); }
+.closing .trust { color: var(--ash-text); }
+.closing .trust svg { color: var(--slate); }
+.closing :focus-visible { outline-color: var(--slate); }
+
+.closing .contact-list dt { color: var(--ash-text); }
+.closing .contact-list dd,
+.closing .contact-list a { color: var(--slate); }
+
+.closing .hours caption { color: var(--ash-text); }
+.closing .hours th { border-color: rgba(102, 102, 102, 0.2); color: var(--slate); }
+.closing .hours td { border-color: rgba(102, 102, 102, 0.2); color: var(--ash-text); }
+.closing .hours .is-closed th,
+.closing .hours .is-closed td { color: var(--ash); }
+
+.closing .map-frame { border-radius: 0; }
+.closing .map-frame iframe { filter: grayscale(0.6) sepia(0.15); }
+
+/* ---------- Footer y flotante ---------- */
+
+.site-footer { background: var(--paper); border-top: 1px solid var(--mist); }
+.footer-bottom { border-top-color: var(--mist); }
+.footer-col h4 { font-family: var(--font-body); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+
+.wa-float { border-radius: 3px; background: var(--ash-text); box-shadow: none; }
+
+/* ---------- Móvil ---------- */
+
+@media (max-width: 900px) {
+  .hero-split {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-inline: var(--gutter);
+  }
+
+  .hero-arch {
+    justify-self: center;
+    width: min(78%, 360px);
+    margin: 2rem 0 0;
+  }
+
+  .hero-arch::before { left: -30vw; right: 35%; }
+
+  .hero-split .hero-photo-inner { padding: 1.75rem 0 3rem; }
+
+  .work { padding-top: clamp(3.5rem, 7vw, 4.75rem); }
+}
