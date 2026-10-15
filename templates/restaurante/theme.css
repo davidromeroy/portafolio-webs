@@ -1,111 +1,602 @@
 /* ============================================================
    theme.css — La Parrilla del Sur
-   Ascua sobre madera quemada. Se carga DESPUES de base.css.
+   Afiche punk de carnicería: lienzo vino, un solo rojo que manda,
+   titulares condensados gigantes en mayúsculas. Plano: sin sombras,
+   sin degradados, sin bandas de color entre secciones (solo aire).
+   Referencia: estilo "Impossible Foods" de Refero.
+   Se carga DESPUES de base.css y no lo modifica (lo comparten 5 demos).
    ============================================================ */
 
 :root {
-  --bg: #14100d;
-  --surface: #1d1815;
-  --surface-2: #262019;
-  --text: #f6efe6;
-  --text-muted: #a8998a;
-  --border: #33291f;
-  --border-strong: #736659;  /* borde de controles: >=3:1 (WCAG 1.4.11) */
-  --accent: #d2622c;
-  /* Tinta oscura sobre la ascua: con crema (#fff6ee) el texto del botón
-     daba 3.56:1 y no llegaba a AA. Así queda en 4.95:1. */
-  --accent-contrast: #1a0f07;
-  --nav-bg: rgba(20, 16, 13, 0.86);
+  /* Seis colores y nada más */
+  --wine: #260212;        /* lienzo */
+  --burgundy: #4f0423;    /* tarjetas */
+  --red: #e10600;         /* acción: fondos de botón, pestaña activa */
+  /* El rojo de marca sobre vino da 2.8:1 y no llega ni al 3:1 de texto
+     grande. Para TEXTO rojo se usa esta variante: 5.1:1 sobre vino,
+     4.1:1 sobre burdeos (solo en tamaños grandes ahí). */
+  --ink: #ff2a1f;
+  --blush: #ffc7c6;       /* texto secundario, controles en reposo */
+  --black: #000000;       /* nav, filetes */
 
-  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-body: "Karla", ui-sans-serif, system-ui, sans-serif;
-  --tracking-display: -0.015em;
-  --weight-display: 700;
+  --bg: var(--wine);
+  --surface: var(--burgundy);
+  --surface-2: #3a0319;
+  --text: #ffffff;
+  --text-muted: var(--blush);
+  --border: var(--black);
+  --border-strong: #ffffff;
+  --accent: var(--red);
+  --accent-contrast: #ffffff;   /* blanco sobre #e10600: 4.97:1 */
+  --nav-bg: var(--black);
 
-  --radius: 6px;
-  --radius-sm: 4px;
+  --font-heading: "Anton", Impact, "Arial Narrow", sans-serif;
+  --font-body: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  /* Anton solo existe en 400: un 700 acá dispararía negrita sintética */
+  --weight-display: 400;
+  --tracking-display: 0.02em;
+  --tracking-eyebrow: 0.08em;
 
-  /* El mapa de Google viene claro; lo bajamos al tono del salon. */
-  --map-filter: invert(0.9) hue-rotate(180deg) saturate(0.45) brightness(0.92);
+  --radius: 12px;
+  --radius-sm: 12px;
+  --radius-pill: 15px;          /* botones, pestañas y nav comparten forma */
+  --radius-feature: 38px;
+
+  --maxw: 1280px;
+  --section-y: clamp(4rem, 8vw, 6.5rem);
+
+  --map-filter: invert(0.9) hue-rotate(160deg) saturate(0.5) brightness(0.8);
 }
 
-/* Brasa detras del hero */
-.hero::before {
-  content: "";
-  position: absolute;
-  top: -18%;
-  right: -12%;
-  width: 60vw;
-  height: 60vw;
-  max-width: 780px;
-  max-height: 780px;
-  background: radial-gradient(
-    circle,
-    rgba(210, 98, 44, 0.22) 0%,
-    rgba(210, 98, 44, 0.07) 42%,
-    transparent 68%
-  );
-  pointer-events: none;
+body { font-size: 1.05rem; }
+
+:focus-visible { outline-color: var(--blush); }
+
+/* Sin bandas: las secciones se separan por espacio, no por color */
+.section--alt { background: transparent; }
+
+/* ---------- Titulares de afiche ---------- */
+
+.display {
+  color: var(--ink);
+  font-size: clamp(3.6rem, 17vw, 11.5rem);
+  line-height: 0.84;
+  text-transform: uppercase;
+  text-wrap: balance;
 }
 
-.hero .container { position: relative; }
+.display--lg { font-size: clamp(3.1rem, 12.5vw, 7.75rem); }
+.display--md { font-size: clamp(2.8rem, 8vw, 5.4rem); }
 
-/* Titulares con una bajada en italica, no en negrita */
-.hero h1 em {
+/* El paréntesis parte la frase en afirmación + remate */
+.display .aside {
   display: block;
-  color: var(--accent);
-  font-style: italic;
-  font-weight: 600;
+  margin-top: 0.22em;
+  font-size: 0.42em;
+  line-height: 1;
 }
 
-/* Filete de brasa arriba de la navbar */
-.site-nav {
-  border-top: 3px solid var(--accent);
-}
-
-/* La carta se lee mejor con lineas punteadas mas calidas */
-.menu-item { border-bottom-color: #3b2f24; }
-
-.menu-col {
-  padding: clamp(1.5rem, 3vw, 2.2rem);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-}
-
-.menu-col > h3 {
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid var(--accent);
-  font-size: 1.5rem;
-}
-
-.menu-col--full { grid-column: 1 / -1; }
-
-/* Nota manuscrita del parrillero */
-.chef-note {
-  margin-top: 1.75rem;
-  padding-left: 1.25rem;
-  border-left: 3px solid var(--accent);
-  color: var(--text-muted);
-  font-family: var(--font-heading);
-  font-size: 1.15rem;
-  font-style: italic;
-  line-height: 1.55;
-}
-
-.chef-note span {
-  display: block;
-  margin-top: 0.6rem;
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-style: normal;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+.kicker {
+  display: inline-block;
+  margin-bottom: 1.1rem;
+  color: var(--ink);
+  font-size: 0.86rem;
+  font-weight: 650;
+  letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
 }
 
-.testimonial blockquote { font-family: var(--font-heading); font-size: 1.08rem; }
+/* Corchetes de flecha: decorativos, sin texto alternativo */
+.kicker::before { content: "◂\00a0\00a0"; content: "◂\00a0\00a0" / ""; }
+.kicker::after  { content: "\00a0\00a0▸"; content: "\00a0\00a0▸" / ""; }
 
-.brand { letter-spacing: 0; }
+.section-sub { color: var(--blush); font-size: 1.08rem; }
+
+.section-head--center .section-sub { margin-inline: auto; max-width: 52ch; }
+
+/* ---------- Botones ---------- */
+
+.btn {
+  border-radius: var(--radius-pill);
+  font-size: 0.86rem;
+  font-weight: 650;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Plano: el hover cambia el color, no levanta ni proyecta sombra */
+.btn:hover { transform: none; box-shadow: none; background: #b30500; }
+
+.btn--lg { padding: 1rem 1.6rem; font-size: 0.94rem; }
+
+.btn--ghost { border-color: #fff; color: #fff; }
+.btn--ghost:hover { border-color: #fff; background: #fff; color: var(--wine); }
+
+.btn--ink { background: var(--black); color: #fff; }
+.btn--ink:hover { background: var(--wine); }
+
+.btn svg { width: 1.1em; height: 1.1em; }
+
+.caret { font-size: 1.45em; line-height: 0; margin-top: -0.12em; }
+
+/* ---------- Navegación ---------- */
+
+.site-nav { border-bottom-color: var(--black); }
+.site-nav::before { display: none; }   /* barra negra sólida, sin blur */
+
+.brand {
+  color: var(--ink);
+  font-size: 1.55rem;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.nav-links a {
+  color: #fff;
+  font-size: 0.84rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.nav-links a::after { background: var(--ink); }
+.nav-links a:hover,
+.nav-links a.is-active { color: var(--blush); }
+
+.nav-toggle { border-color: #fff; border-radius: var(--radius-pill); }
+
+@media (max-width: 900px) {
+  .nav-links a {
+    font-size: 2rem;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+  .nav-links a.is-active { color: var(--ink); }
+  .nav-links > .btn { font-family: var(--font-body); }
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  padding-block: clamp(8rem, 13vw, 11rem) clamp(7rem, 12vw, 10rem);
+  text-align: center;
+}
+
+.hero-stack {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-lead {
+  max-width: 46ch;
+  margin-inline: auto;
+  margin-top: 1.8rem;
+  color: #fff;
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+}
+
+.hero-actions { justify-content: center; }
+
+.hero-note {
+  color: var(--blush);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Fotos recortadas en formas irregulares alrededor del titular */
+.hero-float { position: absolute; inset: 0; pointer-events: none; }
+
+.float {
+  position: absolute;
+  width: clamp(104px, 15vw, 220px);
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.float--a {
+  top: 5%; left: 4%;
+  clip-path: polygon(14% 4%, 62% 0, 96% 22%, 100% 68%, 70% 98%, 22% 94%, 0 58%, 4% 20%);
+  transform: rotate(-7deg);
+}
+.float--b {
+  top: 8%; right: 5%;
+  clip-path: polygon(30% 0, 84% 8%, 100% 46%, 88% 90%, 44% 100%, 6% 80%, 0 34%);
+  transform: rotate(6deg);
+}
+.float--c {
+  bottom: 6%; left: 7%;
+  clip-path: polygon(8% 18%, 48% 0, 92% 10%, 100% 56%, 78% 100%, 26% 92%, 0 64%);
+  transform: rotate(5deg);
+}
+.float--d {
+  bottom: 4%; right: 4%;
+  clip-path: polygon(20% 6%, 70% 0, 100% 36%, 94% 80%, 56% 100%, 10% 88%, 0 44%);
+  transform: rotate(-5deg);
+}
+
+/* ---------- Cifras ---------- */
+
+.stats-row {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.stat {
+  background: transparent;
+  border-left: 1px solid var(--burgundy);
+}
+.stat:first-child { border-left: 0; }
+
+.stat strong {
+  color: var(--ink);
+  font-size: clamp(2.8rem, 6vw, 4.8rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.stat span {
+  margin-top: 0.7rem;
+  color: var(--blush);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ---------- Carta con pestañas (ver carta.js) ---------- */
+
+.tab-list {
+  display: none;               /* sin JS no hay pestañas: se ven los paneles */
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.tabs.is-ready .tab-list { display: flex; }
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  padding: 0.6rem 1rem 0.6rem 1.15rem;
+  border: 1px solid var(--blush);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--blush);
+  font-size: 0.92rem;
+  font-weight: 650;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.18s var(--ease), color 0.18s var(--ease),
+    border-color 0.18s var(--ease);
+}
+
+.tab:hover { border-color: #fff; color: #fff; }
+
+.tab[aria-selected="true"] {
+  border-color: var(--red);
+  background: var(--red);
+  color: #fff;
+}
+
+.badge {
+  display: grid;
+  place-items: center;
+  min-width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 50%;
+  background: var(--burgundy);
+  color: #fff;
+  font-size: 0.72rem;
+  letter-spacing: 0;
+}
+
+.tab[aria-selected="true"] .badge { background: var(--black); }
+
+.tab-panel {
+  max-width: 880px;
+  margin-inline: auto;
+  padding: clamp(1.5rem, 4.5vw, 3.25rem);
+  border: 1px solid var(--black);
+  border-radius: var(--radius-feature);
+  background: var(--burgundy);
+}
+
+.tab-panel + .tab-panel { margin-top: 1rem; }
+.tabs.is-ready .tab-panel + .tab-panel { margin-top: 0; }
+
+.panel-title {
+  margin-bottom: 1.5rem;
+  color: var(--ink);
+  font-size: 2.2rem;
+  text-transform: uppercase;
+}
+
+/* Con pestañas, el título lo da la pestaña: queda solo para lectores */
+.tabs.is-ready .panel-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.menu-list { gap: 1.35rem; }
+
+.menu-item {
+  gap: 0.45rem 1.25rem;
+  padding-bottom: 1.35rem;
+  border-bottom: 1px solid var(--black);
+}
+
+.menu-item h4,
+.menu-item .price {
+  /* 24px mínimo: el rojo sobre burdeos (4.1:1) solo pasa como texto grande */
+  font-size: clamp(1.5rem, 2.6vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.menu-item h4 { color: #fff; }
+.menu-item .price { color: var(--ink); }
+.menu-item--star h4 { color: var(--ink); }
+
+.menu-item p { color: var(--blush); font-size: 0.96rem; }
+
+.menu-foot {
+  margin-top: 2rem;
+  color: var(--blush);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* ---------- Historia ---------- */
+
+.story {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+
+.story-visual img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  clip-path: polygon(6% 3%, 58% 0, 97% 9%, 100% 60%, 92% 97%, 40% 100%, 2% 90%, 0 38%);
+}
+
+.chef-note { margin-top: 2.25rem; }
+
+.chef-note p {
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.chef-note footer {
+  margin-top: 0.9rem;
+  color: var(--blush);
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---------- Galería en carrusel ---------- */
+
+.reel {
+  --reel-pad: max(var(--gutter), calc((100% - var(--maxw)) / 2 + var(--gutter)));
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(76vw, 400px);
+  gap: clamp(0.75rem, 1.5vw, 1.1rem);
+  padding: 0 var(--reel-pad) 1.1rem;
+  scroll-padding-inline: var(--reel-pad);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--red) transparent;
+}
+
+.reel:focus-visible { outline-offset: -2px; border-radius: 0; }
+
+.reel-card {
+  scroll-snap-align: start;
+  overflow: hidden;
+  border: 1px solid var(--black);
+  border-radius: var(--radius);
+  background: var(--burgundy);
+}
+
+.reel-card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+
+.reel-card figcaption {
+  padding: 1rem 1.15rem 1.1rem;
+  color: var(--blush);
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ---------- Opiniones ---------- */
+
+.testimonial {
+  border-color: var(--black);
+  background: var(--burgundy);
+}
+
+.stars { color: var(--ink); }
+
+.testimonial blockquote { color: #fff; font-size: 1.02rem; }
+
+.testimonial figcaption { border-top-color: var(--black); }
+
+.testimonial cite {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+/* ---------- Visitanos ---------- */
+
+.contact-list dt {
+  color: var(--blush);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact-list dd { color: #fff; }
+
+.contact-list a {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: var(--ink);
+  text-underline-offset: 0.2em;
+}
+
+.contact-list a:hover { color: var(--blush); }
+
+.hours { margin-top: 2.25rem; }
+
+.hours caption {
+  color: var(--ink);
+  font-family: var(--font-heading);
+  font-size: 1.9rem;
+  letter-spacing: 0.02em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.hours th,
+.hours td { border-bottom-color: var(--burgundy); }
+
+.hours td { color: var(--blush); }
+.hours .is-closed td { color: var(--ink); }
+
+.map-frame { border: 1px solid var(--black); border-radius: var(--radius); }
+
+/* ---------- Franja final en rojo ---------- */
+
+.cta-slab {
+  padding-block: clamp(4.5rem, 9vw, 7.5rem);
+  background: var(--red);
+  text-align: center;
+}
+
+.cta-slab .display { color: #fff; }
+.cta-slab .display .aside { color: var(--wine); }
+
+.cta-slab p {
+  max-width: 50ch;
+  margin: 1.6rem auto 0;
+  color: #fff;
+  font-size: 1.12rem;
+}
+
+.cta-slab .hero-actions { justify-content: center; }
+.cta-slab .btn--ghost:hover { color: var(--red); }
+.cta-slab :focus-visible { outline-color: #fff; }
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  border-top: 0;
+  background: var(--black);
+}
+
+.footer-title {
+  margin-bottom: 1rem;
+  color: var(--blush);
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.footer-col a { color: #fff; }
+.footer-col a:hover { color: var(--blush); }
+
+.footer-brand .brand { color: var(--ink); }
+
+/* Firma gigante al pie, como el remate de un afiche */
+.footer-mark {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  color: var(--red);
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 11.6vw, 9.6rem);
+  line-height: 0.82;
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.footer-bottom { border-top-color: var(--burgundy); }
+
+/* ---------- WhatsApp flotante en el rojo de marca ---------- */
+
+.wa-float {
+  border: 1px solid var(--black);
+  border-radius: var(--radius-pill);
+  background: var(--red);
+  box-shadow: none;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.wa-float:hover { background: #b30500; transform: none; }
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 960px) {
+  .story { grid-template-columns: 1fr; }
+  .story-visual img { aspect-ratio: 4 / 3; }
+  .stat:nth-child(3) { border-left: 0; }
+}
+
+@media (max-width: 760px) {
+  .hero { padding-block: 8.5rem 8rem; }
+
+  .float { width: 96px; }
+  .float--a { top: 1.25rem; left: -12px; }
+  .float--b { top: 1.75rem; right: -10px; }
+  .float--c { bottom: 1rem; left: 8%; }
+  .float--d { bottom: 1.5rem; right: 8%; }
+
+  .tab { padding: 0.55rem 0.8rem 0.55rem 0.95rem; font-size: 0.84rem; }
+  .tab-panel { border-radius: 24px; }
+}
+
+@media (max-width: 480px) {
+  .stat { border-left: 0; border-top: 1px solid var(--burgundy); }
+  .stat:first-child { border-top: 0; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(2) { border-top: 0; }
+}
