@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>La Parrilla del Sur — Parrilla al carbón en Urdesa, Guayaquil</title>
-<meta name="description" content="Parrilla al carbón en Urdesa Central desde 2007. Cortes de res madurados, costillar a fuego lento por 4 horas y provoleta al horno de barro. Reservas por WhatsApp.">
-<meta name="theme-color" content="#14100d">
+<meta name="description" content="Parrilla al carbón en Urdesa Central desde 2007. Cortes madurados 21 días, costillar de 4 horas sobre algarrobo y provoleta al horno de barro. Reservas por WhatsApp.">
+<meta name="theme-color" content="#000000">
 
 <meta property="og:type" content="restaurant">
 <meta property="og:locale" content="es_EC">
 <meta property="og:site_name" content="La Parrilla del Sur">
-<meta property="og:title" content="La Parrilla del Sur — Parrilla al carbón en Urdesa">
+<meta property="og:title" content="La Parrilla del Sur — Puro fuego, cero apuro">
 <meta property="og:description" content="Cortes al carbón, costillar de 4 horas y sobremesa larga. Av. Víctor Emilio Estrada 812, Guayaquil.">
 <meta property="og:image" content="./images/hero.webp">
 <meta name="twitter:card" content="summary_large_image">
@@ -18,9 +18,10 @@
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/base.css">
-<link rel="stylesheet" href="./theme.css">
+<!-- ?v=: theme.css cambió por completo; evita que una caché vieja mezcle versiones -->
+<link rel="stylesheet" href="./theme.css?v=2026-10-15">
 </head>
 <body>
 
@@ -28,11 +29,11 @@
 
 <header class="site-nav">
   <div class="container nav-inner">
-    <a class="brand" href="#inicio">La Parrilla del Sur <small>Urdesa · 2007</small></a>
+    <a class="brand" href="#inicio">La Parrilla del Sur</a>
 
     <nav id="nav-links" class="nav-links" aria-label="Navegación principal">
       <a href="#carta">Carta</a>
-      <a href="#historia">Nosotros</a>
+      <a href="#historia">Historia</a>
       <a href="#galeria">El salón</a>
       <a href="#opiniones">Opiniones</a>
       <a href="#visitanos">Visitanos</a>
@@ -40,7 +41,7 @@
     </nav>
 
     <div class="nav-actions">
-      <a class="btn btn--hide-mobile" href="https://wa.me/593992745510?text=Hola%2C%20quiero%20reservar%20una%20mesa%20en%20La%20Parrilla%20del%20Sur.">Reservar mesa</a>
+      <a class="btn btn--hide-mobile" href="https://wa.me/593992745510?text=Hola%2C%20quiero%20reservar%20una%20mesa%20en%20La%20Parrilla%20del%20Sur.">Reservar <span class="caret" aria-hidden="true">›</span></a>
       <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menú de navegación">
         <span></span><span></span><span></span>
       </button>
@@ -54,75 +55,42 @@
 
   <!-- ================= HERO ================= -->
   <section class="hero" id="inicio">
-    <div class="container hero-grid">
-      <div class="reveal">
-        <span class="eyebrow">Parrilla al carbón · Urdesa Central</span>
-        <h1>El fuego no se apura.<em>Nosotros tampoco.</em></h1>
-        <p class="hero-lead">
-          Cortes de res madurados 21 días, costillar que pasa cuatro horas sobre
-          brasa de algarrobo y una carta de vinos que armamos plato por plato.
-          Dieciocho años en la misma esquina de Urdesa.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn--lg" href="https://wa.me/593992745510?text=Hola%2C%20quiero%20reservar%20una%20mesa%20en%20La%20Parrilla%20del%20Sur.%20%C2%BFTienen%20disponibilidad%3F">Reservar por WhatsApp</a>
-          <a class="btn btn--ghost btn--lg" href="#carta">Ver la carta</a>
-        </div>
-        <p class="hero-note">
-          Martes a domingo · Av. Víctor Emilio Estrada 812 y Guayacanes ·
-          Estacionamiento con valet desde las 19:00
-        </p>
-      </div>
+    <!-- Fotos recortadas que flotan alrededor del titular. Decorativas:
+         el plato se describe en la carta, no hace falta leerlas dos veces. -->
+    <div class="hero-float" aria-hidden="true">
+      <img class="float float--a" src="./images/corte-parrilla.webp" width="800" height="600" alt="">
+      <img class="float float--b" src="./images/costillar.webp" width="800" height="600" alt="">
+      <img class="float float--c" src="./images/lomo.webp" width="800" height="600" alt="">
+      <img class="float float--d" src="./images/plato-servido.webp" width="800" height="600" alt="">
+    </div>
 
-      <figure class="hero-visual reveal">
-        <img src="./images/hero.webp" width="1600" height="900"
-             alt="Cortes de res recién retirados de la parrilla, laminados sobre tabla de madera">
-        <figcaption class="hero-badge">
-          <strong>4 h</strong>
-          <span>de cocción lenta<br>en nuestro costillar</span>
-        </figcaption>
-      </figure>
+    <div class="container hero-stack reveal">
+      <span class="kicker">Parrilla al carbón desde 2007</span>
+      <h1 class="display">Puro fuego <span class="aside">(cero apuro)</span></h1>
+      <p class="hero-lead">
+        Cortes madurados 21 días. Costillar cuatro horas sobre algarrobo.
+        Sin microondas, sin atajos, sin disculpas. La misma esquina de Urdesa
+        desde hace dieciocho años.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn--lg" href="https://wa.me/593992745510?text=Hola%2C%20quiero%20reservar%20una%20mesa%20en%20La%20Parrilla%20del%20Sur.%20%C2%BFTienen%20disponibilidad%3F">Reservar mesa <span class="caret" aria-hidden="true">›</span></a>
+        <a class="btn btn--ghost btn--lg" href="#visitanos">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15Zm0-6.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>
+          Cómo llegar
+        </a>
+      </div>
+      <p class="hero-note">Martes a domingo · Urdesa Central · Valet desde las 19:00</p>
     </div>
   </section>
 
   <!-- ================= CIFRAS ================= -->
-  <section class="section section--tight">
+  <section class="section section--tight" aria-label="La Parrilla del Sur en cifras">
     <div class="container">
       <div class="stats-row reveal-stagger">
-        <div class="stat"><strong>2007</strong><span>Abrimos en Urdesa</span></div>
-        <div class="stat"><strong>21 días</strong><span>De maduración en cámara</span></div>
-        <div class="stat"><strong>92</strong><span>Puestos en salón y terraza</span></div>
-        <div class="stat"><strong>4.8</strong><span>Promedio de 1.240 reseñas</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= HISTORIA ================= -->
-  <section class="section section--alt" id="historia">
-    <div class="container hero-grid">
-      <figure class="hero-visual reveal">
-        <img src="./images/salon.webp" width="1000" height="700" loading="lazy"
-             alt="Salón principal de La Parrilla del Sur con mesas de madera y luz cálida">
-      </figure>
-
-      <div class="reveal">
-        <span class="eyebrow">Nuestra historia</span>
-        <h2>Empezamos con seis mesas y una parrilla prestada</h2>
-        <p class="section-sub">
-          Don Aníbal Sarmiento llegó a Guayaquil desde Mendoza en 2005 y abrió
-          este local dos años después, con seis mesas y una parrilla que le
-          prestó un vecino. Hoy la cocina la lleva su hija Renata, pero el
-          chimichurri sigue siendo la receta que él trajo escrita a mano.
-        </p>
-        <p class="section-sub">
-          Compramos la carne a tres ganaderías de la cuenca del Guayas, maduramos
-          en cámara propia y encendemos el carbón a las 10:30 de la mañana. Nada
-          de eso cambió en dieciocho años, y no tenemos intención de cambiarlo.
-        </p>
-        <blockquote class="chef-note">
-          «Si la brasa está apurada, se nota en el plato. Preferimos que el
-          cliente espere veinte minutos más y se vaya hablando del costillar.»
-          <span>Renata Sarmiento · Jefa de parrilla</span>
-        </blockquote>
+        <div class="stat"><strong>2007</strong><span>Abrimos. No cerramos.</span></div>
+        <div class="stat"><strong>21 días</strong><span>De cámara. Ni uno menos.</span></div>
+        <div class="stat"><strong>92</strong><span>Puestos. Llenos los viernes.</span></div>
+        <div class="stat"><strong>4.8</strong><span>1.240 reseñas. Cero pagadas.</span></div>
       </div>
     </div>
   </section>
@@ -131,80 +99,87 @@
   <section class="section" id="carta">
     <div class="container">
       <div class="section-head section-head--center reveal">
-        <span class="eyebrow">La carta</span>
-        <h2>De la brasa a la mesa</h2>
+        <span class="kicker">La carta</span>
+        <h2 class="display display--lg">Carne <span class="aside">(y algo más)</span></h2>
         <p class="section-sub">
-          Cambiamos las guarniciones según la temporada. Los cortes y el
-          chimichurri no se tocan. Precios en dólares, IVA incluido.
+          Las guarniciones cambian con la temporada. Los cortes y el chimichurri,
+          jamás. Precios en dólares, IVA incluido.
         </p>
       </div>
 
-      <div class="grid grid-3 reveal-stagger">
-
-        <div class="menu-col">
-          <h3>Para empezar</h3>
-          <div class="menu-list">
-            <article class="menu-item">
-              <h4>Provoleta al horno de barro</h4>
-              <span class="price">$8.90</span>
-              <p>Provolone gratinado con orégano fresco, aceite de oliva y pan de campo tostado.</p>
-            </article>
-            <article class="menu-item">
-              <h4>Empanadas cortadas a cuchillo</h4>
-              <span class="price">$7.50</span>
-              <p>Tres unidades de carne, cebolla morada y huevo. Masa hecha en casa cada mañana.</p>
-            </article>
-            <article class="menu-item">
-              <h4>Chorizo criollo con chimichurri</h4>
-              <span class="price">$6.90</span>
-              <p>Chorizo de cerdo abierto a la brasa, con la receta de chimichurri de don Aníbal.</p>
-            </article>
-            <article class="menu-item">
-              <h4>Mollejas crocantes al limón</h4>
-              <span class="price">$11.50</span>
-              <p>Selladas a fuego fuerte y terminadas con limón sutil y sal en escamas.</p>
-            </article>
-          </div>
+      <!-- Pestañas: sin JS se ven los cuatro paneles seguidos (ver carta.js) -->
+      <div class="tabs reveal" data-tabs>
+        <div class="tab-list" role="tablist" aria-label="Secciones de la carta">
+          <button class="tab" type="button" role="tab" id="tab-parrilla" aria-controls="panel-parrilla" aria-selected="true">Parrilla <span class="badge">5</span></button>
+          <button class="tab" type="button" role="tab" id="tab-entradas" aria-controls="panel-entradas" aria-selected="false" tabindex="-1">Entradas <span class="badge">4</span></button>
+          <button class="tab" type="button" role="tab" id="tab-guarniciones" aria-controls="panel-guarniciones" aria-selected="false" tabindex="-1">Guarniciones <span class="badge">3</span></button>
+          <button class="tab" type="button" role="tab" id="tab-postres" aria-controls="panel-postres" aria-selected="false" tabindex="-1">Postres <span class="badge">2</span></button>
         </div>
 
-        <div class="menu-col">
-          <h3>De la parrilla</h3>
+        <div class="tab-panel" role="tabpanel" id="panel-parrilla" aria-labelledby="tab-parrilla" tabindex="0">
+          <h3 class="panel-title">Parrilla</h3>
           <div class="menu-list">
-            <article class="menu-item">
+            <article class="menu-item menu-item--star">
               <h4>Costillar a fuego lento</h4>
               <span class="price">$24.90</span>
-              <p>Cuatro horas sobre brasa de algarrobo. Se sirve entero, para desprender con tenedor.</p>
+              <p>Cuatro horas sobre algarrobo. Llega entero. Se desarma con el tenedor. Fin del debate.</p>
             </article>
             <article class="menu-item">
               <h4>Ojo de bife 400 g</h4>
               <span class="price">$26.50</span>
-              <p>Madurado 21 días. Punto a elección, aunque lo recomendamos jugoso.</p>
+              <p>Madurado 21 días. Punto a elección, aunque jugoso es la respuesta correcta.</p>
             </article>
             <article class="menu-item">
               <h4>Lomo fino 300 g</h4>
               <span class="price">$22.90</span>
-              <p>El corte más tierno de la carta, con manteca de hierbas y sal marina.</p>
+              <p>El corte más tierno de la casa, con manteca de hierbas y sal marina.</p>
             </article>
             <article class="menu-item">
-              <h4>Picanha a la brasa 350 g</h4>
+              <h4>Picanha 350 g</h4>
               <span class="price">$23.50</span>
-              <p>Con su tapa de grasa sellada, cortada en la mesa frente al comensal.</p>
+              <p>Con su tapa de grasa sellada. Se corta en la mesa, frente a vos.</p>
             </article>
             <article class="menu-item">
-              <h4>Parrillada del Sur — para dos</h4>
+              <h4>Parrillada del Sur · para dos</h4>
               <span class="price">$46.00</span>
-              <p>Ojo de bife, costillar, chorizo, morcilla, mollejas y dos guarniciones.</p>
+              <p>Ojo de bife, costillar, chorizo, morcilla, mollejas y dos guarniciones. Traé hambre.</p>
             </article>
           </div>
         </div>
 
-        <div class="menu-col">
-          <h3>Guarniciones y dulces</h3>
+        <div class="tab-panel" role="tabpanel" id="panel-entradas" aria-labelledby="tab-entradas" tabindex="0">
+          <h3 class="panel-title">Entradas</h3>
+          <div class="menu-list">
+            <article class="menu-item">
+              <h4>Provoleta al horno de barro</h4>
+              <span class="price">$8.90</span>
+              <p>Provolone gratinado, orégano fresco, oliva y pan de campo. Pedila primero.</p>
+            </article>
+            <article class="menu-item">
+              <h4>Empanadas a cuchillo</h4>
+              <span class="price">$7.50</span>
+              <p>Tres. Carne, cebolla morada y huevo. Masa hecha cada mañana.</p>
+            </article>
+            <article class="menu-item">
+              <h4>Chorizo criollo</h4>
+              <span class="price">$6.90</span>
+              <p>Abierto a la brasa, con el chimichurri de don Aníbal. La receta no se negocia.</p>
+            </article>
+            <article class="menu-item">
+              <h4>Mollejas al limón</h4>
+              <span class="price">$11.50</span>
+              <p>Crocantes por fuera, sal en escamas y limón. Las que te convierten.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="tab-panel" role="tabpanel" id="panel-guarniciones" aria-labelledby="tab-guarniciones" tabindex="0">
+          <h3 class="panel-title">Guarniciones</h3>
           <div class="menu-list">
             <article class="menu-item">
               <h4>Papas rústicas al romero</h4>
               <span class="price">$5.50</span>
-              <p>Con piel, cocidas en grasa de res y terminadas al horno.</p>
+              <p>Con piel, en grasa de res, terminadas al horno.</p>
             </article>
             <article class="menu-item">
               <h4>Ensalada de la huerta</h4>
@@ -214,126 +189,152 @@
             <article class="menu-item">
               <h4>Puré de zapallo asado</h4>
               <span class="price">$5.90</span>
-              <p>Zapallo quemado en la parrilla, mantequilla y una pizca de nuez moscada.</p>
-            </article>
-            <article class="menu-item">
-              <h4>Flan casero con dulce de leche</h4>
-              <span class="price">$6.50</span>
-              <p>Receta de la casa, con dulce de leche que preparamos los martes.</p>
-            </article>
-            <article class="menu-item">
-              <h4>Tiramisú de la casa</h4>
-              <span class="price">$7.20</span>
-              <p>Con café de altura de Loja y cacao amargo espolvoreado al momento.</p>
+              <p>Zapallo quemado en la parrilla, mantequilla y nuez moscada.</p>
             </article>
           </div>
         </div>
 
+        <div class="tab-panel" role="tabpanel" id="panel-postres" aria-labelledby="tab-postres" tabindex="0">
+          <h3 class="panel-title">Postres</h3>
+          <div class="menu-list">
+            <article class="menu-item">
+              <h4>Flan con dulce de leche</h4>
+              <span class="price">$6.50</span>
+              <p>Dulce de leche que hacemos los martes. Por eso los martes huele así.</p>
+            </article>
+            <article class="menu-item">
+              <h4>Tiramisú de la casa</h4>
+              <span class="price">$7.20</span>
+              <p>Café de altura de Loja y cacao amargo al momento.</p>
+            </article>
+          </div>
+        </div>
       </div>
 
-      <p class="section-sub" style="text-align:center; margin-top:2rem;">
-        Carta de vinos con 42 etiquetas argentinas, chilenas y ecuatorianas ·
-        Copa desde $6.50 · Descorche $12.00
+      <p class="menu-foot">
+        42 vinos argentinos, chilenos y ecuatorianos · Copa desde $6.50 · Descorche $12.00
       </p>
     </div>
   </section>
 
-  <!-- ================= GALERIA ================= -->
-  <section class="section section--alt" id="galeria">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">El salón y los platos</span>
-        <h2>Así se ve una noche cualquiera</h2>
-        <p class="section-sub">
-          Fotos del salón, la terraza y los cortes tal como salen de la parrilla.
-        </p>
-      </div>
+  <!-- ================= HISTORIA ================= -->
+  <section class="section section--alt" id="historia">
+    <div class="container story">
+      <figure class="story-visual reveal">
+        <img src="./images/salon.webp" width="1000" height="700" loading="lazy"
+             alt="Salón principal de La Parrilla del Sur con mesas de madera y luz cálida">
+      </figure>
 
-      <div class="gallery reveal">
-        <figure class="gallery-item gallery-item--wide">
-          <img src="./images/salon-noche.webp" width="800" height="600" loading="lazy"
-               alt="Salón de La Parrilla del Sur de noche, con mesas ocupadas y luz baja">
-          <figcaption>El salón un viernes a las 21:00</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="./images/corte-parrilla.webp" width="800" height="600" loading="lazy"
-               alt="Corte de res laminado mostrando su punto jugoso al centro">
-          <figcaption>Ojo de bife en su punto</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="./images/costillar.webp" width="800" height="600" loading="lazy"
-               alt="Costillar de res sobre tabla de madera con guarniciones">
-          <figcaption>Costillar de cuatro horas</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="./images/lomo.webp" width="800" height="600" loading="lazy"
-               alt="Plato de lomo fino servido con guarnición de vegetales asados">
-          <figcaption>Lomo fino con vegetales</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="./images/mesa-compartida.webp" width="800" height="600" loading="lazy"
-               alt="Mesa vista desde arriba con varios platos compartidos entre comensales">
-          <figcaption>Mesa larga para compartir</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="./images/entrada-fresca.webp" width="800" height="600" loading="lazy"
-               alt="Ensalada fresca de hojas verdes y vegetales servida en bowl">
-          <figcaption>Ensalada de la huerta</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="./images/plato-servido.webp" width="800" height="600" loading="lazy"
-               alt="Plato principal emplatado servido en la mesa junto a copas de vino">
-          <figcaption>Servicio en salón</figcaption>
-        </figure>
+      <div class="reveal">
+        <span class="kicker kicker--left">La historia</span>
+        <h2 class="display display--md">6 mesas <span class="aside">(y una parrilla prestada)</span></h2>
+        <p class="section-sub">
+          Don Aníbal Sarmiento llegó de Mendoza en 2005. Dos años después abrió
+          acá, con seis mesas y una parrilla que le prestó un vecino. Hoy manda
+          su hija Renata. El chimichurri sigue saliendo de la receta que él trajo
+          escrita a mano.
+        </p>
+        <p class="section-sub">
+          Carne de tres ganaderías de la cuenca del Guayas. Cámara propia. Carbón
+          encendido a las 10:30 de la mañana, todos los días. Dieciocho años
+          igual. No pensamos cambiar.
+        </p>
+        <blockquote class="chef-note">
+          <p>«Si la brasa está apurada, se nota en el plato.»</p>
+          <footer>Renata Sarmiento · Jefa de parrilla</footer>
+        </blockquote>
       </div>
     </div>
   </section>
 
-  <!-- ================= OPINIONES ================= -->
-  <section class="section" id="opiniones">
+  <!-- ================= GALERIA ================= -->
+  <section class="section" id="galeria">
     <div class="container">
       <div class="section-head section-head--center reveal">
-        <span class="eyebrow">Opiniones</span>
-        <h2>Lo que dicen los que vuelven</h2>
+        <span class="kicker">Un viernes cualquiera</span>
+        <h2 class="display display--lg">Así se ve <span class="aside">(imaginate cómo huele)</span></h2>
+      </div>
+    </div>
+
+    <!-- Carrusel con scroll-snap: la siguiente foto asoma por el borde -->
+    <div class="reel reveal" tabindex="0" role="region" aria-label="Fotos del salón y los platos (desplazable)">
+      <figure class="reel-card">
+        <img src="./images/salon-noche.webp" width="800" height="600" loading="lazy"
+             alt="Salón de La Parrilla del Sur de noche, con mesas ocupadas y luz baja">
+        <figcaption>El salón · viernes 21:00</figcaption>
+      </figure>
+      <figure class="reel-card">
+        <img src="./images/corte-parrilla.webp" width="800" height="600" loading="lazy"
+             alt="Corte de res laminado mostrando su punto jugoso al centro">
+        <figcaption>Ojo de bife · jugoso</figcaption>
+      </figure>
+      <figure class="reel-card">
+        <img src="./images/costillar.webp" width="800" height="600" loading="lazy"
+             alt="Costillar de res sobre tabla de madera con guarniciones">
+        <figcaption>Costillar · 4 horas</figcaption>
+      </figure>
+      <figure class="reel-card">
+        <img src="./images/mesa-compartida.webp" width="800" height="600" loading="lazy"
+             alt="Mesa vista desde arriba con varios platos compartidos entre comensales">
+        <figcaption>Mesa larga · para compartir</figcaption>
+      </figure>
+      <figure class="reel-card">
+        <img src="./images/lomo.webp" width="800" height="600" loading="lazy"
+             alt="Plato de lomo fino servido con guarnición de vegetales asados">
+        <figcaption>Lomo fino · vegetales</figcaption>
+      </figure>
+      <figure class="reel-card">
+        <img src="./images/entrada-fresca.webp" width="800" height="600" loading="lazy"
+             alt="Ensalada fresca de hojas verdes y vegetales servida en bowl">
+        <figcaption>Ensalada · sí, también hay</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= OPINIONES ================= -->
+  <section class="section section--alt" id="opiniones">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <span class="kicker">Opiniones</span>
+        <h2 class="display display--lg">Lo dicen ellos <span class="aside">(no nosotros)</span></h2>
       </div>
 
       <div class="testimonials reveal-stagger">
         <figure class="testimonial">
-          <div class="stars" aria-label="5 de 5 estrellas">★★★★★</div>
+          <div class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</div>
           <blockquote>
-            «Reservamos el costillar con dos días de anticipación para el
-            cumpleaños de mi papá y lo trajeron entero a la mesa. Éramos nueve y
-            nadie habló de otra cosa en toda la semana.»
+            «Pedimos el costillar con dos días de anticipación para el cumpleaños
+            de mi papá. Llegó entero a la mesa. Éramos nueve y nadie habló de otra
+            cosa en toda la semana.»
           </blockquote>
           <figcaption>
-            <img src="./images/t-andrea.webp" width="240" height="240" loading="lazy" alt="Retrato de Andrea Villacís">
-            <div><cite>Andrea Villacís</cite><span>Vive en Ceibos · 6 visitas</span></div>
+            <img src="./images/t-andrea.webp" width="240" height="240" loading="lazy" alt="">
+            <div><cite>Andrea Villacís</cite><span>Ceibos · 6 visitas</span></div>
           </figcaption>
         </figure>
 
         <figure class="testimonial">
-          <div class="stars" aria-label="5 de 5 estrellas">★★★★★</div>
+          <div class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</div>
           <blockquote>
-            «Llevo clientes de la oficina desde hace años. El ojo de bife
-            siempre sale igual de bueno y el mesero se acuerda de cómo lo pido.
-            Eso ya no se consigue.»
+            «Traigo clientes de la oficina hace años. El ojo de bife sale igual
+            siempre y el mesero se acuerda de cómo lo pido. Eso ya no se consigue.»
           </blockquote>
           <figcaption>
-            <img src="./images/t-marco.webp" width="240" height="240" loading="lazy" alt="Retrato de Marco Benítez">
+            <img src="./images/t-marco.webp" width="240" height="240" loading="lazy" alt="">
             <div><cite>Marco Benítez</cite><span>Cliente desde 2014</span></div>
           </figcaption>
         </figure>
 
         <figure class="testimonial">
-          <div class="stars" aria-label="4 de 5 estrellas">★★★★☆</div>
+          <div class="stars" role="img" aria-label="4 de 5 estrellas">★★★★☆</div>
           <blockquote>
             «La provoleta y las mollejas valen el viaje solas. Un viernes sin
-            reserva esperamos 25 minutos en la barra, así que llamen antes.
-            Vale la pena igual.»
+            reserva esperamos 25 minutos en la barra. Llamen antes. Vale la pena
+            igual.»
           </blockquote>
           <figcaption>
-            <img src="./images/t-esteban.webp" width="240" height="240" loading="lazy" alt="Retrato de Esteban Ruales">
-            <div><cite>Esteban Ruales</cite><span>Vive en Samborondón</span></div>
+            <img src="./images/t-esteban.webp" width="240" height="240" loading="lazy" alt="">
+            <div><cite>Esteban Ruales</cite><span>Samborondón</span></div>
           </figcaption>
         </figure>
       </div>
@@ -341,14 +342,14 @@
   </section>
 
   <!-- ================= VISITANOS ================= -->
-  <section class="section section--alt" id="visitanos">
+  <section class="section" id="visitanos">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">Visitanos</span>
-        <h2>Dónde estamos y a qué hora</h2>
+        <span class="kicker kicker--left">Visitanos</span>
+        <h2 class="display display--lg">Vení <span class="aside">(con hambre)</span></h2>
         <p class="section-sub">
-          Aceptamos reservas hasta con 30 días de anticipación. Para grupos de
-          más de ocho personas pedimos confirmar por WhatsApp.
+          Reservas hasta con 30 días de anticipación. Grupos de más de ocho:
+          confirmá por WhatsApp.
         </p>
       </div>
 
@@ -369,18 +370,18 @@
             </div>
             <div>
               <dt>Estacionamiento</dt>
-              <dd>Valet parking desde las 19:00 · $3.00</dd>
+              <dd>Valet desde las 19:00 · $3.00</dd>
             </div>
           </dl>
 
-          <table class="hours" style="margin-top:2rem;">
-            <caption>Horario de atención</caption>
+          <table class="hours">
+            <caption>Horario</caption>
             <tbody>
               <tr><th scope="row">Martes a jueves</th><td>12:30 – 15:30 · 19:00 – 23:00</td></tr>
               <tr><th scope="row">Viernes</th><td>12:30 – 15:30 · 19:00 – 00:00</td></tr>
               <tr><th scope="row">Sábado</th><td>12:30 – 00:00</td></tr>
               <tr><th scope="row">Domingo</th><td>12:30 – 17:00</td></tr>
-              <tr class="is-closed"><th scope="row">Lunes</th><td>Cerrado</td></tr>
+              <tr class="is-closed"><th scope="row">Lunes</th><td>Cerrado (descansa la brasa)</td></tr>
             </tbody>
           </table>
         </div>
@@ -397,18 +398,16 @@
   </section>
 
   <!-- ================= CTA ================= -->
-  <section class="section section--tight">
+  <section class="cta-slab" aria-labelledby="cta-title">
     <div class="container">
-      <div class="cta-band reveal">
-        <h2>¿Mesa para esta noche?</h2>
-        <p>
-          Respondemos por WhatsApp entre las 10:00 y las 22:00. Si es para hoy,
-          escribinos con el número de personas y la hora aproximada.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn--lg" href="https://wa.me/593992745510?text=Hola%2C%20quiero%20reservar%20una%20mesa%20para%20hoy.%20Somos%20___%20personas%20y%20llegar%C3%ADamos%20a%20las%20___.">Escribir por WhatsApp</a>
-          <a class="btn btn--ghost btn--lg" href="tel:+593992745510">Llamar al restaurante</a>
-        </div>
+      <h2 class="display display--lg" id="cta-title">¿Mesa hoy? <span class="aside">(escribinos ya)</span></h2>
+      <p>
+        WhatsApp de 10:00 a 22:00. Decinos cuántos son y a qué hora llegan.
+        Nosotros prendemos el fuego.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn--lg btn--ink" href="https://wa.me/593992745510?text=Hola%2C%20quiero%20reservar%20una%20mesa%20para%20hoy.%20Somos%20___%20personas%20y%20llegar%C3%ADamos%20a%20las%20___.">Escribir por WhatsApp <span class="caret" aria-hidden="true">›</span></a>
+        <a class="btn btn--ghost btn--lg" href="tel:+593992745510">Llamar</a>
       </div>
     </div>
   </section>
@@ -420,34 +419,32 @@
     <div class="footer-grid">
       <div class="footer-col footer-brand">
         <a class="brand" href="#inicio">La Parrilla del Sur</a>
-        <p>
-          Parrilla al carbón en Urdesa Central desde 2007. Cortes madurados,
-          brasa de algarrobo y sobremesa sin apuro.
-        </p>
+        <p>Parrilla al carbón en Urdesa Central desde 2007. Brasa de algarrobo, cortes madurados y sobremesa sin reloj.</p>
       </div>
 
       <div class="footer-col">
-        <h4>Secciones</h4>
+        <h2 class="footer-title">Secciones</h2>
         <ul>
           <li><a href="#carta">Carta</a></li>
-          <li><a href="#historia">Nosotros</a></li>
+          <li><a href="#historia">Historia</a></li>
           <li><a href="#galeria">El salón</a></li>
           <li><a href="#opiniones">Opiniones</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h4>Horario</h4>
+        <h2 class="footer-title">Horario</h2>
         <ul>
           <li><p>Mar a jue · 12:30–15:30 · 19:00–23:00</p></li>
-          <li><p>Vie y sáb · hasta 00:00</p></li>
+          <li><p>Viernes · hasta 00:00</p></li>
+          <li><p>Sábado · 12:30–00:00 corrido</p></li>
           <li><p>Domingo · 12:30–17:00</p></li>
           <li><p>Lunes cerrado</p></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h4>Contacto</h4>
+        <h2 class="footer-title">Contacto</h2>
         <ul>
           <li><p>Av. Víctor Emilio Estrada 812 y Guayacanes, Urdesa Central, Guayaquil</p></li>
           <li><a href="https://wa.me/593992745510?text=Hola%2C%20quiero%20reservar%20una%20mesa%20en%20La%20Parrilla%20del%20Sur.">+593 99 274 5510</a></li>
@@ -455,6 +452,8 @@
         </ul>
       </div>
     </div>
+
+    <p class="footer-mark" aria-hidden="true">Parrilla del Sur</p>
 
     <div class="footer-bottom">
       <p>© 2026 La Parrilla del Sur. Negocio ficticio creado como demostración.</p>
@@ -470,5 +469,6 @@
 
 <script src="../../assets/nav.js" defer></script>
 <script src="../../assets/reveal.js" defer></script>
+<script src="./carta.js" defer></script>
 </body>
 </html>
