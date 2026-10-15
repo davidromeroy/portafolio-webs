@@ -55,7 +55,7 @@
 
   <!-- ================= HERO ================= -->
   <section class="hero-photo" id="inicio" style="background-image:url('./images/hero.webp');">
-    <div class="hero-photo-inner reveal">
+    <div class="hero-photo-inner">
       <span class="eyebrow">Salón de belleza · Samborondón</span>
       <h1>Tu color, hecho a tu medida</h1>
       <p class="hero-lead">
@@ -117,12 +117,12 @@
 
       <div class="reveal">
         <div class="chips-row" role="tablist" aria-label="Categorías de servicio">
-          <button class="chip" type="button" aria-selected="true" data-chip="cabello">Cabello</button>
-          <button class="chip" type="button" aria-selected="false" data-chip="manos">Manos y pies</button>
-          <button class="chip" type="button" aria-selected="false" data-chip="cejas">Maquillaje y cejas</button>
+          <button class="chip" type="button" role="tab" id="chip-cabello" aria-selected="true" aria-controls="panel-cabello" tabindex="0" data-chip="cabello">Cabello</button>
+          <button class="chip" type="button" role="tab" id="chip-manos" aria-selected="false" aria-controls="panel-manos" tabindex="-1" data-chip="manos">Manos y pies</button>
+          <button class="chip" type="button" role="tab" id="chip-cejas" aria-selected="false" aria-controls="panel-cejas" tabindex="-1" data-chip="cejas">Maquillaje y cejas</button>
         </div>
 
-        <div class="menu-list chip-panel is-active" data-panel="cabello">
+        <div class="menu-list chip-panel is-active" data-panel="cabello" id="panel-cabello" role="tabpanel" aria-labelledby="chip-cabello">
           <article class="menu-item">
             <h4>Corte y peinado</h4>
             <span class="price">$28</span>
@@ -155,7 +155,7 @@
           </article>
         </div>
 
-        <div class="menu-list chip-panel" data-panel="manos">
+        <div class="menu-list chip-panel" data-panel="manos" id="panel-manos" role="tabpanel" aria-labelledby="chip-manos">
           <article class="menu-item">
             <h4>Manicura rusa</h4>
             <span class="price">$22</span>
@@ -183,7 +183,7 @@
           </article>
         </div>
 
-        <div class="menu-list chip-panel" data-panel="cejas">
+        <div class="menu-list chip-panel" data-panel="cejas" id="panel-cejas" role="tabpanel" aria-labelledby="chip-cejas">
           <article class="menu-item">
             <h4>Maquillaje social</h4>
             <span class="price">$45</span>
@@ -569,5 +569,6 @@
 <script src="../../assets/nav.js" defer></script>
 <script src="../../assets/reveal.js" defer></script>
 <script src="./chips.js" defer></script>
+<script src="./motion.js" defer></script>
 </body>
 </html>
