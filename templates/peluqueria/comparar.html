@@ -80,7 +80,18 @@
     font-size: 12px;
   }
   .pane-label b { color: var(--text); font-weight: 600; }
+  .pane-label { align-items: center; }
   .pane-label a { color: var(--muted); }
+  .pick {
+    padding: 4px 8px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--text);
+    font: inherit;
+    font-weight: 600;
+  }
+  .pick:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
   .stage {
     position: relative;
     flex: 1;
@@ -108,12 +119,12 @@
 
 <header>
   <h1>Luna Studio, comparar</h1>
-  <p>Izquierda: editorial (actual en main). Derecha: variante desde design.md "Superpower".</p>
+  <p>Elegí qué versión ver en cada lado.</p>
   <span class="spacer"></span>
   <div class="seg" role="group" aria-label="Vista">
     <button type="button" data-view="lado" aria-pressed="true">Lado a lado</button>
-    <button type="button" data-view="actual" aria-pressed="false">Solo actual</button>
-    <button type="button" data-view="nueva" aria-pressed="false">Solo nueva</button>
+    <button type="button" data-view="actual" aria-pressed="false">Solo izquierda</button>
+    <button type="button" data-view="nueva" aria-pressed="false">Solo derecha</button>
   </div>
   <div class="seg" role="group" aria-label="Dispositivo">
     <button type="button" data-device="desktop" aria-pressed="true">Escritorio</button>
@@ -123,12 +134,12 @@
 
 <main data-view="lado">
   <section class="pane">
-    <div class="pane-label"><b>Actual · editorial</b><a href="./index.html" target="_blank" rel="noopener">abrir ↗</a></div>
-    <div class="stage" data-device="desktop"><iframe src="./index.html" title="Versión actual"></iframe></div>
+    <div class="pane-label"><select class="pick" aria-label="Versión de este lado"><option value="./index.html">Editorial (main)</option><option value="./superpower.html" selected>Superpower</option><option value="./v3.html">v3 · estructura nueva</option></select><a class="open" href="./superpower.html" target="_blank" rel="noopener">abrir ↗</a></div>
+    <div class="stage" data-device="desktop"><iframe src="./superpower.html" title="Versión izquierda"></iframe></div>
   </section>
   <section class="pane">
-    <div class="pane-label"><b>Nueva · Superpower</b><a href="./superpower.html" target="_blank" rel="noopener">abrir ↗</a></div>
-    <div class="stage" data-device="desktop"><iframe src="./superpower.html" title="Versión nueva"></iframe></div>
+    <div class="pane-label"><select class="pick" aria-label="Versión de este lado"><option value="./index.html">Editorial (main)</option><option value="./superpower.html">Superpower</option><option value="./v3.html" selected>v3 · estructura nueva</option></select><a class="open" href="./v3.html" target="_blank" rel="noopener">abrir ↗</a></div>
+    <div class="stage" data-device="desktop"><iframe src="./v3.html" title="Versión derecha"></iframe></div>
   </section>
 </main>
 
@@ -175,6 +186,16 @@
         device = b.dataset.device;
         press("device", device);
         fit();
+      });
+    });
+
+    document.querySelectorAll(".pane").forEach(function (pane) {
+      var pick = pane.querySelector(".pick");
+      var frame = pane.querySelector("iframe");
+      var open = pane.querySelector(".open");
+      pick.addEventListener("change", function () {
+        frame.src = pick.value;
+        open.href = pick.value;
       });
     });
 
