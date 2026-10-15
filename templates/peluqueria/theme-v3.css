@@ -47,15 +47,19 @@
   .work-btn:not(:disabled):hover { border-color: var(--carbon); }
 }
 
-/* El track se alinea con el borde izquierdo del contenedor pero
-   sangra hasta el borde derecho de la ventana. */
+/* El track vive dentro del ancho del contenido, con los mismos
+   márgenes que el resto de la página: 3 tarjetas completas entran
+   exactas y las flechas avanzan de a una página. Nada se corta
+   contra el borde de la ventana. */
 .work-track {
-  --edge: max(var(--gutter), calc((100vw - var(--maxw)) / 2 + var(--gutter)));
   display: flex;
   gap: 11px;
+  /* Sin padding lateral: el padding de un contenedor con scroll
+     también muestra lo que se desplaza, y asomaba la 4ª tarjeta. */
+  width: min(calc(100% - 2 * var(--gutter)), calc(var(--maxw) - 2 * var(--gutter)));
+  margin-inline: auto;
   overflow-x: auto;
-  padding: 4px var(--edge) 0.75rem;   /* la siguiente sección ya trae su aire */
-  scroll-padding-inline: var(--edge);
+  padding: 4px 0 0.75rem;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   overscroll-behavior-x: contain;
@@ -65,21 +69,19 @@
 
 .work-track:focus-visible { outline-offset: -2px; }
 
-.work-track .gallery-item {
-  flex: 0 0 clamp(240px, 26vw, 340px);
+.work-track .gallery-item,
+.work-track .gallery-item--wide {
+  flex: 0 0 calc((100% - 2 * 11px) / 3);
   scroll-snap-align: start;
   border-radius: 15px;
 }
 
 .work-track .gallery-item img,
-.work-track .gallery-item--wide img { aspect-ratio: 3 / 4; height: 100%; }
-
-.work-track .gallery-item--wide { flex-basis: clamp(320px, 40vw, 520px); }
+.work-track .gallery-item--wide img { aspect-ratio: 4 / 5; height: auto; }
 
 /* Sin esto el snap frena antes del final y "siguiente" nunca se
    deshabilita: la última tarjeta se alinea al borde derecho. */
 .work-track .gallery-item:last-child { scroll-snap-align: end; }
-.work-track .gallery-item--wide img { aspect-ratio: auto; }
 
 /* ---------- Servicios: columna fija + lista ---------- */
 
@@ -302,6 +304,9 @@
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
+  .work-track .gallery-item,
+  .work-track .gallery-item--wide { flex-basis: calc((100% - 11px) / 2); }
+
   .services-grid,
   .salon-grid,
   .closing { grid-template-columns: 1fr; }
@@ -319,6 +324,6 @@
 
 @media (max-width: 560px) {
   .work-controls { display: none; }   /* en táctil se desliza con el dedo */
-  .work-track .gallery-item { flex-basis: 74vw; }
-  .work-track .gallery-item--wide { flex-basis: 86vw; }
+  .work-track .gallery-item,
+  .work-track .gallery-item--wide { flex-basis: 82%; }
 }
