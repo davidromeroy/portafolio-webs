@@ -1,7 +1,8 @@
 /* ============================================================
-   chips.js — carta de servicios por categoría (Luna Studio)
+   servicios.js — carta de servicios por categoría (Luna Studio)
    Un botón .chip (role="tab") por categoría, un .chip-panel
-   (role="tabpanel") por categoría. Sin dependencias.
+   (role="tabpanel") por categoría, y una foto por categoría en
+   .services-photo que sigue al chip activo. Sin dependencias.
 
    Con JS: un .chip-indicator negro se desliza detrás del chip
    activo, flechas izquierda/derecha (y Home/End) mueven entre
@@ -23,6 +24,14 @@
   indicator.setAttribute("aria-hidden", "true");
   row.insertBefore(indicator, row.firstChild);
   row.classList.add("has-indicator");
+
+  var photos = [].slice.call(document.querySelectorAll(".services-photo img[data-photo]"));
+
+  function showPhoto(chip) {
+    photos.forEach(function (img) {
+      img.classList.toggle("is-active", img.dataset.photo === chip.dataset.chip);
+    });
+  }
 
   function activeChip() {
     for (var i = 0; i < chips.length; i++) {
@@ -59,6 +68,7 @@
     var panel = document.getElementById("panel-" + chip.dataset.chip) ||
       document.querySelector('[data-panel="' + chip.dataset.chip + '"]');
     if (panel) panel.classList.add("is-active");
+    showPhoto(chip);
     moveIndicator(chip, false);
     if (focus) chip.focus();
   }
@@ -81,6 +91,7 @@
     });
   });
 
+  showPhoto(activeChip());
   moveIndicator(activeChip(), true);
 
   // Los chips pueden pasar a dos filas en móvil, o cambiar de ancho
