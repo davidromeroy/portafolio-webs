@@ -72,7 +72,13 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* clip, no hidden: hidden convierte al body en contenedor de scroll
+     (overflow-y pasa a auto) y rompe position: sticky del .site-nav,
+     que quedaba anclado a un body que nunca scrollea. clip corta el
+     desborde igual sin crear ese contenedor. hidden queda de respaldo
+     para navegadores sin soporte de clip. */
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 img, picture, video, canvas, svg, iframe {
