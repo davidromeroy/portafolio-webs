@@ -1310,10 +1310,11 @@ blockquote.founder-quote {
 /* ---------- Splash al abrir como app ----------
    Solo en modo app (instalada). Arranca igual que la imagen de arranque
    de iOS (azul con el logo blanco) y se desvanece cuando la página ya
-   pintó. 176px = 45 % de un iPhone de 390 pt, el --ancho que se pasó a
+   pintó. Solo en el primer arranque de la sesión (clase .splash, la pone
+   el <head>), no en cada página. 176px = 45 % de un iPhone de 390 pt, el --ancho que se pasó a
    tools/generar-pwa.py. */
 @media (display-mode: standalone) {
-  body::before {
+  html.splash body::before {
     content: "";
     position: fixed;
     inset: 0;
@@ -1329,5 +1330,5 @@ blockquote.founder-quote {
 }
 
 @media (display-mode: standalone) and (prefers-reduced-motion: reduce) {
-  body::before { animation-duration: 0.01s; animation-delay: 0.3s; }
+  html.splash body::before { animation-duration: 0.01s; animation-delay: 0.3s; }
 }
