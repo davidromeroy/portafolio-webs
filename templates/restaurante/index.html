@@ -21,7 +21,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/base.css">
 <!-- ?v=: theme.css cambió por completo; evita que una caché vieja mezcle versiones -->
-<link rel="stylesheet" href="./theme.css?v=2026-10-15b">
+<link rel="stylesheet" href="./theme.css?v=2026-10-16">
+<!-- Marca el documento antes de pintar para que los titulares arranquen
+     ocultos y no parpadeen. Sin JS o con movimiento reducido no se marca. -->
+<script>
+  if (!window.matchMedia || !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.documentElement.classList.add("motion-on");
+  }
+</script>
 </head>
 <body>
 
@@ -36,7 +43,7 @@
       <a href="#historia">Historia</a>
       <a href="#galeria">El salón</a>
       <a href="#opiniones">Opiniones</a>
-      <a href="#visitanos">Visitanos</a>
+      <a href="#visitanos">Visítanos</a>
       <a class="btn" href="https://wa.me/593992745510?text=Hola%2C%20quiero%20reservar%20una%20mesa%20en%20La%20Parrilla%20del%20Sur.">Reservar mesa</a>
     </nav>
 
@@ -66,7 +73,7 @@
 
     <div class="container hero-stack reveal">
       <span class="kicker">Parrilla al carbón desde 2007</span>
-      <h1 class="display">Puro fuego <span class="aside">(cero apuro)</span></h1>
+      <h1 class="display"><span class="d-mask"><span>Puro fuego</span></span> <span class="aside"><span class="d-mask"><span>(cero apuro)</span></span></span></h1>
       <p class="hero-lead">
         Cortes madurados 21 días. Costillar cuatro horas sobre algarrobo.
         Sin microondas, sin atajos, sin disculpas. La misma esquina de Urdesa
@@ -87,14 +94,24 @@
     </div>
   </section>
 
+  <!-- ================= CINTA ================= -->
+  <!-- Decorativa: repite lo que la página ya dice. El grupo va duplicado
+       para que el bucle no tenga salto (se mueve -50%). -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <div class="ticker-group"><span>Puro fuego</span><i>✺</i><span>21 días de cámara</span><i>✺</i><span>Carbón de algarrobo</span><i>✺</i><span>Costillar de 4 horas</span><i>✺</i><span>Urdesa desde 2007</span><i>✺</i></div>
+      <div class="ticker-group"><span>Puro fuego</span><i>✺</i><span>21 días de cámara</span><i>✺</i><span>Carbón de algarrobo</span><i>✺</i><span>Costillar de 4 horas</span><i>✺</i><span>Urdesa desde 2007</span><i>✺</i></div>
+    </div>
+  </div>
+
   <!-- ================= CIFRAS ================= -->
   <section class="section section--tight" aria-label="La Parrilla del Sur en cifras">
     <div class="container">
       <div class="stats-row reveal-stagger">
-        <div class="stat"><strong>2007</strong><span>Abrimos. No cerramos.</span></div>
-        <div class="stat"><strong>21 días</strong><span>De cámara. Ni uno menos.</span></div>
-        <div class="stat"><strong>92</strong><span>Puestos. Llenos los viernes.</span></div>
-        <div class="stat"><strong>4.8</strong><span>1.240 reseñas. Cero pagadas.</span></div>
+        <div class="stat"><strong data-count="2007" data-from="1980">2007</strong><span>Abrimos. No cerramos.</span></div>
+        <div class="stat"><strong data-count="21" data-suffix=" días">21 días</strong><span>De cámara. Ni uno menos.</span></div>
+        <div class="stat"><strong data-count="92">92</strong><span>Puestos. Llenos los viernes.</span></div>
+        <div class="stat"><strong data-count="4.8" data-decimals="1">4.8</strong><span>1.240 reseñas. Cero pagadas.</span></div>
       </div>
     </div>
   </section>
@@ -104,7 +121,7 @@
     <div class="container">
       <div class="section-head section-head--center reveal">
         <span class="kicker">La carta</span>
-        <h2 class="display display--lg">Carne <span class="aside">(y algo más)</span></h2>
+        <h2 class="display display--lg"><span class="d-mask"><span>Carne</span></span> <span class="aside"><span class="d-mask"><span>(y algo más)</span></span></span></h2>
         <p class="section-sub">
           Las guarniciones cambian con la temporada. Los cortes y el chimichurri,
           jamás. Precios en dólares, IVA incluido.
@@ -141,12 +158,12 @@
             <article class="menu-item">
               <h4>Picanha 350 g</h4>
               <span class="price">$23.50</span>
-              <p>Con su tapa de grasa sellada. Se corta en la mesa, frente a vos.</p>
+              <p>Con su tapa de grasa sellada. Se corta en la mesa, frente a ti.</p>
             </article>
             <article class="menu-item">
               <h4>Parrillada del Sur · para dos</h4>
               <span class="price">$46.00</span>
-              <p>Ojo de bife, costillar, chorizo, morcilla, mollejas y dos guarniciones. Traé hambre.</p>
+              <p>Ojo de bife, costillar, chorizo, morcilla, mollejas y dos guarniciones. Trae hambre.</p>
             </article>
           </div>
         </div>
@@ -157,7 +174,7 @@
             <article class="menu-item">
               <h4>Provoleta al horno de barro</h4>
               <span class="price">$8.90</span>
-              <p>Provolone gratinado, orégano fresco, oliva y pan de campo. Pedila primero.</p>
+              <p>Provolone gratinado, orégano fresco, oliva y pan de campo. Pídela primero.</p>
             </article>
             <article class="menu-item">
               <h4>Empanadas a cuchillo</h4>
@@ -231,7 +248,7 @@
 
       <div class="reveal">
         <span class="kicker kicker--left">La historia</span>
-        <h2 class="display display--md">6 mesas <span class="aside">(y una parrilla prestada)</span></h2>
+        <h2 class="display display--md"><span class="d-mask"><span>6 mesas</span></span> <span class="aside"><span class="d-mask"><span>(y una parrilla prestada)</span></span></span></h2>
         <p class="section-sub">
           Don Aníbal Sarmiento llegó de Mendoza en 2005. Dos años después abrió
           acá, con seis mesas y una parrilla que le prestó un vecino. Hoy manda
@@ -256,12 +273,12 @@
     <div class="container">
       <div class="section-head section-head--center reveal">
         <span class="kicker">Un viernes cualquiera</span>
-        <h2 class="display display--lg">Así se ve <span class="aside">(imaginate cómo huele)</span></h2>
+        <h2 class="display display--lg"><span class="d-mask"><span>Así se ve</span></span> <span class="aside"><span class="d-mask"><span>(imagínate cómo huele)</span></span></span></h2>
       </div>
     </div>
 
     <!-- Carrusel con scroll-snap: la siguiente foto asoma por el borde -->
-    <div class="reel reveal" tabindex="0" role="region" aria-label="Fotos del salón y los platos (desplazable)">
+    <div class="reel reveal" data-reel tabindex="0" role="region" aria-label="Fotos del salón y los platos (desplazable)">
       <figure class="reel-card">
         <img src="./images/salon-noche.webp" width="800" height="600" loading="lazy"
              alt="Salón de La Parrilla del Sur de noche, con mesas ocupadas y luz baja">
@@ -293,6 +310,11 @@
         <figcaption>Ensalada · sí, también hay</figcaption>
       </figure>
     </div>
+
+    <div class="container reel-nav">
+      <button class="reel-btn" type="button" data-reel-prev aria-label="Foto anterior">‹</button>
+      <button class="reel-btn" type="button" data-reel-next aria-label="Foto siguiente">›</button>
+    </div>
   </section>
 
   <!-- ================= OPINIONES ================= -->
@@ -300,7 +322,7 @@
     <div class="container">
       <div class="section-head section-head--center reveal">
         <span class="kicker">Opiniones</span>
-        <h2 class="display display--lg">Lo dicen ellos <span class="aside">(no nosotros)</span></h2>
+        <h2 class="display display--lg"><span class="d-mask"><span>Lo dicen ellos</span></span> <span class="aside"><span class="d-mask"><span>(no nosotros)</span></span></span></h2>
       </div>
 
       <div class="testimonials reveal-stagger">
@@ -345,15 +367,15 @@
     </div>
   </section>
 
-  <!-- ================= VISITANOS ================= -->
+  <!-- ================= VISÍTANOS ================= -->
   <section class="section" id="visitanos">
     <div class="container">
       <div class="section-head reveal">
-        <span class="kicker kicker--left">Visitanos</span>
-        <h2 class="display display--lg">Vení <span class="aside">(con hambre)</span></h2>
+        <span class="kicker kicker--left">Visítanos</span>
+        <h2 class="display display--lg"><span class="d-mask"><span>Ven</span></span> <span class="aside"><span class="d-mask"><span>(con hambre)</span></span></span></h2>
         <p class="section-sub">
           Reservas hasta con 30 días de anticipación. Grupos de más de ocho:
-          confirmá por WhatsApp.
+          confirma por WhatsApp.
         </p>
       </div>
 
@@ -404,9 +426,9 @@
   <!-- ================= CTA ================= -->
   <section class="cta-slab" aria-labelledby="cta-title">
     <div class="container">
-      <h2 class="display display--lg" id="cta-title">¿Mesa hoy? <span class="aside">(escribinos ya)</span></h2>
+      <h2 class="display display--lg" id="cta-title"><span class="d-mask"><span>¿Mesa hoy?</span></span> <span class="aside"><span class="d-mask"><span>(escríbenos ya)</span></span></span></h2>
       <p>
-        WhatsApp de 10:00 a 22:00. Decinos cuántos son y a qué hora llegan.
+        WhatsApp de 10:00 a 22:00. Dinos cuántos son y a qué hora llegan.
         Nosotros prendemos el fuego.
       </p>
       <div class="hero-actions">
@@ -457,7 +479,7 @@
       </div>
     </div>
 
-    <p class="footer-mark" aria-hidden="true">Parrilla del Sur</p>
+    <p class="footer-mark" aria-hidden="true"><span class="d-mask"><span>Parrilla del Sur</span></span></p>
 
     <div class="footer-bottom">
       <p>© 2026 La Parrilla del Sur. Negocio ficticio creado como demostración.</p>
@@ -474,5 +496,6 @@
 <script src="../../assets/nav.js" defer></script>
 <script src="../../assets/reveal.js" defer></script>
 <script src="./carta.js" defer></script>
+<script src="./motion.js" defer></script>
 </body>
 </html>
