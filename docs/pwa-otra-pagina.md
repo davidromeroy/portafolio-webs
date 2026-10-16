@@ -150,7 +150,7 @@ Cómo se comporta:
 | Dónde se abre | Qué ve |
 |---|---|
 | Android / PC con Chrome, Edge, Samsung | Barra con botón **Instalar** (diálogo del sistema) |
-| iPhone / iPad | Barra estilo notificación + «Ver cómo» → hoja: Compartir → «Agregar a Inicio» → «Agregar» |
+| iPhone / iPad | Barra estilo notificación + «Cómo» → hoja: Compartir → «Agregar a Inicio» → «Agregar» |
 | Instagram, Facebook, TikTok | «Ábrela en Safari/Chrome» + Copiar enlace (desde ahí no se puede instalar) |
 | Ya instalada o dentro de un iframe | Nada |
 

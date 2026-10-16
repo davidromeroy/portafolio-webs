@@ -201,6 +201,15 @@
 
 .instalar--ios .instalar-titulo { font-size: 15px; font-weight: 600; line-height: 1.25; }
 
+/* Una línea cada uno, con «…»: con nombres largos («Academia René») la
+   barra se partía en cuatro renglones y tapaba la página */
+.instalar--ios .instalar-titulo,
+.instalar-sub {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .instalar-sub {
   display: block;
   color: var(--ios-label-2);
@@ -208,9 +217,11 @@
   font-weight: 400;
 }
 
+.instalar--ios .instalar-fila { gap: 8px; }
+
 .instalar--ios .instalar-btn {
   min-height: 30px;
-  padding: 0 14px;
+  padding: 0 12px;
   background: var(--ios-fill);
   color: var(--ios-blue);
   font-size: 15px;

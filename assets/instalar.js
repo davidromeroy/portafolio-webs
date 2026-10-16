@@ -23,7 +23,7 @@
    - Otros navegadores: nada.
 
    Cómo se ve: una barra de una sola línea (ícono, frase y un botón).
-   En iPhone la barra imita una notificación de iOS y "Ver cómo" abre
+   En iPhone la barra imita una notificación de iOS y "Cómo" abre
    una hoja inferior con el estilo nativo (filas agrupadas, tirador,
    íconos de Safari) y los nombres reales de los menús de iOS:
    Compartir → Agregar a Inicio → Agregar. En el navegador interno los
@@ -181,8 +181,8 @@
     if (m === "ios") {
       return {
         title: name,
-        sub: "Instálala en tu pantalla de inicio",
-        action: '<button type="button" class="instalar-btn" data-act="hoja">Ver cómo</button>',
+        sub: "Agrégala a Inicio",
+        action: '<button type="button" class="instalar-btn" data-act="hoja">Cómo</button>',
         detail: ""
       };
     }

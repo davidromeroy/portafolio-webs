@@ -10,7 +10,7 @@
    teléfono borra la copia vieja al activarse la nueva.
    ============================================================ */
 
-const CACHE = "academia-rene-v1";
+const CACHE = "academia-rene-v2";
 
 // Lo mínimo para abrir sin conexión: las 10 páginas, estilos, scripts
 // y las imágenes de la portada. Las URL tienen que ser iguales a las
@@ -70,6 +70,9 @@ self.addEventListener("fetch", (event) => {
   const sameOrigin = url.origin === self.location.origin;
   const isFont = FONT_HOSTS.includes(url.origin);
   if (!sameOrigin && !isFont) return; // WhatsApp, mapa, etc.: siempre a la red
+  // Videos: Safari los pide por partes (Range) y una copia entera rompe la
+  // reproducción; además pesan demasiado para guardarlos. Siempre a la red.
+  if (req.headers.has("range") || req.destination === "video" || /\.mp4$/i.test(url.pathname)) return;
 
   if (req.mode === "navigate") {
     event.respondWith(
