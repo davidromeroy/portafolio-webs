@@ -61,6 +61,18 @@
     window.addEventListener("load", function () {
       navigator.serviceWorker.register(cfg.sw).catch(function () {});
     });
+
+    // Actualización: si se publicó un sw.js nuevo (CACHE subió), el
+    // nuevo toma el control y la página se recarga una vez para mostrar
+    // ya el CSS/JS/fotos nuevos. Solo si había uno antes: en la primera
+    // visita no recarga.
+    var hadController = !!navigator.serviceWorker.controller;
+    var reloaded = false;
+    navigator.serviceWorker.addEventListener("controllerchange", function () {
+      if (!hadController || reloaded) return;
+      reloaded = true;
+      window.location.reload();
+    });
   }
 
   /* ---------- Dónde estamos ---------- */
