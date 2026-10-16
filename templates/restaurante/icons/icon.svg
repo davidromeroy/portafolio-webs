@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Fuente de los íconos de la PWA. La llama va dibujada con curvas (no
+       con texto) para que se vea igual sin depender de una tipografía, y
+       cabe en la zona segura del ícono maskable (círculo del 80 %). -->
+  <rect width="512" height="512" fill="#260212"/>
+  <path fill="#E10600" d="M262 100 C 290 168 368 206 370 302 C 372 372 320 414 256 414 C 192 414 142 372 142 306 C 142 250 176 222 196 180 C 212 216 226 236 246 248 C 240 196 236 150 262 100 Z"/>
+  <path fill="#260212" d="M258 262 C 276 300 310 318 310 356 C 310 386 286 402 256 402 C 226 402 202 386 202 356 C 202 330 220 316 230 296 C 238 312 246 320 256 324 C 252 302 250 284 258 262 Z"/>
+</svg>

@@ -6,6 +6,14 @@
 <title>La Parrilla del Sur — Parrilla al carbón en Urdesa, Guayaquil</title>
 <meta name="description" content="Parrilla al carbón en Urdesa Central desde 2007. Cortes madurados 21 días, costillar de 4 horas sobre algarrobo y provoleta al horno de barro. Reservas por WhatsApp.">
 <meta name="theme-color" content="#000000">
+<!-- Sin la barra final (/templates/restaurante) las rutas ./ apuntan a la
+     carpeta de arriba y no cargan ni el CSS ni las fotos. vercel.json ya
+     redirige; esto cubre cualquier otro hosting. -->
+<script>
+  if (!/\/$|\.html$/.test(location.pathname)) {
+    location.replace(location.pathname + "/" + location.search + location.hash);
+  }
+</script>
 
 <meta property="og:type" content="restaurant">
 <meta property="og:locale" content="es_EC">
@@ -16,12 +24,34 @@
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<!-- PWA: se instala como app (ver docs/pwa-otra-pagina.md y assets/instalar.js) -->
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Parrilla Sur">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<!-- Imágenes de arranque de iOS: lo primero que se ve al abrir la app,
+     antes de que cargue la página (una por tamaño de iPhone/iPad) -->
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1320x2868.png" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1206x2622.png" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1179x2556.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1640x2360.png" media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-2048x2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/base.css">
+<link rel="stylesheet" href="../../assets/instalar.css">
 <!-- ?v=: theme.css cambió por completo; evita que una caché vieja mezcle versiones -->
-<link rel="stylesheet" href="./theme.css?v=2026-10-16c">
+<link rel="stylesheet" href="./theme.css?v=2026-10-16d">
 <!-- Marca el documento antes de pintar para que los titulares arranquen
      ocultos y no parpadeen. Sin JS o con movimiento reducido no se marca. -->
 <script>
@@ -513,6 +543,7 @@
           <li><a href="#historia">Historia</a></li>
           <li><a href="#galeria">El salón</a></li>
           <li><a href="#opiniones">Opiniones</a></li>
+          <li><a href="#inicio" data-instalar-abrir>Instalar la app</a></li>
         </ul>
       </div>
 
@@ -555,5 +586,7 @@
 <script src="../../assets/reveal.js" defer></script>
 <script src="./carta.js" defer></script>
 <script src="./motion.js" defer></script>
+<script src="../../assets/instalar.js" data-sw="./sw.js" defer></script>
+<script src="../../assets/whatsapp.js" defer></script>
 </body>
 </html>
