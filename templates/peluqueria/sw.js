@@ -9,7 +9,7 @@
    teléfono borra la copia vieja al activarse la nueva.
    ============================================================ */
 
-const CACHE = "luna-v2";
+const CACHE = "luna-v3";
 
 // Lo mínimo para abrir sin conexión. Las URL tienen que ser iguales a
 // las que pide el HTML (el CSS y los scripts van con su ?v=).
