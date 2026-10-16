@@ -281,7 +281,11 @@ h2.display { font-size: clamp(2.2rem, 4.6vw, 3.6rem); }
 .display mark {
   padding-inline: 0.06em 0.1em;
   margin-inline: -0.06em -0.1em;
-  background: var(--lime);
+  /* Franja, no caja: el fondo de <mark> mide toda la altura de la fuente
+     (~1,22em) y con line-height 0.92 tapaba el palito de la «q» de la
+     línea de arriba. La franja va de la altura de las mayúsculas a un
+     poco bajo la base del texto (0.30em → 1.04em en Montserrat). */
+  background: linear-gradient(var(--lime), var(--lime)) 0 0.3em / 100% 0.74em no-repeat;
   color: var(--ink);
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
