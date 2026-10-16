@@ -13,6 +13,16 @@
     location.replace(location.pathname + "/" + location.search + location.hash);
   }
 </script>
+<script>
+  // Splash de la app instalada (theme.css): solo en el primer arranque de
+  // la sesión, no en cada cambio de página.
+  try {
+    if (!sessionStorage.getItem("splash-visto")) {
+      document.documentElement.classList.add("splash");
+      sessionStorage.setItem("splash-visto", "1");
+    }
+  } catch (e) {}
+</script>
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_EC">
@@ -114,37 +124,37 @@
           <span class="hero-since-badge">Desde 1968</span>
           <div class="trade-strip">
             <figure>
-              <video width="640" height="1134" poster="./images/videos/belleza-poster.jpg" preload="auto" autoplay muted loop playsinline aria-label="Video del taller de Belleza">
+              <video width="640" height="1134" poster="./images/videos/belleza-poster.jpg" preload="none" data-auto muted loop playsinline aria-label="Video del taller de Belleza">
                 <source src="./images/videos/belleza.mp4" type="video/mp4">
               </video>
               <figcaption>Belleza</figcaption>
             </figure>
             <figure>
-              <video width="640" height="1134" poster="./images/videos/corte-confeccion-poster.jpg" preload="metadata" autoplay muted loop playsinline aria-label="Video del taller de Corte y Confección">
+              <video width="640" height="1134" poster="./images/videos/corte-confeccion-poster.jpg" preload="none" data-auto muted loop playsinline aria-label="Video del taller de Corte y Confección">
                 <source src="./images/videos/corte-confeccion.mp4" type="video/mp4">
               </video>
               <figcaption>Corte y Confección</figcaption>
             </figure>
             <figure>
-              <video width="640" height="1134" poster="./images/videos/diseno-grafico-poster.jpg" preload="metadata" autoplay muted loop playsinline aria-label="Video del taller de Diseño Gráfico">
+              <video width="640" height="1134" poster="./images/videos/diseno-grafico-poster.jpg" preload="none" data-auto muted loop playsinline aria-label="Video del taller de Diseño Gráfico">
                 <source src="./images/videos/diseno-grafico.mp4" type="video/mp4">
               </video>
               <figcaption>Diseño Gráfico</figcaption>
             </figure>
             <figure>
-              <video width="640" height="1134" poster="./images/videos/cocina-chef-poster.jpg" preload="metadata" autoplay muted loop playsinline aria-label="Video del taller de Jefe de Cocina Chef">
+              <video width="640" height="1134" poster="./images/videos/cocina-chef-poster.jpg" preload="none" data-auto muted loop playsinline aria-label="Video del taller de Jefe de Cocina Chef">
                 <source src="./images/videos/cocina-chef.mp4" type="video/mp4">
               </video>
               <figcaption>Jefe de Cocina Chef</figcaption>
             </figure>
             <figure>
-              <video width="640" height="1134" poster="./images/videos/mecanica-automotriz-poster.jpg" preload="metadata" autoplay muted loop playsinline aria-label="Video del taller de Mecánica Automotriz">
+              <video width="640" height="1134" poster="./images/videos/mecanica-automotriz-poster.jpg" preload="none" data-auto muted loop playsinline aria-label="Video del taller de Mecánica Automotriz">
                 <source src="./images/videos/mecanica-automotriz.mp4" type="video/mp4">
               </video>
               <figcaption>Mecánica Automotriz</figcaption>
             </figure>
             <figure>
-              <video width="640" height="1134" poster="./images/videos/refrigeracion-poster.jpg" preload="metadata" autoplay muted loop playsinline aria-label="Video del taller de Refrigeración">
+              <video width="640" height="1134" poster="./images/videos/refrigeracion-poster.jpg" preload="none" data-auto muted loop playsinline aria-label="Video del taller de Refrigeración">
                 <source src="./images/videos/refrigeracion.mp4" type="video/mp4">
               </video>
               <figcaption>Refrigeración</figcaption>
@@ -361,6 +371,7 @@
 <script src="../../assets/nav.js" defer></script>
 <script src="./nav-dropdown.js" defer></script>
 <script src="./events-carousel.js" defer></script>
+<script src="./videos.js" defer></script>
 <script src="../../assets/reveal.js" defer></script>
 <script src="../../assets/instalar.js" data-sw="./sw.js" defer></script>
 <script src="../../assets/whatsapp.js" defer></script>
