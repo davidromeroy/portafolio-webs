@@ -9,7 +9,7 @@
    teléfono borra la copia vieja al activarse la nueva.
    ============================================================ */
 
-const CACHE = "parrilla-v1";
+const CACHE = "parrilla-v2";
 
 // Lo mínimo para abrir sin conexión, más las fotos de la carta (lo que
 // más se consulta desde la app). Las URL tienen que ser iguales a las que
