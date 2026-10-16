@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Fuente de los íconos de la PWA: el libro abierto con la pluma del
+       logo de Academia René, dibujado con formas (no con texto ni con el
+       PNG del logo) para que se vea nítido en cualquier tamaño. Cabe en la
+       zona segura del ícono maskable (círculo central del 80 %). -->
+  <rect width="512" height="512" fill="#054fa0"/>
+  <g fill="#ffffff">
+    <!-- Páginas -->
+    <path d="M248 186 C214 164 166 156 120 162 L120 330 C166 324 214 332 248 354 Z"/>
+    <path d="M264 186 C298 164 346 156 392 162 L392 330 C346 324 298 332 264 354 Z"/>
+    <!-- Tapa -->
+    <path d="M104 182 L112 182 L112 340 C168 332 220 340 256 366 C292 340 344 332 400 340 L400 182 L408 182 L408 354 C350 346 296 352 256 382 C216 352 162 346 104 354 Z"/>
+  </g>
+  <g fill="none" stroke="#054fa0" stroke-width="7" stroke-linecap="round">
+    <!-- Renglones -->
+    <path d="M146 204 C172 202 198 206 222 216"/>
+    <path d="M146 234 C172 232 198 236 222 246"/>
+    <path d="M146 264 C172 262 198 266 222 276"/>
+    <path d="M290 216 C314 206 340 202 366 204"/>
+    <path d="M290 246 C314 236 340 232 366 234"/>
+    <path d="M290 276 C314 266 340 262 366 264"/>
+  </g>
+  <!-- Pluma estilográfica sobre el lomo -->
+  <path d="M256 96 L276 150 L268 300 L256 330 L244 300 L236 150 Z" fill="#ffffff" stroke="#054fa0" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M256 236 L256 300" stroke="#054fa0" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="256" cy="230" r="9" fill="#054fa0"/>
+</svg>
