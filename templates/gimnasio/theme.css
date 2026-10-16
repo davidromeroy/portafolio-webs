@@ -219,6 +219,23 @@ h2.display { font-size: clamp(2.2rem, 4.6vw, 3.6rem); }
 
 .nav-toggle { border-radius: var(--radius-pill); }
 
+/* Menú móvil: base.css deja ~90px vacíos arriba del primer enlace y el
+   panel tapa la ✕. Con el menú abierto la ✕ queda fija arriba a la
+   derecha, sobre el panel, y los enlaces empiezan justo debajo. */
+@media (max-width: 900px) {
+  .nav-links {
+    padding-top: calc(env(safe-area-inset-top, 0px) + 76px);
+    border-left: 0;
+  }
+
+  body.nav-open .nav-toggle {
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 16px);
+    right: var(--gutter);
+    z-index: 101;
+  }
+}
+
 /* ---------- Hero ---------- */
 
 .hero {
@@ -264,7 +281,11 @@ h2.display { font-size: clamp(2.2rem, 4.6vw, 3.6rem); }
 .display mark {
   padding-inline: 0.06em 0.1em;
   margin-inline: -0.06em -0.1em;
-  background: var(--lime);
+  /* Franja, no caja: el fondo de <mark> mide toda la altura de la fuente
+     (~1,22em) y con line-height 0.92 tapaba el palito de la «q» de la
+     línea de arriba. La franja va de la altura de las mayúsculas a un
+     poco bajo la base del texto (0.30em → 1.04em en Montserrat). */
+  background: linear-gradient(var(--lime), var(--lime)) 0 0.3em / 100% 0.74em no-repeat;
   color: var(--ink);
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
@@ -727,6 +748,30 @@ h2.display { font-size: clamp(2.2rem, 4.6vw, 3.6rem); }
   --instalar-accent-fg: var(--ink);
   --instalar-radius: var(--radius);
   font-family: var(--font-body);
+}
+
+/* ---------- Splash al abrir como app ----------
+   Solo en modo app (instalada). Arranca igual que la imagen de arranque
+   de iOS (negro, F lima y FORJA) y se desvanece cuando la página ya
+   pintó, así no hay salto entre una y otra. */
+@media (display-mode: standalone) {
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: var(--ink) url("./icons/splash/marca.svg") center / 84px auto no-repeat;
+    pointer-events: none;
+    animation: splash-out 0.45s var(--ease) 0.7s forwards;
+  }
+}
+
+@keyframes splash-out {
+  to { opacity: 0; visibility: hidden; background-size: 100px auto; }
+}
+
+@media (display-mode: standalone) and (prefers-reduced-motion: reduce) {
+  body::before { animation-duration: 0.01s; animation-delay: 0.3s; }
 }
 
 /* ---------- WhatsApp ---------- */

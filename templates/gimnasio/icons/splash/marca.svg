@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 330">
+  <!-- Marca del splash: la misma F del ícono y FORJA debajo. Se usa en la
+       pantalla que cubre la app al abrirse (theme.css) para que coincida
+       con las imágenes de arranque de iOS (icons/splash/*.png). -->
+  <g fill="#D8FF33">
+    <rect x="0" y="0" width="80" height="256"/>
+    <rect x="0" y="0" width="176" height="72"/>
+    <rect x="0" y="100" width="144" height="64"/>
+  </g>
+  <text x="88" y="322" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="44" text-anchor="middle" letter-spacing="2">FORJA</text>
+</svg>

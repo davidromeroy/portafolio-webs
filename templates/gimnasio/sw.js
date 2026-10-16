@@ -9,7 +9,7 @@
    teléfono borra la copia vieja al activarse la nueva.
    ============================================================ */
 
-const CACHE = "forja-v2";
+const CACHE = "forja-v3";
 
 // Lo mínimo para abrir sin conexión. Las URL tienen que ser iguales a
 // las que pide el HTML (theme.css va con su ?v=).
@@ -22,6 +22,7 @@ const PRECACHE = [
   "./manifest.webmanifest",
   "./favicon.svg",
   "./icons/icon-192.png",
+  "./icons/splash/marca.svg",
   "./images/hero-800.webp",
   "./images/hero-1600.webp",
   "../../assets/base.css",
