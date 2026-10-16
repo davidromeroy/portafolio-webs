@@ -1,0 +1,290 @@
+/* ============================================================
+   theme.css — FORJA Gym
+   Galpón industrial, hormigón y un amarillo que no pide permiso.
+   Se carga DESPUES de base.css.
+   ============================================================ */
+
+:root {
+  --bg: #0c0c0d;
+  --surface: #141416;
+  --surface-2: #1b1b1f;
+  --text: #f4f4f2;
+  --text-muted: #8c8c94;
+  --border: #26262b;
+  --border-strong: #64646a;  /* borde de controles: >=3:1 (WCAG 1.4.11) */
+  --accent: #d8ff33;
+  --accent-contrast: #0c0c0d;
+  --nav-bg: rgba(12, 12, 13, 0.9);
+
+  --font-heading: "Oswald", "Arial Narrow", sans-serif;
+  --font-body: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  --tracking-display: 0.01em;
+  --tracking-eyebrow: 0.24em;
+  --weight-display: 600;
+
+  /* Sin curvas: acá todo es corte recto. */
+  --radius: 3px;
+  --radius-sm: 2px;
+
+  --map-filter: invert(0.92) hue-rotate(180deg) saturate(0.15) contrast(1.05);
+}
+
+h1, h2, h3, .brand, .plan-price, .stat strong {
+  text-transform: uppercase;
+}
+
+/* Ajustado: con line-height menor, el fondo del <mark> pisa la línea de arriba. */
+h1 { line-height: 1.08; }
+
+/* Barra diagonal de advertencia, como en un rack de discos */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--accent) 0 14px,
+    transparent 14px 28px
+  );
+  opacity: 0.75;
+  z-index: 1;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Textura de galpón: rayado diagonal muy tenue detrás de todo el hero,
+   como el fondo de Smart Fit/Taurus. Nunca debajo de texto sin scrim. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    115deg,
+    rgba(216, 255, 51, 0.05) 0 2px,
+    transparent 2px 46px
+  );
+  pointer-events: none;
+}
+
+.hero > .container { position: relative; z-index: 1; }
+
+.hero .eyebrow { display: block; margin-bottom: 1.1rem; }
+
+/* Hero enmarcado: la foto es la protagonista, el titular va encima con
+   scrim propio (no depende del texto para llevar contraste). */
+.hero-framed {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-framed img {
+  width: 100%;
+  /* Más bajo que 16/10: a la altura de laptop común (~770-900px de viewport)
+     el hero llegaba a chocar con el botón flotante de WhatsApp. */
+  aspect-ratio: 20 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+/* alpha 0.85 en el punto más oscuro: verificado >=16:1 con blanco incluso
+   sobre una foto clara de fondo (peor caso), sin depender del contenido. */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(100deg, rgba(6, 6, 7, 0.85) 0%, rgba(6, 6, 7, 0.55) 42%, rgba(6, 6, 7, 0.08) 68%),
+    linear-gradient(to top, rgba(6, 6, 7, 0.82) 0%, rgba(6, 6, 7, 0) 30%);
+}
+
+.hero-overlay-title {
+  position: absolute;
+  z-index: 2;
+  left: clamp(1.25rem, 4vw, 3rem);
+  top: clamp(1.5rem, 6vw, 3.5rem);
+  max-width: 66%;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.9rem, 5.2vw, 3.8rem);
+}
+
+/* inline-block + line-height propio: con Oswald la caja de texto es más alta
+   que la línea, y como bloque en línea el resaltado pisaba el renglón de arriba. */
+.hero-overlay-title mark {
+  display: inline-block;
+  margin-top: 0.08em;
+  padding: 0.1em 0.24em 0.02em;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  line-height: 1;
+}
+
+/* Card flotante de socios: reposicionada a la esquina superior porque
+   el borde inferior ahora lo ocupa la fila de beneficios. */
+.hero-framed .hero-badge {
+  left: auto;
+  right: clamp(1rem, 3vw, 1.5rem);
+  bottom: auto;
+  top: clamp(1rem, 3vw, 1.5rem);
+  z-index: 2;
+}
+
+/* Fila de beneficios sobre el borde inferior de la foto, como los sellos
+   circulares de Smart Fit/Taurus. */
+.badge-row {
+  position: absolute;
+  z-index: 2;
+  inset: auto 0 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0 clamp(1rem, 3vw, 2rem) clamp(1rem, 2.5vw, 1.5rem);
+  list-style: none;
+}
+
+.badge-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.badge-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  flex-shrink: 0;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  background: rgba(12, 12, 13, 0.55);
+  color: var(--accent);
+}
+
+.badge-icon svg { width: 1.2rem; height: 1.2rem; }
+
+.badge-chip span:last-child {
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+}
+
+.hero-below { margin-top: clamp(1.5rem, 3vw, 2.25rem); max-width: 62ch; }
+
+.hero-below .hero-lead { margin-top: 0; }
+
+@media (max-width: 760px) {
+  /* En mobile el contenido se apila (título + 2x2 chips): con 20/9 quedaría
+     aplastado, necesita más alto. */
+  .hero-framed img { aspect-ratio: 4 / 5; }
+  .hero-overlay-title { max-width: 100%; font-size: clamp(1.7rem, 8vw, 2.4rem); }
+  .hero-framed .hero-badge { display: none; }  /* con 4 chips + titular ya satura la foto en mobile */
+  .badge-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem 0.5rem; }
+  .badge-chip span:last-child { font-size: 0.66rem; }
+  .badge-icon { width: 2.1rem; height: 2.1rem; }
+}
+
+/* Burbuja de aviso sobre el botón de WhatsApp, como el "¿Necesitas ayuda?"
+   de Taurus. Solo en escritorio: en mobile compite con el botón compacto. */
+.wa-hint {
+  position: fixed;
+  right: 1.1rem;
+  bottom: 4.7rem;
+  z-index: 89;
+  margin: 0;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 760px) {
+  .wa-hint { display: none; }
+}
+
+/* Numeración grande y hueca en las disciplinas */
+.card-num {
+  font-family: var(--font-heading);
+  font-size: 2.6rem;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--accent);
+}
+
+.gallery-item figcaption {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.stat strong { letter-spacing: 0.02em; }
+
+.plan-price { letter-spacing: 0; }
+
+.plan--featured { background: var(--surface-2); }
+
+.person img { border-radius: 3px; width: 100%; height: 220px; }
+
+.person { text-align: left; padding: 0; overflow: hidden; }
+
+.person > *:not(img) { padding-inline: 1.35rem; }
+.person > h3 { padding-top: 1.1rem; }
+.person > p { padding-bottom: 1.5rem; }
+
+.site-nav { border-bottom-width: 2px; }
+
+.btn { text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* Grilla de clases: se lee como pizarra de gimnasio */
+.schedule {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.schedule th,
+.schedule td {
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+.schedule thead th {
+  background: var(--surface-2);
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.schedule tbody th {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.schedule td { color: var(--text-muted); }
+
+.schedule-wrap { overflow-x: auto; }
+
+@media (max-width: 760px) {
+  .schedule { min-width: 620px; }
+}
