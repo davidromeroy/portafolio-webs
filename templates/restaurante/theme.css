@@ -45,6 +45,11 @@
   --maxw: 1280px;
   --section-y: clamp(4rem, 8vw, 6.5rem);
 
+  /* Gradación común de fotos: más contraste, sombras hundidas y un giro
+     cálido hacia el rojo. Unifica fotos de stock de luz y tono distintos
+     sin sacarlas de la paleta (la referencia no admite tonos nuevos). */
+  --photo-grade: contrast(1.14) saturate(1.18) sepia(0.16) hue-rotate(-10deg) brightness(0.9);
+
   /* Mapa oscuro teñido hacia vino: se invierte, se pasa a gris y sepia
      para fijar un tono, y se gira el tono hasta el burdeos de la paleta. */
   --map-filter: invert(0.92) grayscale(1) sepia(1) hue-rotate(-50deg) saturate(2.4) brightness(0.62) contrast(1.1);
@@ -235,6 +240,25 @@ body { font-size: 1.05rem; }
   aspect-ratio: 4 / 3;
   object-fit: cover;
   clip-path: polygon(4% 8%, 46% 0, 94% 5%, 100% 52%, 95% 94%, 52% 100%, 6% 95%, 0 48%);
+}
+
+/* Todas las fotos pasan por la misma gradación */
+.float,
+.hero-feature img,
+.story-visual img,
+.reel-card img,
+.testimonial img { filter: var(--photo-grade); }
+
+/* Velo vino plano en el carrusel: hunde los fondos claros (manteles, paredes)
+   para que ninguna foto salte más brillante que las demás. */
+.reel-card { position: relative; }
+.reel-card::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  aspect-ratio: 4 / 5;
+  background: rgba(38, 2, 18, 0.18);   /* plano: la referencia no usa degradados */
+  pointer-events: none;
 }
 
 /* ---------- Cifras ---------- */
