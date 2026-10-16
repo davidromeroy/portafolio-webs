@@ -50,9 +50,9 @@
      sin sacarlas de la paleta (la referencia no admite tonos nuevos). */
   --photo-grade: contrast(1.14) saturate(1.18) sepia(0.16) hue-rotate(-10deg) brightness(0.9);
 
-  /* Mapa oscuro teñido hacia vino: se invierte, se pasa a gris y sepia
-     para fijar un tono, y se gira el tono hasta el burdeos de la paleta. */
-  --map-filter: invert(0.92) grayscale(1) sepia(1) hue-rotate(-50deg) saturate(2.4) brightness(0.62) contrast(1.1);
+  /* Mapa en gris oscuro neutro. Teñido de vino no se leía (probado y
+     descartado el 16 oct): gris no suma tono y conserva el contraste. */
+  --map-filter: invert(0.9) hue-rotate(180deg) grayscale(1) contrast(1.05);
 }
 
 body { font-size: 1.05rem; }
@@ -203,27 +203,32 @@ body { font-size: 1.05rem; }
   width: clamp(104px, 15vw, 220px);
   aspect-ratio: 1;
   object-fit: cover;
+  /* Propiedades individuales: el giro, el parallax (motion.js) y la
+     entrada se animan por separado sin pisarse en un solo transform. */
+  rotate: var(--r, 0deg);
+  translate: var(--px, 0px) calc(var(--py, 0px) + var(--pyp, 0px));
+  transition: translate 0.5s var(--ease);
 }
 
 .float--a {
   top: 5%; left: 4%;
   clip-path: polygon(14% 4%, 62% 0, 96% 22%, 100% 68%, 70% 98%, 22% 94%, 0 58%, 4% 20%);
-  transform: rotate(-7deg);
+  --r: -7deg;
 }
 .float--b {
   top: 8%; right: 5%;
   clip-path: polygon(30% 0, 84% 8%, 100% 46%, 88% 90%, 44% 100%, 6% 80%, 0 34%);
-  transform: rotate(6deg);
+  --r: 6deg;
 }
 .float--c {
   bottom: 6%; left: 7%;
   clip-path: polygon(8% 18%, 48% 0, 92% 10%, 100% 56%, 78% 100%, 26% 92%, 0 64%);
-  transform: rotate(5deg);
+  --r: 5deg;
 }
 .float--d {
   bottom: 4%; right: 4%;
   clip-path: polygon(20% 6%, 70% 0, 100% 36%, 94% 80%, 56% 100%, 10% 88%, 0 44%);
-  transform: rotate(-5deg);
+  --r: -5deg;
 }
 
 /* Foto grande del corte: solo en móvil, donde las flotantes quedan en 96px
@@ -504,7 +509,7 @@ body { font-size: 1.05rem; }
   text-transform: uppercase;
 }
 
-/* ---------- Visitanos ---------- */
+/* ---------- Visítanos ---------- */
 
 .contact-list dt {
   color: var(--blush);
@@ -615,6 +620,194 @@ body { font-size: 1.05rem; }
 }
 
 .wa-float:hover { background: #b30500; transform: none; }
+
+/* ============================================================
+   Movimiento (ver motion.js). Todo cuelga de .motion-on, que el
+   <head> solo pone si no hay prefers-reduced-motion.
+   ============================================================ */
+
+/* ---------- Titulares que suben desde una máscara ---------- */
+
+.d-mask {
+  display: block;
+  overflow: hidden;
+  /* Aire arriba para las tildes de las mayúsculas (Á, Í): con
+     line-height 0.84 la máscara las cortaría. */
+  padding-top: 0.14em;
+  margin-top: -0.14em;
+}
+
+.d-mask > span { display: block; }
+
+.motion-on .d-mask > span {
+  transform: translateY(110%);
+  transition: transform 0.95s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.motion-on .is-in .d-mask > span { transform: none; }
+.motion-on .is-in .aside .d-mask > span { transition-delay: 0.14s; }
+
+/* Red de seguridad: si motion.js no carga, se destapan solos */
+.motion-on:not(.motion-js) .d-mask > span {
+  animation: d-unmask 0.01s 1.5s forwards;
+}
+@keyframes d-unmask { to { transform: none; } }
+
+/* ---------- Fotos del hero: entrada y vaivén ---------- */
+
+.motion-on .float {
+  animation:
+    float-in 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+    float-sway 5s ease-in-out 1s infinite alternate;
+}
+.motion-on .float--a { animation-delay: 0.35s, 1.25s; }
+.motion-on .float--b { animation-delay: 0.5s, 1.4s; }
+.motion-on .float--c { animation-delay: 0.65s, 1.55s; }
+.motion-on .float--d { animation-delay: 0.8s, 1.7s; }
+
+@keyframes float-in {
+  from { opacity: 0; scale: 0.4; rotate: calc(var(--r, 0deg) - 24deg); }
+  to   { opacity: 1; scale: 1;   rotate: var(--r, 0deg); }
+}
+
+@keyframes float-sway {
+  from { rotate: var(--r, 0deg); }
+  to   { rotate: calc(var(--r, 0deg) + 5deg); }
+}
+
+/* ---------- Cinta de texto corrido ---------- */
+
+.ticker {
+  overflow: hidden;
+  margin-block: 0.5rem;
+  padding-block: 0.85rem;
+  background: var(--red);
+  color: #fff;
+  rotate: -1.5deg;
+  /* Más ancha que la pantalla para que el giro no deje esquinas vacías */
+  margin-inline: -2vw;
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+}
+
+.ticker-group {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding-right: 1.4rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ticker-group i { color: var(--wine); font-style: normal; }
+
+.motion-on .ticker-track { animation: ticker 32s linear infinite; }
+.ticker:hover .ticker-track { animation-play-state: paused; }
+
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+/* ---------- Botones: la flecha empuja ---------- */
+
+.caret {
+  display: inline-block;
+  transition: transform 0.25s var(--ease);
+}
+.btn:hover .caret { transform: translateX(4px); }
+
+/* ---------- Carta: el panel entra al cambiar de pestaña ---------- */
+
+.motion-on .tabs.is-ready .tab-panel:not([hidden]) .menu-item {
+  animation: item-in 0.5s var(--ease) both;
+}
+.motion-on .tab-panel .menu-item:nth-child(2) { animation-delay: 0.05s; }
+.motion-on .tab-panel .menu-item:nth-child(3) { animation-delay: 0.1s; }
+.motion-on .tab-panel .menu-item:nth-child(4) { animation-delay: 0.15s; }
+.motion-on .tab-panel .menu-item:nth-child(5) { animation-delay: 0.2s; }
+
+@keyframes item-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.menu-item .price { transition: transform 0.25s var(--ease); }
+.menu-item:hover .price { transform: rotate(-4deg) scale(1.08); }
+
+/* ---------- Carrusel: controles, arrastre y foto que se inclina ---------- */
+
+.reel-nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 1rem;
+}
+
+.reel-btn {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #fff;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.18s var(--ease), color 0.18s var(--ease),
+    opacity 0.18s var(--ease);
+}
+
+.reel-btn:hover:not(:disabled) { background: var(--red); border-color: var(--red); }
+.reel-btn:disabled { opacity: 0.35; cursor: default; }
+
+.reel { cursor: grab; }
+.reel.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+
+.reel-card { transition: rotate 0.35s var(--ease), translate 0.35s var(--ease); }
+.reel-card img { transition: scale 0.6s var(--ease), filter 0.3s var(--ease); }
+
+@media (hover: hover) {
+  .reel-card:hover { rotate: -1.5deg; translate: 0 -6px; }
+  .reel-card:nth-child(even):hover { rotate: 1.5deg; }
+  .reel-card:hover img { scale: 1.06; }
+}
+
+/* ---------- Opiniones: inclinación de calcomanía ---------- */
+
+.testimonial { transition: rotate 0.35s var(--ease), translate 0.35s var(--ease); }
+
+@media (hover: hover) {
+  .testimonial:hover { rotate: -1.2deg; translate: 0 -4px; }
+  .testimonial:nth-child(even):hover { rotate: 1.2deg; }
+}
+
+/* ---------- Historia: la foto se acomoda al pasar ---------- */
+
+.story-visual img { transition: clip-path 0.6s var(--ease), scale 0.6s var(--ease); }
+
+@media (hover: hover) {
+  .story-visual:hover img {
+    scale: 1.03;
+    clip-path: polygon(2% 6%, 52% 2%, 99% 4%, 96% 56%, 98% 99%, 46% 96%, 4% 98%, 1% 44%);
+  }
+}
+
+/* ---------- Movimiento reducido ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+  .float { translate: none; animation: none; }
+  .reel-card:hover,
+  .testimonial:hover { rotate: none; translate: none; }
+}
 
 /* ---------- Responsive ---------- */
 
