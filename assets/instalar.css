@@ -147,6 +147,267 @@
   .instalar { left: 24px; right: auto; width: 380px; bottom: 24px; }
 }
 
+/* ============================================================
+   iPhone: estilo nativo de iOS
+   Tipografía del sistema (SF Pro), materiales translúcidos, azul del
+   sistema y filas agrupadas como en Ajustes y en la hoja de Compartir.
+   Sigue el modo claro/oscuro del teléfono, no los colores de la demo.
+   ============================================================ */
+
+.instalar--ios,
+.instalar-hoja {
+  --ios-blue: #007aff;
+  --ios-label: #000000;
+  --ios-label-2: rgba(60, 60, 67, 0.72);
+  --ios-material: rgba(246, 246, 248, 0.86);
+  --ios-grouped: #f2f2f7;
+  --ios-cell: #ffffff;
+  --ios-fill: rgba(120, 120, 128, 0.16);
+  --ios-sep: rgba(60, 60, 67, 0.18);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  .instalar--ios,
+  .instalar-hoja {
+    --ios-blue: #0a84ff;
+    --ios-label: #ffffff;
+    --ios-label-2: rgba(235, 235, 245, 0.7);
+    --ios-material: rgba(44, 44, 46, 0.82);
+    --ios-grouped: #1c1c1e;
+    --ios-cell: #2c2c2e;
+    --ios-fill: rgba(120, 120, 128, 0.32);
+    --ios-sep: rgba(84, 84, 88, 0.6);
+  }
+}
+
+/* La barra, como una notificación de iOS */
+.instalar.instalar--ios {
+  /* Doble clase: le gana al font-family que cada demo pone en .instalar */
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  padding: 10px 10px 10px 12px;
+  border: 0;
+  border-radius: 22px;
+  background: var(--ios-material);
+  color: var(--ios-label);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  backdrop-filter: saturate(180%) blur(24px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  letter-spacing: -0.01em;
+}
+
+.instalar--ios .instalar-icono { width: 38px; height: 38px; border-radius: 9px; }
+
+.instalar--ios .instalar-titulo { font-size: 15px; font-weight: 600; line-height: 1.25; }
+
+.instalar-sub {
+  display: block;
+  color: var(--ios-label-2);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.instalar--ios .instalar-btn {
+  min-height: 30px;
+  padding: 0 14px;
+  background: var(--ios-fill);
+  color: var(--ios-blue);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.instalar--ios .instalar-cerrar {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  background: var(--ios-fill);
+  color: var(--ios-label-2);
+}
+
+.instalar--ios .instalar-cerrar svg { width: 14px; height: 14px; stroke-width: 2.4; }
+
+.instalar--ios :focus-visible { outline-color: var(--ios-blue); }
+
+/* ---------- Hoja inferior ---------- */
+
+.instalar-hoja {
+  position: fixed;
+  inset: 0;
+  z-index: 140;
+}
+
+.instalar-hoja[hidden] { display: none; }
+
+.instalar-hoja-fondo {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.32);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.instalar-hoja-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 6px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+  border-radius: 14px 14px 0 0;
+  background: var(--ios-grouped);
+  color: var(--ios-label);
+  font-size: 17px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  translate: 0 100%;
+  transition: translate 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.instalar-hoja.is-open .instalar-hoja-fondo { opacity: 1; }
+.instalar-hoja.is-open .instalar-hoja-panel { translate: 0 0; }
+
+.instalar-hoja-tirador {
+  display: block;
+  width: 36px;
+  height: 5px;
+  margin: 0 auto 12px;
+  border-radius: 3px;
+  background: var(--ios-fill);
+}
+
+.instalar-hoja-cabeza {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.instalar-hoja-cabeza img { border-radius: 10px; }
+
+.instalar-hoja-titulo { margin: 0; font-size: 17px; font-weight: 600; }
+
+.instalar-hoja-sub { margin: 2px 0 0; color: var(--ios-label-2); font-size: 15px; }
+
+.instalar-hoja-x {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ios-fill);
+  color: var(--ios-label-2);
+  cursor: pointer;
+}
+
+.instalar-hoja-x svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+
+/* Filas agrupadas, como en la hoja de Compartir */
+.instalar-hoja-lista {
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+  border-radius: 10px;
+  background: var(--ios-cell);
+  overflow: hidden;
+}
+
+.instalar-hoja-lista li {
+  display: grid;
+  /* Columna fija para los íconos: así "Agregar" no corre el texto */
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 60px;
+  padding: 10px 16px;
+  position: relative;
+}
+
+.instalar-hoja-lista li + li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 84px;
+  right: 0;
+  height: 0.5px;
+  background: var(--ios-sep);
+}
+
+.instalar-hoja-lista b { display: block; font-weight: 400; }
+
+.instalar-hoja-lista small { display: block; color: var(--ios-label-2); font-size: 13px; letter-spacing: -0.01em; }
+
+.instalar-hoja-lista em {
+  color: var(--ios-label-2);
+  font-size: 15px;
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+}
+
+.instalar-hoja-ico {
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--ios-fill);
+  color: var(--ios-label);
+}
+
+.instalar-hoja-ico .instalar-share {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  vertical-align: 0;
+  stroke: currentColor;
+}
+
+.instalar-hoja-ico.is-azul { background: transparent; color: var(--ios-blue); }
+
+.instalar-hoja-ico.is-texto {
+  width: auto;
+  padding: 0 2px;
+  background: transparent;
+  color: var(--ios-blue);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.instalar-hoja-listo {
+  display: block;
+  width: 100%;
+  min-height: 50px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--ios-blue);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.instalar-hoja :focus-visible { outline: 2px solid var(--ios-blue); outline-offset: 2px; }
+
+/* Con la hoja abierta la página no se desplaza detrás */
+.instalar-hoja-abierta, .instalar-hoja-abierta body { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .instalar-hoja-panel, .instalar-hoja-fondo { transition: none; }
+}
+
+
 @media (prefers-reduced-motion: reduce) {
   .instalar { transition: none; }
 }

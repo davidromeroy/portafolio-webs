@@ -23,8 +23,11 @@
    - Otros navegadores: nada.
 
    Cómo se ve: una barra de una sola línea (ícono, frase y un botón).
-   Los pasos de iPhone o del navegador interno se despliegan solo si la
-   persona toca "Cómo".
+   En iPhone la barra imita una notificación de iOS y "Ver cómo" abre
+   una hoja inferior con el estilo nativo (filas agrupadas, tirador,
+   íconos de Safari) y los nombres reales de los menús de iOS:
+   Compartir → Agregar a Inicio → Agregar. En el navegador interno los
+   pasos se despliegan dentro de la barra.
 
    Cuándo aparece: cuando ya recorrió más de la mitad de la página (o
    tras 45 s), nunca al entrar y como mucho una vez por visita. La X la
@@ -165,12 +168,10 @@
     }
     if (m === "ios") {
       return {
-        title: "Instala la app",
-        action: how,
-        detail: '<ol class="instalar-pasos">' +
-          "<li>Toca " + SHARE_SVG + " <b>Compartir</b> en la barra del navegador.</li>" +
-          "<li>Elige " + PLUS_SVG + " <b>Agregar a pantalla de inicio</b> y luego <b>Agregar</b>.</li>" +
-          "</ol>"
+        title: name,
+        sub: "Instálala en tu pantalla de inicio",
+        action: '<button type="button" class="instalar-btn" data-act="hoja">Ver cómo</button>',
+        detail: ""
       };
     }
     if (m === "inapp") {
@@ -194,7 +195,9 @@
     if (!card) build();
     var b = body(m);
     card.setAttribute("data-modo", m);
-    card.querySelector(".instalar-titulo").innerHTML = b.title;
+    card.classList.toggle("instalar--ios", m === "ios");
+    card.querySelector(".instalar-titulo").innerHTML = b.title +
+      (b.sub ? '<span class="instalar-sub">' + b.sub + "</span>" : "");
     card.querySelector(".instalar-accion").innerHTML = b.action;
     var detail = card.querySelector(".instalar-detalle");
     detail.innerHTML = b.detail;
@@ -233,6 +236,7 @@
       if (a === "cerrar") { snooze(DAYS); hide(); }
       if (a === "instalar") install(act);
       if (a === "copiar") copy(act);
+      if (a === "hoja") openSheet(act);
       if (a === "como") {
         var d = card.querySelector(".instalar-detalle");
         d.hidden = !d.hidden;
@@ -243,6 +247,73 @@
 
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && shown && !card.hidden) { snooze(DAYS); hide(); }
+    });
+  }
+
+  /* ---------- Hoja de pasos al estilo iOS ---------- */
+
+  var sheet = null;
+  var opener = null;
+
+  function openSheet(from) {
+    opener = from;
+    if (!sheet) buildSheet();
+    sheet.hidden = false;
+    document.documentElement.classList.add("instalar-hoja-abierta");
+    requestAnimationFrame(function () { sheet.classList.add("is-open"); });
+    // Sin anillo de foco si se abrió con el dedo; con teclado sí se ve
+    try { sheet.querySelector("[data-hoja=listo]").focus({ focusVisible: false }); }
+    catch (e) { sheet.querySelector("[data-hoja=listo]").focus(); }
+  }
+
+  function closeSheet() {
+    if (!sheet) return;
+    sheet.classList.remove("is-open");
+    document.documentElement.classList.remove("instalar-hoja-abierta");
+    setTimeout(function () { sheet.hidden = true; }, 300);
+    if (opener) opener.focus();
+  }
+
+  function buildSheet() {
+    var name = esc(cfg.name);
+    sheet = document.createElement("div");
+    sheet.className = "instalar-hoja";
+    sheet.hidden = true;
+    sheet.innerHTML =
+      '<div class="instalar-hoja-fondo" data-hoja="cerrar"></div>' +
+      '<div class="instalar-hoja-panel" role="dialog" aria-modal="true" aria-labelledby="instalar-hoja-titulo">' +
+        '<span class="instalar-hoja-tirador" aria-hidden="true"></span>' +
+        '<div class="instalar-hoja-cabeza">' +
+          (cfg.icon ? '<img src="' + esc(cfg.icon) + '" width="44" height="44" alt="">' : "") +
+          '<div><p id="instalar-hoja-titulo" class="instalar-hoja-titulo">Instala ' + name + '</p>' +
+          '<p class="instalar-hoja-sub">Abre a pantalla completa, como una app.</p></div>' +
+          '<button type="button" class="instalar-hoja-x" data-hoja="cerrar" aria-label="Cerrar">' +
+            '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg></button>' +
+        "</div>" +
+        '<ol class="instalar-hoja-lista">' +
+          '<li><span class="instalar-hoja-ico is-azul">' + SHARE_SVG + "</span>" +
+            "<span><b>Toca Compartir</b><small>En la barra de Safari, abajo al centro</small></span><em>1</em></li>" +
+          '<li><span class="instalar-hoja-ico">' + PLUS_SVG + "</span>" +
+            "<span><b>Elige «Agregar a Inicio»</b><small>Desliza la lista hacia arriba si no lo ves</small></span><em>2</em></li>" +
+          '<li><span class="instalar-hoja-ico is-texto">Agregar</span>' +
+            "<span><b>Toca «Agregar»</b><small>Arriba a la derecha. Listo: queda junto a tus apps</small></span><em>3</em></li>" +
+        "</ol>" +
+        '<button type="button" class="instalar-hoja-listo" data-hoja="listo">Entendido</button>' +
+      "</div>";
+    document.body.appendChild(sheet);
+    sheet.addEventListener("click", function (e) {
+      var t = e.target.closest && e.target.closest("[data-hoja]");
+      if (t) closeSheet();
+    });
+    sheet.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { e.stopPropagation(); closeSheet(); }
+      if (e.key === "Tab") {
+        // El foco no sale de la hoja mientras está abierta
+        var f = sheet.querySelectorAll("button");
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
     });
   }
 
