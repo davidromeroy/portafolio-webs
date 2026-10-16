@@ -4,31 +4,74 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FORJA Gym — Gimnasio y entrenamiento funcional en Kennedy Norte, Guayaquil</title>
-<meta name="description" content="Gimnasio en Kennedy Norte con 1.100 m², sala de pesas libres, clases de funcional, boxeo y cycling. Abierto de 05:00 a 23:00. Planes desde $35 al mes.">
-<meta name="theme-color" content="#0c0c0d">
+<meta name="description" content="Gimnasio en Kennedy Norte con 1.100 m², evaluación física con datos, pesas libres, funcional, boxeo y cycling. Abierto de 05:00 a 23:00. Planes desde $35 al mes.">
+<meta name="theme-color" content="#000000">
+<!-- Sin la barra final (/templates/gimnasio) las rutas ./ apuntan a la
+     carpeta de arriba y no cargan ni el CSS ni las fotos. vercel.json ya
+     redirige; esto cubre cualquier otro hosting. -->
+<script>
+  if (!/\/$|\.html$/.test(location.pathname)) {
+    location.replace(location.pathname + "/" + location.search + location.hash);
+  }
+</script>
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_EC">
 <meta property="og:site_name" content="FORJA Gym">
-<meta property="og:title" content="FORJA Gym — Entrenamiento serio en Kennedy Norte">
-<meta property="og:description" content="1.100 m², pesas libres, funcional, boxeo y cycling. Abrimos 05:00. Planes desde $35 al mes.">
-<meta property="og:image" content="./images/hero.webp">
+<meta property="og:title" content="FORJA Gym — Fuerza que se mide">
+<meta property="og:description" content="Evaluación con datos, plan escrito para ti y coaches que corrigen cada repetición. Kennedy Norte, desde las 05:00.">
+<meta property="og:image" content="./images/hero-1600.webp">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<!-- PWA: se instala como app (ver docs y assets/instalar.js) -->
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="FORJA">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<!-- Imágenes de arranque de iOS: lo primero que se ve al abrir la app,
+     antes de que cargue la página (una por tamaño de iPhone/iPad) -->
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1320x2868.png" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1206x2622.png" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1179x2556.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-1640x2360.png" media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="./icons/splash/splash-2048x2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/base.css">
-<link rel="stylesheet" href="./theme.css">
+<link rel="stylesheet" href="../../assets/instalar.css">
+<!-- ?v=: theme.css cambió por completo; evita que una caché vieja mezcle versiones -->
+<link rel="stylesheet" href="./theme.css?v=2026-10-15">
+<!-- Marca el documento antes de pintar para que los titulares arranquen
+     ocultos y no parpadeen. Sin JS o con movimiento reducido no se marca. -->
+<script>
+  if (!window.matchMedia || !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.documentElement.classList.add("motion-on");
+  }
+</script>
 </head>
 <body>
 
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-<header class="site-nav">
+<p class="announce">
+  <span>Evaluación física gratis esta semana.</span>
+  <a href="https://wa.me/593961184402?text=Hola%2C%20quiero%20agendar%20la%20evaluaci%C3%B3n%20f%C3%ADsica%20gratis.">Agéndala</a>
+</p>
+
+<header class="site-nav is-dark">
   <div class="container nav-inner">
-    <a class="brand" href="#inicio">FORJA <small>Gym · Kennedy Norte</small></a>
+    <a class="brand" href="#inicio">FORJA <small>Kennedy Norte</small></a>
 
     <nav id="nav-links" class="nav-links" aria-label="Navegación principal">
       <a href="#disciplinas">Disciplinas</a>
@@ -54,73 +97,36 @@
 <main id="contenido">
 
   <!-- ================= HERO ================= -->
-  <section class="hero" id="inicio">
-    <div class="container">
-      <span class="eyebrow reveal">Kennedy Norte · Abierto desde las 05:00</span>
+  <section class="hero is-dark" id="inicio">
+    <img class="hero-photo"
+         src="./images/hero-1600.webp"
+         srcset="./images/hero-800.webp 800w, ./images/hero-1600.webp 1600w, ./images/hero-2400.webp 2400w"
+         sizes="(max-width: 760px) 200vw, 72vw"
+         width="1600" height="900" fetchpriority="high"
+         alt="Atleta en penumbra a punto de levantar una barra con discos desde el piso">
 
-      <figure class="hero-framed reveal">
-        <img src="./images/hero.webp" width="1600" height="900"
-             alt="Persona levantando una barra con discos en la sala de pesas de FORJA Gym">
-        <div class="hero-scrim" aria-hidden="true"></div>
-
-        <h1 class="hero-overlay-title">Acá no se viene<br>a mirar.<br><mark>Se entrena.</mark></h1>
-
-        <figcaption class="hero-badge">
-          <strong>+740</strong>
-          <span>socios activos<br>en Kennedy Norte</span>
-        </figcaption>
-
-        <ul class="badge-row">
-          <li class="badge-chip">
-            <span class="badge-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg>
-            </span>
-            <span>Evaluación<br>física gratis</span>
-          </li>
-          <li class="badge-chip">
-            <span class="badge-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>
-            </span>
-            <span>34 clases<br>por semana</span>
-          </li>
-          <li class="badge-chip">
-            <span class="badge-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="m8.5 12.5-1.5 7 5-2.5 5 2.5-1.5-7"/></svg>
-            </span>
-            <span>9 coaches<br>certificados</span>
-          </li>
-          <li class="badge-chip">
-            <span class="badge-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12 12 3h7v7l-9 9a2 2 0 0 1-3 0l-4-4a2 2 0 0 1 0-3z"/><circle cx="15.5" cy="8.5" r="1.1" fill="currentColor" stroke="none"/></svg>
-            </span>
-            <span>Sin matrícula<br>trimestral y anual</span>
-          </li>
-        </ul>
-      </figure>
-
-      <div class="hero-below reveal">
-        <p class="hero-lead">
-          1.100 m² de galpón con pesas libres, plataformas olímpicas, ring y
-          sala de clases. Nueve coaches certificados y un plan de entrenamiento
-          escrito para ti, no para el promedio.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn--lg" href="https://wa.me/593961184402?text=Hola%2C%20quiero%20agendar%20mi%20clase%20de%20prueba%20gratis%20en%20FORJA%20Gym.">Clase de prueba gratis</a>
-          <a class="btn btn--ghost btn--lg" href="#planes">Ver planes</a>
-        </div>
+    <div class="container hero-inner">
+      <p class="eyebrow">Kennedy Norte · Desde las 05:00</p>
+      <h1 class="display">
+        <span class="d-mask"><span>Fuerza que</span></span>
+        <span class="d-mask"><span><mark>se mide.</mark></span></span>
+      </h1>
+      <p class="hero-lead">
+        Evaluación con datos, un plan escrito para ti y coaches que corrigen
+        cada repetición. Medimos tu punto de partida y te mostramos cuánto
+        avanzas cada 30 días.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn--lg" href="https://wa.me/593961184402?text=Hola%2C%20quiero%20agendar%20mi%20clase%20de%20prueba%20gratis%20en%20FORJA%20Gym.">Clase de prueba gratis</a>
+        <a class="btn btn--ghost btn--lg" href="#planes">Ver planes</a>
       </div>
-    </div>
-  </section>
 
-  <!-- ================= CIFRAS ================= -->
-  <section class="section section--tight">
-    <div class="container">
-      <div class="stats-row reveal-stagger">
-        <div class="stat"><strong>1.100 m²</strong><span>Dos plantas de entrenamiento</span></div>
-        <div class="stat"><strong>05:00</strong><span>Abrimos de lunes a viernes</span></div>
-        <div class="stat"><strong>9</strong><span>Coaches certificados</span></div>
-        <div class="stat"><strong>34</strong><span>Clases grupales por semana</span></div>
-      </div>
+      <dl class="metrics">
+        <div><dt>Socios activos</dt><dd data-count="740" data-suffix="">740</dd></div>
+        <div><dt>Clases por semana</dt><dd data-count="34">34</dd></div>
+        <div><dt>Coaches certificados</dt><dd data-count="9">9</dd></div>
+        <div><dt>Metros cuadrados</dt><dd data-count="1100" data-format="miles">1.100</dd></div>
+      </dl>
     </div>
   </section>
 
@@ -128,98 +134,171 @@
   <section class="section" id="disciplinas">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">Disciplinas</span>
-        <h2>Seis formas de entrenar bajo el mismo techo</h2>
+        <p class="eyebrow">Disciplinas</p>
+        <h2 class="display"><span class="d-mask"><span>Seis formas de entrenar. Un solo plan.</span></span></h2>
         <p class="section-sub">
-          Todas las clases entran en el plan FORJA. Cupos limitados a 16
-          personas para que el coach pueda corregir técnica uno por uno.
+          Todas entran en el plan Forja. Máximo 16 personas por clase, para que
+          el coach vea cada repetición.
         </p>
       </div>
 
-      <div class="grid grid-3 reveal-stagger">
-        <article class="card">
-          <div class="card-num">01</div>
-          <h3>Musculación</h3>
-          <p>Ocho racks, dos plataformas olímpicas y mancuernas hasta 60 kg. Rutina impresa y ajustada cada seis semanas.</p>
+      <div class="tabs reveal" data-tabs>
+        <div class="tab-list" role="tablist" aria-label="Disciplinas">
+          <button type="button" role="tab" id="tab-musculacion" aria-controls="panel-musculacion" aria-selected="true">Musculación</button>
+          <button type="button" role="tab" id="tab-funcional" aria-controls="panel-funcional" aria-selected="false" tabindex="-1">Funcional</button>
+          <button type="button" role="tab" id="tab-boxeo" aria-controls="panel-boxeo" aria-selected="false" tabindex="-1">Boxeo</button>
+          <button type="button" role="tab" id="tab-cycling" aria-controls="panel-cycling" aria-selected="false" tabindex="-1">Cycling</button>
+          <button type="button" role="tab" id="tab-movilidad" aria-controls="panel-movilidad" aria-selected="false" tabindex="-1">Movilidad</button>
+          <button type="button" role="tab" id="tab-hiit" aria-controls="panel-hiit" aria-selected="false" tabindex="-1">HIIT</button>
+        </div>
+
+        <article class="discipline" role="tabpanel" id="panel-musculacion" aria-labelledby="tab-musculacion">
+          <div class="discipline-copy">
+            <h3>Musculación</h3>
+            <p>Ocho racks, dos plataformas olímpicas y mancuernas hasta 60 kg. Tu rutina se reescribe cada seis semanas según tus marcas.</p>
+          </div>
+          <dl class="discipline-data">
+            <div><dt>Duración</dt><dd>Libre</dd></div>
+            <div><dt>Cupo</dt><dd>Sala abierta</dd></div>
+            <div><dt>Intensidad</dt><dd><span class="meter" role="img" aria-label="Intensidad 3 de 5" data-level="3"></span></dd></div>
+          </dl>
         </article>
-        <article class="card">
-          <div class="card-num">02</div>
-          <h3>Funcional</h3>
-          <p>Circuitos de 50 minutos con kettlebells, cuerdas y sleds. Tres niveles según tu evaluación inicial.</p>
+
+        <article class="discipline" role="tabpanel" id="panel-funcional" aria-labelledby="tab-funcional">
+          <div class="discipline-copy">
+            <h3>Funcional</h3>
+            <p>Kettlebells, cuerdas y sleds en circuitos de 50 minutos. Tres niveles, según lo que muestre tu evaluación inicial.</p>
+          </div>
+          <dl class="discipline-data">
+            <div><dt>Duración</dt><dd>50 min</dd></div>
+            <div><dt>Cupo</dt><dd>16 personas</dd></div>
+            <div><dt>Intensidad</dt><dd><span class="meter" role="img" aria-label="Intensidad 4 de 5" data-level="4"></span></dd></div>
+          </dl>
         </article>
-        <article class="card">
-          <div class="card-num">03</div>
-          <h3>Boxeo</h3>
-          <p>Ring de 5×5 m, catorce bolsas y trabajo de guanteo. Desde principiante absoluto hasta sparring dirigido.</p>
+
+        <article class="discipline" role="tabpanel" id="panel-boxeo" aria-labelledby="tab-boxeo">
+          <div class="discipline-copy">
+            <h3>Boxeo</h3>
+            <p>Ring de 5×5 m y catorce bolsas. De cero absoluto a sparring dirigido, con técnica antes que golpes.</p>
+          </div>
+          <dl class="discipline-data">
+            <div><dt>Duración</dt><dd>60 min</dd></div>
+            <div><dt>Cupo</dt><dd>14 bolsas</dd></div>
+            <div><dt>Intensidad</dt><dd><span class="meter" role="img" aria-label="Intensidad 4 de 5" data-level="4"></span></dd></div>
+          </dl>
         </article>
-        <article class="card">
-          <div class="card-num">04</div>
-          <h3>Cycling</h3>
-          <p>Sala con 24 bicicletas, medición de potencia y pantalla de posiciones. Clases de 45 minutos.</p>
+
+        <article class="discipline" role="tabpanel" id="panel-cycling" aria-labelledby="tab-cycling">
+          <div class="discipline-copy">
+            <h3>Cycling</h3>
+            <p>24 bicicletas con medición de potencia y pantalla de posiciones. Cada pedalada queda registrada en vatios.</p>
+          </div>
+          <dl class="discipline-data">
+            <div><dt>Duración</dt><dd>45 min</dd></div>
+            <div><dt>Cupo</dt><dd>24 bicis</dd></div>
+            <div><dt>Intensidad</dt><dd><span class="meter" role="img" aria-label="Intensidad 4 de 5" data-level="4"></span></dd></div>
+          </dl>
         </article>
-        <article class="card">
-          <div class="card-num">05</div>
-          <h3>Movilidad y core</h3>
-          <p>Trabajo de cadera, columna y hombros. Lo que evita que te lesiones en las otras cinco disciplinas.</p>
+
+        <article class="discipline" role="tabpanel" id="panel-movilidad" aria-labelledby="tab-movilidad">
+          <div class="discipline-copy">
+            <h3>Movilidad y core</h3>
+            <p>Cadera, columna y hombros. La clase que evita que te lesiones en las otras cinco.</p>
+          </div>
+          <dl class="discipline-data">
+            <div><dt>Duración</dt><dd>45 min</dd></div>
+            <div><dt>Cupo</dt><dd>16 personas</dd></div>
+            <div><dt>Intensidad</dt><dd><span class="meter" role="img" aria-label="Intensidad 2 de 5" data-level="2"></span></dd></div>
+          </dl>
         </article>
-        <article class="card">
-          <div class="card-num">06</div>
-          <h3>HIIT</h3>
-          <p>Treinta minutos de intervalos con control de pulso. Ideal si entrenas antes de entrar a la oficina.</p>
+
+        <article class="discipline" role="tabpanel" id="panel-hiit" aria-labelledby="tab-hiit">
+          <div class="discipline-copy">
+            <h3>HIIT</h3>
+            <p>Treinta minutos de intervalos con control de pulso. Terminas antes de entrar a la oficina.</p>
+          </div>
+          <dl class="discipline-data">
+            <div><dt>Duración</dt><dd>30 min</dd></div>
+            <div><dt>Cupo</dt><dd>16 personas</dd></div>
+            <div><dt>Intensidad</dt><dd><span class="meter" role="img" aria-label="Intensidad 5 de 5" data-level="5"></span></dd></div>
+          </dl>
         </article>
       </div>
     </div>
   </section>
 
   <!-- ================= INSTALACIONES ================= -->
-  <section class="section section--alt" id="instalaciones">
+  <section class="section is-dark" id="instalaciones">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">Instalaciones</span>
-        <h2>El galpón por dentro</h2>
+        <p class="eyebrow">Instalaciones</p>
+        <h2 class="display"><span class="d-mask"><span>1.100 m² hechos para rendir.</span></span></h2>
         <p class="section-sub">
-          Vestidores con casilleros, duchas de agua caliente y estacionamiento
-          propio para 40 vehículos.
+          Dos plantas, vestidores con casilleros, duchas con agua caliente y
+          40 parqueos propios.
         </p>
       </div>
+    </div>
 
-      <div class="gallery reveal">
-        <figure class="gallery-item gallery-item--wide">
-          <img src="./images/zona-pesas.webp" width="800" height="600" loading="lazy"
-               alt="Rack de mancuernas ordenadas por peso en la sala de musculación">
-          <figcaption>Zona de pesas libres</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="./images/boxeo.webp" width="800" height="600" loading="lazy"
-               alt="Guantes de boxeo apoyados sobre la lona del ring">
-          <figcaption>Área de boxeo</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="./images/clase-grupal.webp" width="800" height="600" loading="lazy"
-               alt="Grupo de personas de pie durante una clase grupal en el salón">
-          <figcaption>Sala de clases</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="./images/cycling.webp" width="800" height="600" loading="lazy"
-               alt="Sala de cycling con bicicletas estáticas alineadas">
-          <figcaption>Sala de cycling</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="./images/maquinas.webp" width="800" height="600" loading="lazy"
-               alt="Zona de máquinas de fuerza y bancos de la planta alta">
-          <figcaption>Planta alta · máquinas</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="./images/funcional.webp" width="800" height="600" loading="lazy"
-               alt="Persona haciendo flexiones con mancuernas durante un circuito funcional">
-          <figcaption>Circuito funcional</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="./images/barra-olimpica.webp" width="800" height="600" loading="lazy"
-               alt="Atleta levantando una barra olímpica sobre plataforma de madera">
-          <figcaption>Plataformas olímpicas</figcaption>
-        </figure>
-      </div>
+    <div class="reel reveal" data-reel tabindex="0" role="region" aria-label="Fotos de las instalaciones (desplazable)">
+      <figure class="reel-card">
+        <img src="./images/inst-zona-pesas-600.webp"
+             srcset="./images/inst-zona-pesas-600.webp 600w, ./images/inst-zona-pesas-1200.webp 1200w"
+             sizes="(max-width: 760px) 78vw, 340px" width="600" height="800" loading="lazy"
+             alt="Mujer levantando una barra con discos en la zona de pesas libres">
+        <figcaption><span class="reel-title">Pesas libres</span><span class="reel-stat"><strong>60 kg</strong> mancuerna máxima</span></figcaption>
+      </figure>
+      <figure class="reel-card">
+        <img src="./images/inst-barra-olimpica-600.webp"
+             srcset="./images/inst-barra-olimpica-600.webp 600w, ./images/inst-barra-olimpica-1200.webp 1200w"
+             sizes="(max-width: 760px) 78vw, 340px" width="600" height="800" loading="lazy"
+             alt="Hombre levantando una barra olímpica desde el piso entre dos racks">
+        <figcaption><span class="reel-title">Plataformas olímpicas</span><span class="reel-stat"><strong>8</strong> racks</span></figcaption>
+      </figure>
+      <figure class="reel-card">
+        <img src="./images/inst-boxeo-600.webp"
+             srcset="./images/inst-boxeo-600.webp 600w, ./images/inst-boxeo-1200.webp 1200w"
+             sizes="(max-width: 760px) 78vw, 340px" width="600" height="800" loading="lazy"
+             alt="Boxeador con guantes rojos durante un combate en el ring">
+        <figcaption><span class="reel-title">Ring de boxeo</span><span class="reel-stat"><strong>5×5</strong> metros</span></figcaption>
+      </figure>
+      <figure class="reel-card">
+        <img src="./images/inst-cycling-600.webp"
+             srcset="./images/inst-cycling-600.webp 600w, ./images/inst-cycling-1200.webp 1200w"
+             sizes="(max-width: 760px) 78vw, 340px" width="600" height="800" loading="lazy"
+             alt="Mujer pedaleando en una bicicleta estática en la sala oscura de cycling">
+        <figcaption><span class="reel-title">Sala de cycling</span><span class="reel-stat"><strong>24</strong> bicis con potencia</span></figcaption>
+      </figure>
+      <figure class="reel-card">
+        <img src="./images/inst-funcional-600.webp"
+             srcset="./images/inst-funcional-600.webp 600w, ./images/inst-funcional-1200.webp 1200w"
+             sizes="(max-width: 760px) 78vw, 340px" width="600" height="800" loading="lazy"
+             alt="Hombre levantando dos kettlebells durante un circuito funcional">
+        <figcaption><span class="reel-title">Circuito funcional</span><span class="reel-stat"><strong>3</strong> niveles</span></figcaption>
+      </figure>
+      <figure class="reel-card">
+        <img src="./images/inst-clase-grupal-600.webp"
+             srcset="./images/inst-clase-grupal-600.webp 600w, ./images/inst-clase-grupal-1200.webp 1200w"
+             sizes="(max-width: 760px) 78vw, 340px" width="600" height="800" loading="lazy"
+             alt="Grupo de mujeres haciendo sentadillas con mancuernas en la sala de clases">
+        <figcaption><span class="reel-title">Sala de clases</span><span class="reel-stat"><strong>34</strong> clases por semana</span></figcaption>
+      </figure>
+      <figure class="reel-card">
+        <img src="./images/inst-maquinas-600.webp"
+             srcset="./images/inst-maquinas-600.webp 600w, ./images/inst-maquinas-1200.webp 1200w"
+             sizes="(max-width: 760px) 78vw, 340px" width="600" height="800" loading="lazy"
+             alt="Fila de máquinas de fuerza en penumbra en la planta alta">
+        <figcaption><span class="reel-title">Planta alta · máquinas</span><span class="reel-stat"><strong>2</strong> plantas</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="container reel-nav">
+      <button class="reel-btn" type="button" data-reel-prev aria-label="Foto anterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
+      </button>
+      <button class="reel-btn" type="button" data-reel-next aria-label="Foto siguiente">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      </button>
     </div>
   </section>
 
@@ -227,72 +306,80 @@
   <section class="section" id="horarios">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">Horarios</span>
-        <h2>Grilla de clases y horario de sala</h2>
+        <p class="eyebrow">Horarios</p>
+        <h2 class="display"><span class="d-mask"><span>Abierto cuando tú puedes.</span></span></h2>
         <p class="section-sub">
-          La sala de máquinas está abierta todo el horario. Las clases grupales
-          se reservan por WhatsApp hasta 12 horas antes.
+          La sala funciona todo el horario. Las clases se reservan por WhatsApp
+          hasta 12 horas antes.
         </p>
       </div>
 
-      <div class="grid grid-2 reveal" style="align-items:start;">
-        <div class="schedule-wrap">
-          <table class="schedule">
-            <caption class="eyebrow" style="text-align:left; display:block; margin-bottom:0.9rem;">Clases grupales</caption>
-            <thead>
-              <tr>
-                <th scope="col">Hora</th>
-                <th scope="col">Lun · Mié · Vie</th>
-                <th scope="col">Mar · Jue</th>
-                <th scope="col">Sábado</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><th scope="row">06:00</th><td>HIIT</td><td>Funcional</td><td>—</td></tr>
-              <tr><th scope="row">07:15</th><td>Cycling</td><td>Cycling</td><td>Funcional</td></tr>
-              <tr><th scope="row">09:00</th><td>Movilidad</td><td>Movilidad</td><td>Boxeo</td></tr>
-              <tr><th scope="row">18:00</th><td>Funcional</td><td>Boxeo</td><td>Cycling</td></tr>
-              <tr><th scope="row">19:15</th><td>Boxeo</td><td>HIIT</td><td>—</td></tr>
-              <tr><th scope="row">20:30</th><td>Cycling</td><td>Funcional</td><td>—</td></tr>
-            </tbody>
-          </table>
+      <div class="schedule-grid reveal">
+        <div class="tabs" data-tabs>
+          <div class="tab-list" role="tablist" aria-label="Días de clases grupales">
+            <button type="button" role="tab" id="tab-lmv" aria-controls="panel-lmv" aria-selected="true">Lun · Mié · Vie</button>
+            <button type="button" role="tab" id="tab-mj" aria-controls="panel-mj" aria-selected="false" tabindex="-1">Mar · Jue</button>
+            <button type="button" role="tab" id="tab-sab" aria-controls="panel-sab" aria-selected="false" tabindex="-1">Sábado</button>
+          </div>
+
+          <div class="slots" role="tabpanel" id="panel-lmv" aria-labelledby="tab-lmv">
+            <h3 class="sr-only">Lunes, miércoles y viernes</h3>
+            <ul>
+              <li><time>06:00</time><span>HIIT</span></li>
+              <li><time>07:15</time><span>Cycling</span></li>
+              <li><time>09:00</time><span>Movilidad</span></li>
+              <li><time>18:00</time><span>Funcional</span></li>
+              <li><time>19:15</time><span>Boxeo</span></li>
+              <li><time>20:30</time><span>Cycling</span></li>
+            </ul>
+          </div>
+          <div class="slots" role="tabpanel" id="panel-mj" aria-labelledby="tab-mj">
+            <h3 class="sr-only">Martes y jueves</h3>
+            <ul>
+              <li><time>06:00</time><span>Funcional</span></li>
+              <li><time>07:15</time><span>Cycling</span></li>
+              <li><time>09:00</time><span>Movilidad</span></li>
+              <li><time>18:00</time><span>Boxeo</span></li>
+              <li><time>19:15</time><span>HIIT</span></li>
+              <li><time>20:30</time><span>Funcional</span></li>
+            </ul>
+          </div>
+          <div class="slots" role="tabpanel" id="panel-sab" aria-labelledby="tab-sab">
+            <h3 class="sr-only">Sábado</h3>
+            <ul>
+              <li><time>07:15</time><span>Funcional</span></li>
+              <li><time>09:00</time><span>Boxeo</span></li>
+              <li><time>18:00</time><span>Cycling</span></li>
+            </ul>
+          </div>
         </div>
 
-        <div>
+        <aside class="mist-card">
+          <h3>Horario de sala</h3>
           <table class="hours">
-            <caption>Horario de sala</caption>
+            <caption class="sr-only">Horario de la sala de máquinas</caption>
             <tbody>
               <tr><th scope="row">Lunes a viernes</th><td>05:00 – 23:00</td></tr>
               <tr><th scope="row">Sábado</th><td>07:00 – 20:00</td></tr>
               <tr><th scope="row">Domingo</th><td>08:00 – 14:00</td></tr>
-              <tr class="is-closed"><th scope="row">Feriados nacionales</th><td>08:00 – 13:00</td></tr>
+              <tr><th scope="row">Feriados</th><td>08:00 – 13:00</td></tr>
             </tbody>
           </table>
-
-          <div class="cta-band" style="margin-top:2rem; text-align:left;">
-            <h3>Evaluación física sin costo</h3>
-            <p style="margin-left:0;">
-              Composición corporal, movilidad y test de fuerza. Sale con tu
-              rutina impresa el mismo día, seas socio o no.
-            </p>
-            <div class="hero-actions" style="justify-content:flex-start;">
-              <a class="btn" href="https://wa.me/593961184402?text=Hola%2C%20quiero%20agendar%20la%20evaluaci%C3%B3n%20f%C3%ADsica%20sin%20costo.">Agendar evaluación</a>
-            </div>
-          </div>
-        </div>
+          <a class="btn btn--outline" href="https://wa.me/593961184402?text=Hola%2C%20quiero%20reservar%20una%20clase%20grupal%20en%20FORJA%20Gym.">Reservar una clase</a>
+        </aside>
       </div>
     </div>
   </section>
 
   <!-- ================= PLANES ================= -->
-  <section class="section section--alt" id="planes">
+  <section class="section section--mist" id="planes">
     <div class="container">
-      <div class="section-head section-head--center reveal">
-        <span class="eyebrow">Planes</span>
-        <h2>Membresías sin permanencia forzada</h2>
+      <div class="section-head reveal">
+        <p class="eyebrow">Membresías</p>
+        <h2 class="display"><span class="d-mask"><span>Sin permanencia. Sin letra chica.</span></span></h2>
         <p class="section-sub">
-          Puedes congelar tu plan hasta 30 días al año por viaje o lesión, sin
-          costo. Precios en dólares, IVA incluido.
+          Congela tu plan hasta 30 días al año por viaje o lesión, sin costo.
+          Precios en dólares, IVA incluido.
         </p>
       </div>
 
@@ -300,7 +387,7 @@
         <article class="plan">
           <h3>Esencial</h3>
           <p class="plan-note">Sala de máquinas y pesas libres</p>
-          <div class="plan-price">$35 <span>/ mes</span></div>
+          <p class="plan-price">$35 <span>/ mes</span></p>
           <p class="plan-note">Matrícula única de $20</p>
           <ul class="plan-list">
             <li>Acceso a sala en todo el horario</li>
@@ -309,14 +396,14 @@
             <li class="is-off">Clases grupales</li>
             <li class="is-off">Evaluación mensual</li>
           </ul>
-          <a class="btn btn--ghost btn--block" href="https://wa.me/593961184402?text=Hola%2C%20quiero%20info%20del%20plan%20Esencial%20de%20FORJA%20Gym.">Quiero este plan</a>
+          <a class="btn btn--outline btn--block" href="https://wa.me/593961184402?text=Hola%2C%20quiero%20info%20del%20plan%20Esencial%20de%20FORJA%20Gym.">Quiero este plan</a>
         </article>
 
         <article class="plan plan--featured">
-          <span class="plan-tag">El que más eligen</span>
+          <p class="plan-tag">El que más eligen</p>
           <h3>Forja</h3>
           <p class="plan-note">Sala + las 34 clases semanales</p>
-          <div class="plan-price">$49 <span>/ mes</span></div>
+          <p class="plan-price">$49 <span>/ mes</span></p>
           <p class="plan-note">Sin matrícula pagando trimestre ($132)</p>
           <ul class="plan-list">
             <li>Todo lo del plan Esencial</li>
@@ -331,7 +418,7 @@
         <article class="plan">
           <h3>Performance</h3>
           <p class="plan-note">Con entrenador asignado</p>
-          <div class="plan-price">$89 <span>/ mes</span></div>
+          <p class="plan-price">$89 <span>/ mes</span></p>
           <p class="plan-note">Sin matrícula</p>
           <ul class="plan-list">
             <li>Todo lo del plan Forja</li>
@@ -340,43 +427,49 @@
             <li>Seguimiento por WhatsApp</li>
             <li>Acceso a sala de recuperación</li>
           </ul>
-          <a class="btn btn--ghost btn--block" href="https://wa.me/593961184402?text=Hola%2C%20quiero%20info%20del%20plan%20Performance%20de%20FORJA%20Gym.">Quiero este plan</a>
+          <a class="btn btn--outline btn--block" href="https://wa.me/593961184402?text=Hola%2C%20quiero%20info%20del%20plan%20Performance%20de%20FORJA%20Gym.">Quiero este plan</a>
         </article>
       </div>
 
-      <p class="section-sub" style="text-align:center; margin-top:2rem;">
-        Pase diario $6.00 · Plan anual con 20% de descuento ($470) ·
+      <p class="plans-foot">
+        Pase diario $6 · Plan anual con 20 % de descuento ($470) ·
         Corporativo desde 5 personas, consulta por WhatsApp
       </p>
     </div>
   </section>
 
   <!-- ================= COACHES ================= -->
-  <section class="section" id="equipo">
+  <section class="section is-dark" id="equipo">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">Los coaches</span>
-        <h2>Quién te va a estar corrigiendo</h2>
+        <p class="eyebrow">Coaches</p>
+        <h2 class="display"><span class="d-mask"><span>Te miden. Te corrigen. Te empujan.</span></span></h2>
       </div>
 
-      <div class="people reveal-stagger">
-        <article class="person">
-          <img src="./images/coach-bryan.webp" width="240" height="240" loading="lazy"
-               alt="Retrato de Bryan Cedeño, coach de fuerza">
+      <div class="coaches reveal-stagger">
+        <article class="coach">
+          <img src="./images/coach-bryan-600.webp"
+               srcset="./images/coach-bryan-300.webp 300w, ./images/coach-bryan-600.webp 600w"
+               sizes="(max-width: 760px) 78vw, 360px" width="600" height="600" loading="lazy"
+               alt="Retrato de Bryan Cedeño con musculosa negra">
           <h3>Bryan Cedeño</h3>
           <p class="role">Fuerza y levantamiento</p>
           <p>Once años entrenando. Certificado NSCA y juez de levantamiento de potencia. Lleva a los socios que compiten.</p>
         </article>
-        <article class="person">
-          <img src="./images/coach-paula.webp" width="240" height="240" loading="lazy"
-               alt="Retrato de Paula Andrade, coach de funcional y HIIT">
+        <article class="coach">
+          <img src="./images/coach-paula-600.webp"
+               srcset="./images/coach-paula-300.webp 300w, ./images/coach-paula-600.webp 600w"
+               sizes="(max-width: 760px) 78vw, 360px" width="600" height="600" loading="lazy"
+               alt="Retrato de Paula Andrade con una cuerda de batalla al hombro">
           <h3>Paula Andrade</h3>
           <p class="role">Funcional · HIIT · Movilidad</p>
-          <p>Licenciada en cultura física. Diseña los circuitos de la semana y las progresiones para principiantes.</p>
+          <p>Licenciada en cultura física. Diseña los circuitos de la semana y las progresiones para quien empieza de cero.</p>
         </article>
-        <article class="person">
-          <img src="./images/coach-diego.webp" width="240" height="240" loading="lazy"
-               alt="Retrato de Diego Salazar, coach de boxeo">
+        <article class="coach">
+          <img src="./images/coach-diego-600.webp"
+               srcset="./images/coach-diego-300.webp 300w, ./images/coach-diego-600.webp 600w"
+               sizes="(max-width: 760px) 78vw, 360px" width="600" height="600" loading="lazy"
+               alt="Retrato de Diego Salazar con los brazos cruzados">
           <h3>Diego Salazar</h3>
           <p class="role">Boxeo y acondicionamiento</p>
           <p>Ex seleccionado provincial. Da las clases de boxeo y el guanteo dirigido de los sábados.</p>
@@ -386,49 +479,49 @@
   </section>
 
   <!-- ================= OPINIONES ================= -->
-  <section class="section section--alt">
+  <section class="section" id="opiniones">
     <div class="container">
-      <div class="section-head section-head--center reveal">
-        <span class="eyebrow">Socios</span>
-        <h2>Lo que dicen adentro del galpón</h2>
+      <div class="section-head reveal">
+        <p class="eyebrow">Socios</p>
+        <h2 class="display"><span class="d-mask"><span>Los números son suyos.</span></span></h2>
       </div>
 
       <div class="testimonials reveal-stagger">
         <figure class="testimonial">
-          <div class="stars" aria-label="5 de 5 estrellas">★★★★★</div>
+          <p class="testimonial-stat"><strong>+40 kg</strong> en sentadilla, 10 meses</p>
           <blockquote>
             «Entreno a las 5:30 antes de entrar al trabajo y siempre hay alguien
-            del staff en piso. En diez meses subí 40 kg en sentadilla sin
-            lesionarme, que era mi miedo.»
+            del staff en piso. Subí 40 kg en sentadilla sin lesionarme, que era
+            mi miedo.»
           </blockquote>
           <figcaption>
-            <img src="./images/t-kevin.webp" width="240" height="240" loading="lazy" alt="Retrato de Kevin Mendoza">
+            <img src="./images/t-kevin.webp" width="240" height="240" loading="lazy" alt="">
             <div><cite>Kevin Mendoza</cite><span>Socio desde 2025 · Plan Forja</span></div>
           </figcaption>
         </figure>
 
         <figure class="testimonial">
-          <div class="stars" aria-label="5 de 5 estrellas">★★★★★</div>
+          <p class="testimonial-stat"><strong>Desde cero</strong> al funcional de las 18:00</p>
           <blockquote>
             «Venía de gimnasios donde nadie te mira. Paula me armó una
             progresión desde cero porque nunca había entrenado. Ahora hago el
-            funcional de las 18:00 sin quedarme atrás.»
+            funcional de las 18:00 al ritmo de todos.»
           </blockquote>
           <figcaption>
-            <img src="./images/t-daniela.webp" width="240" height="240" loading="lazy" alt="Retrato de Daniela Zambrano">
+            <img src="./images/t-daniela.webp" width="240" height="240" loading="lazy" alt="">
             <div><cite>Daniela Zambrano</cite><span>Socia desde 2024 · Plan Forja</span></div>
           </figcaption>
         </figure>
 
         <figure class="testimonial">
-          <div class="stars" aria-label="4 de 5 estrellas">★★★★☆</div>
+          <p class="testimonial-stat"><strong>2 en 1</strong> entrenador y nutricionista</p>
           <blockquote>
             «El plan Performance con nutricionista incluido me salió más barato
-            que pagar las dos cosas aparte. A las 19:00 el estacionamiento se
-            llena, es lo único.»
+            que pagar las dos cosas aparte. A las 19:00 el parqueadero se llena,
+            es lo único.»
           </blockquote>
           <figcaption>
-            <img src="./images/t-josue.webp" width="240" height="240" loading="lazy" alt="Retrato de Josué Paredes">
+            <img src="./images/t-josue.webp" width="240" height="240" loading="lazy" alt="">
             <div><cite>Josué Paredes</cite><span>Socio desde 2023 · Plan Performance</span></div>
           </figcaption>
         </figure>
@@ -436,39 +529,39 @@
     </div>
   </section>
 
-  <!-- ================= CONTACTO ================= -->
-  <section class="section" id="contacto">
+  <!-- ================= CONTACTO + CIERRE ================= -->
+  <section class="section is-dark" id="contacto">
     <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Contacto</span>
-        <h2>Ven a conocer el lugar</h2>
+      <div class="closing reveal">
+        <h2 class="display"><span class="d-mask"><span>Tu primera evaluación</span></span> <span class="d-mask"><span><mark>corre por nuestra cuenta.</mark></span></span></h2>
         <p class="section-sub">
-          La clase de prueba no tiene costo ni compromiso. Trae ropa deportiva,
-          toalla y una botella de agua.
+          Composición corporal, movilidad y test de fuerza. Sales con tu rutina
+          impresa el mismo día. Trae ropa deportiva, toalla y agua.
         </p>
+        <div class="hero-actions">
+          <a class="btn btn--lg" href="https://wa.me/593961184402?text=Hola%2C%20quiero%20agendar%20la%20evaluaci%C3%B3n%20f%C3%ADsica%20sin%20costo.">Agendar evaluación</a>
+        </div>
       </div>
 
       <div class="contact-grid reveal">
-        <div>
-          <dl class="contact-list">
-            <div>
-              <dt>Dirección</dt>
-              <dd>Av. Juan Tanca Marengo km 2.5 y Rodolfo Baquerizo Nazur<br>Kennedy Norte, Guayaquil</dd>
-            </div>
-            <div>
-              <dt>WhatsApp</dt>
-              <dd><a href="https://wa.me/593961184402?text=Hola%2C%20quiero%20info%20sobre%20FORJA%20Gym.">+593 96 118 4402</a></dd>
-            </div>
-            <div>
-              <dt>Correo</dt>
-              <dd><a href="mailto:hola@forjagym.ec">hola@forjagym.ec</a></dd>
-            </div>
-            <div>
-              <dt>Estacionamiento</dt>
-              <dd>40 espacios propios, sin costo para socios</dd>
-            </div>
-          </dl>
-        </div>
+        <dl class="contact-list">
+          <div>
+            <dt>Dirección</dt>
+            <dd>Av. Juan Tanca Marengo km 2.5 y Rodolfo Baquerizo Nazur<br>Kennedy Norte, Guayaquil</dd>
+          </div>
+          <div>
+            <dt>WhatsApp</dt>
+            <dd><a href="https://wa.me/593961184402?text=Hola%2C%20quiero%20info%20sobre%20FORJA%20Gym.">+593 96 118 4402</a></dd>
+          </div>
+          <div>
+            <dt>Correo</dt>
+            <dd><a href="mailto:hola@forjagym.ec">hola@forjagym.ec</a></dd>
+          </div>
+          <div>
+            <dt>Parqueadero</dt>
+            <dd>40 espacios propios, sin costo para socios</dd>
+          </div>
+        </dl>
 
         <div class="map-frame">
           <iframe
@@ -483,29 +576,30 @@
 
 </main>
 
-<footer class="site-footer">
+<footer class="site-footer is-dark">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-col footer-brand">
-        <a class="brand" href="#inicio">FORJA Gym</a>
+        <a class="brand" href="#inicio">FORJA</a>
         <p>
-          1.100 m² de entrenamiento en Kennedy Norte. Pesas libres, funcional,
-          boxeo y cycling, de 05:00 a 23:00.
+          1.100 m² de entrenamiento medido en Kennedy Norte. Pesas libres,
+          funcional, boxeo y cycling, de 05:00 a 23:00.
         </p>
       </div>
 
       <div class="footer-col">
-        <h4>Entrenar</h4>
+        <h2>Entrenar</h2>
         <ul>
           <li><a href="#disciplinas">Disciplinas</a></li>
-          <li><a href="#horarios">Grilla de clases</a></li>
+          <li><a href="#horarios">Horarios</a></li>
           <li><a href="#planes">Planes y precios</a></li>
           <li><a href="#equipo">Coaches</a></li>
+          <li><a href="#inicio" data-instalar-abrir>Instalar la app</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h4>Horario</h4>
+        <h2>Horario</h2>
         <ul>
           <li><p>Lunes a viernes · 05:00–23:00</p></li>
           <li><p>Sábado · 07:00–20:00</p></li>
@@ -515,7 +609,7 @@
       </div>
 
       <div class="footer-col">
-        <h4>Contacto</h4>
+        <h2>Contacto</h2>
         <ul>
           <li><p>Av. Juan Tanca Marengo km 2.5, Kennedy Norte, Guayaquil</p></li>
           <li><a href="https://wa.me/593961184402?text=Hola%2C%20quiero%20info%20sobre%20FORJA%20Gym.">+593 96 118 4402</a></li>
@@ -531,7 +625,6 @@
   </div>
 </footer>
 
-<p class="wa-hint" aria-hidden="true">¿Dudas sobre los planes?</p>
 <a class="wa-float" href="https://wa.me/593961184402?text=Hola%2C%20quiero%20agendar%20mi%20clase%20de%20prueba%20gratis%20en%20FORJA%20Gym." aria-label="Escribir por WhatsApp a FORJA Gym">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m0 1.67c2.2 0 4.27.86 5.82 2.42a8.2 8.2 0 0 1 2.42 5.83c0 4.54-3.7 8.23-8.24 8.23a8.24 8.24 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24m-3.7 4.13c-.17 0-.45.06-.69.31-.24.25-.9.88-.9 2.15s.92 2.5 1.05 2.67c.13.17 1.8 2.75 4.37 3.85.61.26 1.09.42 1.46.54.61.2 1.17.17 1.61.1.49-.07 1.51-.62 1.72-1.21.21-.6.21-1.11.15-1.21-.06-.11-.23-.17-.48-.29-.25-.13-1.5-.74-1.73-.83-.23-.08-.4-.12-.57.13-.17.25-.65.82-.8.99-.15.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.75-.67-1.25-1.49-1.4-1.74-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.55-1.37-.77-1.87-.19-.44-.38-.38-.53-.39z"/></svg>
   <span>Escríbenos</span>
@@ -539,5 +632,9 @@
 
 <script src="../../assets/nav.js" defer></script>
 <script src="../../assets/reveal.js" defer></script>
+<script src="./pestanas.js" defer></script>
+<script src="./motion.js" defer></script>
+<script src="../../assets/instalar.js" data-sw="./sw.js" defer></script>
+<script src="../../assets/whatsapp.js" defer></script>
 </body>
 </html>

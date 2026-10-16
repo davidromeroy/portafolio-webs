@@ -1,290 +1,893 @@
 /* ============================================================
    theme.css — FORJA Gym
-   Galpón industrial, hormigón y un amarillo que no pide permiso.
+   Laboratorio de rendimiento a medianoche (referencia: WHOOP).
+   Secciones negras teatrales que se alternan con secciones
+   blancas clínicas, un solo lima para la acción (rescatado de la
+   versión industrial; WHOOP usaba violeta),
+   titulares enormes con tracking negativo y nada de sombras.
    Se carga DESPUES de base.css.
    ============================================================ */
 
+/* ---------- Tokens ----------
+   :root es la paleta clara (secciones blancas). .is-dark redefine los
+   mismos tokens, así los componentes de base.css cambian solos según
+   la sección donde caen. Contraste medido (WCAG):
+   - Texto secundario #5c5f66: 6.4:1 sobre blanco, 5.9:1 sobre #f3f5f9.
+     El #808080 de la referencia daba 3.95:1 y no sirve para texto.
+   - Lima #d8ff33: 18.3:1 sobre negro, 15.3:1 sobre carbón, pero 1.15:1
+     sobre blanco (invisible). Por eso solo es acento en secciones
+     oscuras y en la barra de anuncio; en las claras la acción es negra.
+   - Borde de controles #7d828b: 3.4:1 sobre blanco (1.4.11). El
+     hairline #e5e7eb de la referencia queda solo para separadores. */
+
 :root {
-  --bg: #0c0c0d;
-  --surface: #141416;
-  --surface-2: #1b1b1f;
-  --text: #f4f4f2;
-  --text-muted: #8c8c94;
-  --border: #26262b;
-  --border-strong: #64646a;  /* borde de controles: >=3:1 (WCAG 1.4.11) */
-  --accent: #d8ff33;
-  --accent-contrast: #0c0c0d;
-  --nav-bg: rgba(12, 12, 13, 0.9);
+  --ink: #000000;
+  --carbon: #191919;
+  --paper: #ffffff;
+  --mist: #f3f5f9;
+  --lime: #d8ff33;
 
-  --font-heading: "Oswald", "Arial Narrow", sans-serif;
-  --font-body: "Barlow", ui-sans-serif, system-ui, sans-serif;
-  --tracking-display: 0.01em;
-  --tracking-eyebrow: 0.24em;
-  --weight-display: 600;
+  --bg: var(--paper);
+  --surface: var(--mist);
+  --surface-2: #e9ecf2;
+  --text: var(--ink);
+  --text-muted: #5c5f66;
+  --border: #e5e7eb;
+  --border-strong: #7d828b;
+  --meter-off: #c9ccd2;
+  --accent: var(--ink);
+  --accent-contrast: #ffffff;
+  --accent-hover: #2b2b2b;
+  --focus: var(--ink);
+  --nav-bg: var(--ink);
 
-  /* Sin curvas: acá todo es corte recto. */
-  --radius: 3px;
-  --radius-sm: 2px;
+  /* Proxima Nova es de pago: Montserrat es la sustituta que propone la
+     referencia y la que más se le parece en geometría. */
+  --font-heading: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --weight-display: 400;
+  --tracking-display: -0.04em;
+  --tracking-eyebrow: 0.1em;
 
-  --map-filter: invert(0.92) hue-rotate(180deg) saturate(0.15) contrast(1.05);
+  --radius: 24px;
+  --radius-sm: 12px;
+  --radius-pill: 300px;
+
+  --maxw: 1200px;
+  --section-y: clamp(4.5rem, 9vw, 7.5rem);
+
+  --map-filter: grayscale(1) contrast(1.05);
 }
 
-h1, h2, h3, .brand, .plan-price, .stat strong {
-  text-transform: uppercase;
-}
+.is-dark {
+  --bg: var(--ink);
+  --surface: var(--carbon);
+  --surface-2: #232323;
+  --text: var(--paper);
+  --text-muted: #a3a3a3;
+  --border: #2b2b2b;
+  --border-strong: #6b6b6b;
+  --meter-off: #3a3a3a;
+  --accent: var(--lime);
+  --accent-contrast: var(--ink);
+  --accent-hover: #c6ef1a;
+  --focus: var(--lime);
+  --map-filter: invert(0.9) hue-rotate(180deg) grayscale(1) contrast(1.05);
 
-/* Ajustado: con line-height menor, el fondo del <mark> pisa la línea de arriba. */
-h1 { line-height: 1.08; }
-
-/* Barra diagonal de advertencia, como en un rack de discos */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 6px;
-  background: repeating-linear-gradient(
-    -45deg,
-    var(--accent) 0 14px,
-    transparent 14px 28px
-  );
-  opacity: 0.75;
-  z-index: 1;
-}
-
-.hero {
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid var(--border);
-}
-
-/* Textura de galpón: rayado diagonal muy tenue detrás de todo el hero,
-   como el fondo de Smart Fit/Taurus. Nunca debajo de texto sin scrim. */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    115deg,
-    rgba(216, 255, 51, 0.05) 0 2px,
-    transparent 2px 46px
-  );
-  pointer-events: none;
-}
-
-.hero > .container { position: relative; z-index: 1; }
-
-.hero .eyebrow { display: block; margin-bottom: 1.1rem; }
-
-/* Hero enmarcado: la foto es la protagonista, el titular va encima con
-   scrim propio (no depende del texto para llevar contraste). */
-.hero-framed {
-  position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-}
-
-.hero-framed img {
-  width: 100%;
-  /* Más bajo que 16/10: a la altura de laptop común (~770-900px de viewport)
-     el hero llegaba a chocar con el botón flotante de WhatsApp. */
-  aspect-ratio: 20 / 9;
-  object-fit: cover;
-  display: block;
-}
-
-/* alpha 0.85 en el punto más oscuro: verificado >=16:1 con blanco incluso
-   sobre una foto clara de fondo (peor caso), sin depender del contenido. */
-.hero-scrim {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(100deg, rgba(6, 6, 7, 0.85) 0%, rgba(6, 6, 7, 0.55) 42%, rgba(6, 6, 7, 0.08) 68%),
-    linear-gradient(to top, rgba(6, 6, 7, 0.82) 0%, rgba(6, 6, 7, 0) 30%);
-}
-
-.hero-overlay-title {
-  position: absolute;
-  z-index: 2;
-  left: clamp(1.25rem, 4vw, 3rem);
-  top: clamp(1.5rem, 6vw, 3.5rem);
-  max-width: 66%;
-  margin: 0;
-  color: #fff;
-  font-size: clamp(1.9rem, 5.2vw, 3.8rem);
-}
-
-/* inline-block + line-height propio: con Oswald la caja de texto es más alta
-   que la línea, y como bloque en línea el resaltado pisaba el renglón de arriba. */
-.hero-overlay-title mark {
-  display: inline-block;
-  margin-top: 0.08em;
-  padding: 0.1em 0.24em 0.02em;
-  background: var(--accent);
-  color: var(--accent-contrast);
-  line-height: 1;
-}
-
-/* Card flotante de socios: reposicionada a la esquina superior porque
-   el borde inferior ahora lo ocupa la fila de beneficios. */
-.hero-framed .hero-badge {
-  left: auto;
-  right: clamp(1rem, 3vw, 1.5rem);
-  bottom: auto;
-  top: clamp(1rem, 3vw, 1.5rem);
-  z-index: 2;
-}
-
-/* Fila de beneficios sobre el borde inferior de la foto, como los sellos
-   circulares de Smart Fit/Taurus. */
-.badge-row {
-  position: absolute;
-  z-index: 2;
-  inset: auto 0 0 0;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.35rem;
-  margin: 0;
-  padding: 0 clamp(1rem, 3vw, 2rem) clamp(1rem, 2.5vw, 1.5rem);
-  list-style: none;
-}
-
-.badge-chip {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-width: 0;
-}
-
-.badge-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.4rem;
-  height: 2.4rem;
-  flex-shrink: 0;
-  border: 1.5px solid var(--accent);
-  border-radius: 50%;
-  background: rgba(12, 12, 13, 0.55);
-  color: var(--accent);
-}
-
-.badge-icon svg { width: 1.2rem; height: 1.2rem; }
-
-.badge-chip span:last-child {
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: 0.01em;
-}
-
-.hero-below { margin-top: clamp(1.5rem, 3vw, 2.25rem); max-width: 62ch; }
-
-.hero-below .hero-lead { margin-top: 0; }
-
-@media (max-width: 760px) {
-  /* En mobile el contenido se apila (título + 2x2 chips): con 20/9 quedaría
-     aplastado, necesita más alto. */
-  .hero-framed img { aspect-ratio: 4 / 5; }
-  .hero-overlay-title { max-width: 100%; font-size: clamp(1.7rem, 8vw, 2.4rem); }
-  .hero-framed .hero-badge { display: none; }  /* con 4 chips + titular ya satura la foto en mobile */
-  .badge-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem 0.5rem; }
-  .badge-chip span:last-child { font-size: 0.66rem; }
-  .badge-icon { width: 2.1rem; height: 2.1rem; }
-}
-
-/* Burbuja de aviso sobre el botón de WhatsApp, como el "¿Necesitas ayuda?"
-   de Taurus. Solo en escritorio: en mobile compite con el botón compacto. */
-.wa-hint {
-  position: fixed;
-  right: 1.1rem;
-  bottom: 4.7rem;
-  z-index: 89;
-  margin: 0;
-  padding: 0.5rem 0.85rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--bg);
   color: var(--text);
-  font-size: 0.78rem;
-  font-weight: 600;
-  box-shadow: var(--shadow-sm);
 }
 
-@media (max-width: 760px) {
-  .wa-hint { display: none; }
-}
+/* ---------- Base ---------- */
 
-/* Numeración grande y hueca en las disciplinas */
-.card-num {
-  font-family: var(--font-heading);
-  font-size: 2.6rem;
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--accent);
-}
+body { font-size: 1.0625rem; line-height: 1.55; }
 
-.gallery-item figcaption {
-  font-family: var(--font-heading);
-  font-size: 1.05rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
+:focus-visible { outline-color: var(--focus); }
 
-.stat strong { letter-spacing: 0.02em; }
-
-.plan-price { letter-spacing: 0; }
-
-.plan--featured { background: var(--surface-2); }
-
-.person img { border-radius: 3px; width: 100%; height: 220px; }
-
-.person { text-align: left; padding: 0; overflow: hidden; }
-
-.person > *:not(img) { padding-inline: 1.35rem; }
-.person > h3 { padding-top: 1.1rem; }
-.person > p { padding-bottom: 1.5rem; }
-
-.site-nav { border-bottom-width: 2px; }
-
-.btn { text-transform: uppercase; letter-spacing: 0.06em; }
-
-/* Grilla de clases: se lee como pizarra de gimnasio */
-.schedule {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.92rem;
-}
-
-.schedule th,
-.schedule td {
-  padding: 0.75rem 0.9rem;
-  border: 1px solid var(--border);
-  text-align: left;
-}
-
-.schedule thead th {
-  background: var(--surface-2);
-  color: var(--accent);
-  font-family: var(--font-heading);
-  font-size: 0.8rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.schedule tbody th {
-  font-family: var(--font-heading);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
   white-space: nowrap;
 }
 
-.schedule td { color: var(--text-muted); }
+/* Titulares: un solo peso (400) y tracking que se cierra con el tamaño.
+   La referencia usa line-height 0.71; en español corta las tildes y
+   pisa los descendentes de la línea de arriba, así que el piso es 0.92. */
+h1, h2 {
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
 
-.schedule-wrap { overflow-x: auto; }
+h3 {
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.13;
+}
 
+.display { text-wrap: balance; }
+
+h2.display { font-size: clamp(2.2rem, 4.6vw, 3.6rem); }
+
+.eyebrow {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.section-head { margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+
+.section-sub {
+  max-width: 52ch;
+  margin-top: 1.25rem;
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  letter-spacing: -0.02em;
+}
+
+.section--mist { background: var(--surface); }
+
+/* ---------- Botones: todos pastilla, mayúsculas con tracking ---------- */
+
+.btn {
+  white-space: nowrap;
+  padding: 0.8rem 1.6rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Plano: sin sombra ni salto al pasar el mouse, solo cambia el relleno. */
+.btn:hover { transform: none; box-shadow: none; background: var(--accent-hover); }
+
+.btn--lg { padding: 1.05rem 2rem; font-size: 0.9rem; }
+
+.btn--light { background: var(--paper); color: var(--ink); }
+.btn--light:hover { background: #e3e3e3; }
+
+.btn--ghost,
+.btn--outline {
+  background: transparent;
+  border: 1.5px solid var(--border-strong);
+  color: var(--text);
+}
+
+.btn--ghost:hover,
+.btn--outline:hover {
+  background: transparent;
+  border-color: var(--text);
+  color: var(--text);
+}
+
+/* ---------- Barra de anuncio ---------- */
+
+.announce {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem 1rem;
+  padding: 0.55rem var(--gutter);
+  background: var(--lime);
+  color: var(--ink);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.announce a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.announce a:focus-visible { outline-color: var(--ink); }
+
+/* ---------- Navegación ---------- */
+
+.site-nav {
+  border-bottom: 0;
+  background: var(--ink);
+}
+
+.site-nav::before { display: none; }
+
+.nav-inner { min-height: 80px; }
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.brand small { letter-spacing: 0.1em; font-weight: 500; }
+
+.nav-links a {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.nav-links a::after { background: var(--text); height: 1.5px; }
+
+.nav-toggle { border-radius: var(--radius-pill); }
+
+/* Menú móvil: base.css deja ~90px vacíos arriba del primer enlace y el
+   panel tapa la ✕. Con el menú abierto la ✕ queda fija arriba a la
+   derecha, sobre el panel, y los enlaces empiezan justo debajo. */
+@media (max-width: 900px) {
+  .nav-links {
+    padding-top: calc(env(safe-area-inset-top, 0px) + 76px);
+    border-left: 0;
+  }
+
+  body.nav-open .nav-toggle {
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 16px);
+    right: var(--gutter);
+    z-index: 101;
+  }
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  display: flex;
+  align-items: flex-end;
+  min-height: min(calc(100svh - 120px), 880px);
+  padding-block: clamp(5rem, 10vw, 8rem) clamp(2.5rem, 5vw, 4rem);
+  isolation: isolate;
+}
+
+/* La foto ya es casi negra en los bordes: anclada a la derecha se
+   funde con el fondo y deja el lado izquierdo libre para el titular. */
+.hero-photo {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: -1;
+  width: 72%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+
+.hero-inner { width: 100%; }
+
+.hero h1 {
+  max-width: 9ch;
+  font-size: clamp(3.2rem, 9vw, 7.5rem);
+}
+
+.hero-lead {
+  max-width: 34rem;
+  margin-top: 1.75rem;
+  color: var(--text-muted);
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  letter-spacing: -0.02em;
+}
+
+.hero-actions { margin-top: 2.25rem; }
+
+/* Palabra resaltada en lima, rescatada del "SE ENTRENA." de la versión
+   industrial. Solo en secciones oscuras: sobre blanco el lima da 1.15:1.
+   box-decoration-break repite el relleno si la frase parte en dos líneas. */
+.display mark {
+  padding-inline: 0.06em 0.1em;
+  margin-inline: -0.06em -0.1em;
+  /* Franja, no caja: el fondo de <mark> mide toda la altura de la fuente
+     (~1,22em) y con line-height 0.92 tapaba el palito de la «q» de la
+     línea de arriba. La franja va de la altura de las mayúsculas a un
+     poco bajo la base del texto (0.30em → 1.04em en Montserrat). */
+  background: linear-gradient(var(--lime), var(--lime)) 0 0.3em / 100% 0.74em no-repeat;
+  color: var(--ink);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Cifras sobre la foto, como los datos de la referencia */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  /* Acotada para que no se monte sobre el atleta de la foto */
+  max-width: min(680px, 48vw);
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.metrics div {
+  display: flex;
+  flex-direction: column-reverse;
+  /* En column-reverse, flex-end es arriba: las cifras quedan alineadas
+     aunque una etiqueta ocupe dos líneas. */
+  justify-content: flex-end;
+  gap: 0.35rem;
+}
+
+.metrics dt {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.metrics dd {
+  margin: 0;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Pestañas (disciplinas y horarios, ver pestanas.js) ----------
+   Sin JS no se agrega .is-ready: la lista de pestañas no aparece y los
+   paneles se ven todos seguidos. */
+
+.tab-list { display: none; }
+
+.tabs.is-ready .tab-list {
+  display: inline-flex;
+  max-width: 100%;
+  gap: 4px;
+  margin-bottom: 1.5rem;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tab-list::-webkit-scrollbar { display: none; }
+
+.tab-list [role="tab"] {
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 0 1.15rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.tab-list [role="tab"]:hover { color: var(--text); }
+
+.tab-list [role="tab"][aria-selected="true"] {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* .discipline y .slots tienen display propio, que le gana a [hidden] */
+[role="tabpanel"][hidden] { display: none; }
+
+.tabs:not(.is-ready) [role="tabpanel"] + [role="tabpanel"] { margin-top: 1rem; }
+
+/* Tarjeta de disciplina: texto a la izquierda, datos a la derecha */
+.discipline {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding: clamp(1.75rem, 4vw, 3rem);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.discipline h3 { font-size: clamp(1.75rem, 3vw, 2.4rem); font-weight: 400; letter-spacing: -0.04em; }
+
+.discipline-copy p {
+  max-width: 42ch;
+  margin-top: 1rem;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.discipline-data { display: grid; align-content: start; }
+
+.discipline-data div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.discipline-data div:first-child { padding-top: 0; }
+.discipline-data div:last-child { border-bottom: 0; }
+
+.discipline-data dt {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.discipline-data dd { margin: 0; font-size: 1.25rem; letter-spacing: -0.03em; }
+
+/* Medidor de 5 segmentos. Los vacíos son decorativos: el valor está
+   en el aria-label y los llenos dan 19:1 contra el fondo. */
+.meter {
+  --lv: 0;
+  display: block;
+  width: 126px;
+  height: 10px;
+  background: repeating-linear-gradient(90deg, var(--meter-off) 0 22px, transparent 22px 26px);
+}
+
+.meter::before {
+  content: "";
+  display: block;
+  width: calc(var(--lv) * 26px - 4px);
+  height: 100%;
+  background: repeating-linear-gradient(90deg, var(--text) 0 22px, transparent 22px 26px);
+}
+
+.meter[data-level="1"] { --lv: 1; }
+.meter[data-level="2"] { --lv: 2; }
+.meter[data-level="3"] { --lv: 3; }
+.meter[data-level="4"] { --lv: 4; }
+.meter[data-level="5"] { --lv: 5; }
+
+/* ---------- Carrusel de instalaciones (ver motion.js) ---------- */
+
+.reel {
+  --reel-pad: max(var(--gutter), calc((100% - var(--maxw)) / 2 + var(--gutter)));
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(240px, 26vw, 340px);
+  gap: 1.25rem;
+  padding: 0 var(--reel-pad) 0.5rem;
+  scroll-padding-inline: var(--reel-pad);
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.reel::-webkit-scrollbar { display: none; }
+
+.reel:focus-visible { outline-offset: -2px; border-radius: var(--radius); }
+
+.reel.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+
+.reel-card {
+  position: relative;
+  scroll-snap-align: start;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.reel-card img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  transition: scale 0.6s var(--ease);
+  -webkit-user-drag: none;
+}
+
+/* Velo plano para que el texto blanco se lea sobre cualquier foto
+   (sin degradado: la referencia no los usa en superficies). */
+.reel-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.reel-card figcaption {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  color: #fff;
+}
+
+.reel-title { font-size: 1.35rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.15; }
+
+.reel-stat {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.reel-stat strong {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 2.25rem;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: none;
+}
+
+.reel-nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.reel-btn {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.reel-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.reel-btn:hover:not(:disabled) { background: var(--text); border-color: var(--text); color: var(--bg); }
+.reel-btn:disabled { opacity: 0.35; cursor: default; }
+
+@media (hover: hover) {
+  .reel-card:hover img { scale: 1.04; }
+}
+
+/* ---------- Horarios ---------- */
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+/* Sin esto la lista de pestañas (inline-flex) estira la columna en móvil */
+.schedule-grid > *,
+.tabs { min-width: 0; }
+
+.slots ul { border-top: 1px solid var(--border); }
+
+.slots li {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  align-items: baseline;
+  gap: 1rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.slots time {
+  font-size: 1.6rem;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.slots span { font-size: 1.05rem; font-weight: 600; }
+
+.mist-card {
+  display: grid;
+  gap: 1.25rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.mist-card h3 { font-size: 1.5rem; }
+
+.mist-card .btn { justify-self: start; }
+
+.hours th, .hours td { padding: 0.75rem 0; }
+
+/* ---------- Planes ---------- */
+
+.plan {
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.plan--featured {
+  border: 1.5px solid var(--ink);
+  box-shadow: none;
+}
+
+.plan-tag {
+  background: var(--ink);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.plan h3 { font-size: 1.5rem; font-weight: 700; }
+
+.plan-price {
+  font-size: clamp(2.6rem, 4vw, 3.2rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+.plan-list li::before { background: var(--text); }
+
+.plans-foot {
+  margin-top: 2rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* ---------- Coaches ---------- */
+
+.coaches {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.coach img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  object-fit: cover;
+  transition: scale 0.6s var(--ease);
+}
+
+.coach h3 { margin-top: 1.25rem; font-size: 1.5rem; }
+
+.coach .role {
+  margin-top: 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.coach p:last-child { margin-top: 0.9rem; color: var(--text-muted); font-size: 1rem; }
+
+/* ---------- Opiniones ---------- */
+
+.testimonial {
+  border: 0;
+  background: var(--surface);
+}
+
+.testimonial-stat {
+  margin-bottom: 1.25rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.testimonial-stat strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--text);
+  font-size: 2.25rem;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: none;
+}
+
+.testimonial blockquote { font-size: 1.02rem; line-height: 1.6; }
+
+/* ---------- Contacto + cierre ---------- */
+
+.closing { max-width: 960px; }
+
+.closing h2.display { font-size: clamp(2.5rem, 6vw, 4.75rem); }
+
+.contact-grid {
+  margin-top: clamp(3.5rem, 7vw, 6rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--border);
+}
+
+.contact-list dd { font-weight: 500; }
+
+.contact-list a { text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 4px; }
+.contact-list a:hover { color: var(--text); text-decoration-color: var(--text); }
+
+.map-frame { border-color: var(--border); }
+
+/* ---------- Footer ---------- */
+
+.site-footer { border-top: 0; }
+
+.footer-col h2 {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.footer-col a:hover { color: var(--text); }
+
+.footer-brand .brand { font-size: 2rem; }
+
+/* ---------- Aviso de instalación (assets/instalar.css) ---------- */
+
+.instalar {
+  --instalar-bg: var(--carbon);
+  --instalar-fg: var(--paper);
+  --instalar-muted: #a3a3a3;
+  --instalar-accent: var(--lime);
+  --instalar-accent-fg: var(--ink);
+  --instalar-radius: var(--radius);
+  font-family: var(--font-body);
+}
+
+/* ---------- Splash al abrir como app ----------
+   Solo en modo app (instalada). Arranca igual que la imagen de arranque
+   de iOS (negro, F lima y FORJA) y se desvanece cuando la página ya
+   pintó, así no hay salto entre una y otra. */
+@media (display-mode: standalone) {
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: var(--ink) url("./icons/splash/marca.svg") center / 84px auto no-repeat;
+    pointer-events: none;
+    animation: splash-out 0.45s var(--ease) 0.7s forwards;
+  }
+}
+
+@keyframes splash-out {
+  to { opacity: 0; visibility: hidden; background-size: 100px auto; }
+}
+
+@media (display-mode: standalone) and (prefers-reduced-motion: reduce) {
+  body::before { animation-duration: 0.01s; animation-delay: 0.3s; }
+}
+
+/* ---------- WhatsApp ---------- */
+
+.wa-float {
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: none;
+  font-weight: 600;
+}
+
+/* ---------- Movimiento ----------
+   Todo cuelga de .motion-on (lo pone el <head> solo sin movimiento
+   reducido). Titulares que suben desde una máscara: el padding-top da
+   aire a las tildes de las mayúsculas para que la máscara no las corte. */
+
+.d-mask {
+  display: block;
+  padding-top: 0.14em;
+  margin-top: -0.14em;
+  overflow: hidden;
+}
+
+.d-mask > span { display: block; }
+
+.motion-on .d-mask > span {
+  translate: 0 105%;
+  transition: translate 0.9s var(--ease);
+}
+
+.motion-on .display .d-mask + .d-mask > span { transition-delay: 0.08s; }
+
+.motion-on .display.is-in .d-mask > span { translate: 0 0; }
+
+/* Red de seguridad: si motion.js no carga, destapa todo a los 1.5 s. */
+@keyframes d-safety { to { translate: 0 0; } }
+.motion-on:not(.motion-js) .d-mask > span { animation: d-safety 0s 1.5s forwards; }
+
+/* La foto del hero entra con un acercamiento lento */
+@keyframes hero-in {
+  from { opacity: 0; scale: 1.06; }
+  to { opacity: 1; scale: 1; }
+}
+.motion-on .hero-photo { animation: hero-in 1.6s var(--ease) both; }
+
+@media (hover: hover) {
+  .coach:hover img { scale: 1.03; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .d-mask > span { translate: none !important; }
+  .reel-card img, .coach img { transition: none; }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 960px) {
+  .schedule-grid { grid-template-columns: 1fr; }
+  .discipline { grid-template-columns: 1fr; }
+}
+
+/* En móvil, planes, coaches y opiniones pasan a fila deslizable: la
+   siguiente tarjeta asoma por el borde y la página no se estira. */
 @media (max-width: 760px) {
-  .schedule { min-width: 620px; }
+  .hero {
+    display: block;
+    min-height: 0;
+    padding-block: 0 2.5rem;
+  }
+
+  .hero-photo {
+    position: static;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  /* El titular se monta sobre el piso oscuro de la foto */
+  .hero-inner { position: relative; margin-top: -2rem; }
+
+  .metrics { grid-template-columns: repeat(2, 1fr); gap: 1.25rem 1rem; max-width: none; }
+
+  .plans,
+  .coaches,
+  .testimonials {
+    display: grid;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 84%;
+    gap: 1rem;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 0.5rem;
+    scroll-padding-inline: var(--gutter);
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .plans::-webkit-scrollbar,
+  .coaches::-webkit-scrollbar,
+  .testimonials::-webkit-scrollbar { display: none; }
+
+  .plans > *,
+  .coaches > *,
+  .testimonials > * { scroll-snap-align: start; }
+
+  .plan--featured { order: -1; }
+
+  .reel { grid-auto-columns: 78%; gap: 1rem; }
+
+  .slots li { grid-template-columns: 5rem 1fr; padding-block: 0.85rem; }
+  .slots time { font-size: 1.35rem; }
+
+  /* El botón de WhatsApp no tapa "Volver al catálogo" */
+  .site-footer { padding-bottom: 6rem; }
+}
+
+@media (max-width: 480px) {
+  .metrics dd { font-size: 1.75rem; }
 }
