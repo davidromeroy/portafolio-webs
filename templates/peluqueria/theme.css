@@ -1048,6 +1048,44 @@ body {
 @media print { .to-top { display: none; } }
 
 
+/* ================= AVISO DE INSTALACIÓN Y SPLASH ================= */
+
+/* Barra de assets/instalar.css (en iPhone imita iOS y no usa estos colores) */
+.instalar {
+  --instalar-bg: var(--slate);
+  --instalar-fg: var(--paper);
+  --instalar-muted: var(--sage);
+  --instalar-accent: var(--peach);
+  --instalar-accent-fg: var(--slate);
+  --instalar-radius: var(--radius);
+  font-family: var(--font-body);
+}
+
+/* Splash al abrir como app. Solo en modo app (instalada). Arranca igual
+   que la imagen de arranque de iOS (sage, arco con la luna y el nombre) y se
+   desvanece cuando la página ya pintó. 156px = el 40 % que usó
+   tools/generar-pwa.py --ancho sobre un iPhone de 390 pt. */
+@media (display-mode: standalone) {
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: var(--sage-wash) url("./icons/splash/marca.svg") center / 156px auto no-repeat;
+    pointer-events: none;
+    animation: splash-out 0.45s var(--ease) 0.7s forwards;
+  }
+}
+
+@keyframes splash-out {
+  to { opacity: 0; visibility: hidden; background-size: 176px auto; }
+}
+
+@media (display-mode: standalone) and (prefers-reduced-motion: reduce) {
+  body::before { animation-duration: 0.01s; animation-delay: 0.3s; }
+}
+
+
 /* ================= GRADACIÓN PASTEL DE LAS FOTOS =================
    Las fotos de Unsplash traen contrastes y saturaciones distintas;
    en Serenity la foto ya trae la paleta. Esto las lleva a la misma

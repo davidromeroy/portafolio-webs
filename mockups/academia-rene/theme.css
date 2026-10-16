@@ -1293,3 +1293,41 @@ blockquote.founder-quote {
   .contact-form-grid { grid-template-columns: 1fr; }
   .contact-form-row { grid-template-columns: 1fr; }
 }
+
+/* ---------- Aviso de instalación (assets/instalar.css) ----------
+   Colores de la barra en Android y PC. En iPhone el aviso imita iOS y
+   no usa estos colores. */
+.instalar {
+  --instalar-bg: var(--accent);
+  --instalar-fg: #ffffff;
+  --instalar-muted: rgba(255, 255, 255, 0.78);
+  --instalar-accent: #ffffff;
+  --instalar-accent-fg: var(--accent);
+  --instalar-radius: var(--radius);
+  font-family: var(--font-body);
+}
+
+/* ---------- Splash al abrir como app ----------
+   Solo en modo app (instalada). Arranca igual que la imagen de arranque
+   de iOS (azul con el logo blanco) y se desvanece cuando la página ya
+   pintó. 176px = 45 % de un iPhone de 390 pt, el --ancho que se pasó a
+   tools/generar-pwa.py. */
+@media (display-mode: standalone) {
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: var(--accent) url("./icons/splash/marca.svg") center / 176px auto no-repeat;
+    pointer-events: none;
+    animation: splash-out 0.45s var(--ease) 0.7s forwards;
+  }
+}
+
+@keyframes splash-out {
+  to { opacity: 0; visibility: hidden; }
+}
+
+@media (display-mode: standalone) and (prefers-reduced-motion: reduce) {
+  body::before { animation-duration: 0.01s; animation-delay: 0.3s; }
+}

@@ -150,14 +150,15 @@ Cómo se comporta:
 | Dónde se abre | Qué ve |
 |---|---|
 | Android / PC con Chrome, Edge, Samsung | Barra con botón **Instalar** (diálogo del sistema) |
-| iPhone / iPad | Barra estilo notificación + «Ver cómo» → hoja: Compartir → «Agregar a Inicio» → «Agregar» |
+| iPhone / iPad (hasta iOS 18) | Barra estilo notificación + «Cómo» → hoja: Compartir → «Agregar a Inicio» → «Agregar» |
+| iPhone con iOS 26 (Liquid Glass) | Igual, pero la hoja empieza en «⋯» → Compartir (sin verificar paso a paso) |
 | Instagram, Facebook, TikTok | «Ábrela en Safari/Chrome» + Copiar enlace (desde ahí no se puede instalar) |
 | Ya instalada o dentro de un iframe | Nada |
 
 - Aparece a la mitad de la página o a los 45 s, nunca al entrar, una vez por
   visita.
 - La ✕ la oculta 30 días en ese navegador.
-- `?instalar=android|ios|inapp|instalada` en la URL fuerza un caso al
+- `?instalar=android|ios|ios26|inapp|instalada` en la URL fuerza un caso al
   instante (para mostrárselo a un cliente o probar, aunque se haya tocado ✕).
 
 ### 7. WhatsApp abre la app

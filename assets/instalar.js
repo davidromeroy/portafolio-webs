@@ -23,7 +23,7 @@
    - Otros navegadores: nada.
 
    Cómo se ve: una barra de una sola línea (ícono, frase y un botón).
-   En iPhone la barra imita una notificación de iOS y "Ver cómo" abre
+   En iPhone la barra imita una notificación de iOS y "Cómo" abre
    una hoja inferior con el estilo nativo (filas agrupadas, tirador,
    íconos de Safari) y los nombres reales de los menús de iOS:
    Compartir → Agregar a Inicio → Agregar. En el navegador interno los
@@ -89,6 +89,12 @@
   var isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
   var isMobile = /Mobi|Android/i.test(ua) || isIOS;
   var isInApp =/Instagram|FBAN|FBAV|FB_IAB|FBIOS|TikTok|musical_ly|BytedanceWebview|Line\//i.test(ua);
+  // Safari de iOS 26 (Liquid Glass) movió Compartir dentro del menú «⋯».
+  // La versión de iOS sale de "Version/NN" (el "OS 18_6" del UA quedó
+  // congelado). ?instalar=ios26 fuerza esta variante para probar.
+  var iosMajor = parseInt((ua.match(/Version\/(\d+)/) || [])[1], 10) || 0;
+  var isLiquid = forced === "ios26" || (isIOS && iosMajor >= 26);
+  if (forced === "ios26") forced = "ios";
 
   function mode() {
     if (forced === "instalada") return "instalada";
@@ -164,7 +170,29 @@
   /* ---------- Vista ---------- */
 
   var SHARE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true" class="instalar-share"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8"/></svg>';
+  var MORE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true" class="instalar-share"><g fill="currentColor" stroke="none"><circle cx="5.5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="18.5" cy="12" r="1.7"/></g></svg>';
   var PLUS_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true" class="instalar-share"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8.5v7M8.5 12h7"/></svg>';
+
+  function step(ico, cls, title, small, n) {
+    return '<li><span class="instalar-hoja-ico' + cls + '">' + ico + "</span>" +
+      "<span><b>" + title + "</b><small>" + small + "</small></span><em>" + n + "</em></li>";
+  }
+
+  // Hasta iOS 18: Compartir está en la barra de abajo. Visto en el
+  // simulador (iOS 18, español).
+  var STEPS_18 =
+    step(SHARE_SVG, " is-azul", "Toca Compartir", "En la barra de Safari, abajo al centro", 1) +
+    step(PLUS_SVG, "", "Elige «Agregar a Inicio»", "Desliza la lista hacia arriba si no lo ves", 2) +
+    step("Agregar", " is-texto", "Toca «Agregar»", "Arriba a la derecha. Listo: queda junto a tus apps", 3);
+
+  // iOS 26 (Liquid Glass). SIN VERIFICAR paso a paso en un iPhone: el
+  // «⋯» y Compartir dentro de él sí se vieron en el simulador (16 oct
+  // 2026); «Ver más» y «Abrir como app web» son de memoria.
+  var STEPS_26 =
+    step(MORE_SVG, " is-azul", "Toca «⋯»", "Abajo a la derecha, junto a la dirección", 1) +
+    step(SHARE_SVG, " is-azul", "Toca «Compartir»", "En el menú que se abre", 2) +
+    step(PLUS_SVG, "", "Elige «Agregar a Inicio»", "Toca «Ver más» si no lo ves", 3) +
+    step("Agregar", " is-texto", "Toca «Agregar»", "Deja activo «Abrir como app web». Listo: queda junto a tus apps", 4);
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
@@ -181,8 +209,8 @@
     if (m === "ios") {
       return {
         title: name,
-        sub: "Instálala en tu pantalla de inicio",
-        action: '<button type="button" class="instalar-btn" data-act="hoja">Ver cómo</button>',
+        sub: "Agrégala a Inicio",
+        action: '<button type="button" class="instalar-btn" data-act="hoja">Cómo</button>',
         detail: ""
       };
     }
@@ -302,14 +330,7 @@
           '<button type="button" class="instalar-hoja-x" data-hoja="cerrar" aria-label="Cerrar">' +
             '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg></button>' +
         "</div>" +
-        '<ol class="instalar-hoja-lista">' +
-          '<li><span class="instalar-hoja-ico is-azul">' + SHARE_SVG + "</span>" +
-            "<span><b>Toca Compartir</b><small>En la barra de Safari, abajo al centro</small></span><em>1</em></li>" +
-          '<li><span class="instalar-hoja-ico">' + PLUS_SVG + "</span>" +
-            "<span><b>Elige «Agregar a Inicio»</b><small>Desliza la lista hacia arriba si no lo ves</small></span><em>2</em></li>" +
-          '<li><span class="instalar-hoja-ico is-texto">Agregar</span>' +
-            "<span><b>Toca «Agregar»</b><small>Arriba a la derecha. Listo: queda junto a tus apps</small></span><em>3</em></li>" +
-        "</ol>" +
+        '<ol class="instalar-hoja-lista">' + (isLiquid ? STEPS_26 : STEPS_18) + "</ol>" +
         '<button type="button" class="instalar-hoja-listo" data-hoja="listo">Entendido</button>' +
       "</div>";
     document.body.appendChild(sheet);
