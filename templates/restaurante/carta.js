@@ -63,6 +63,9 @@
     current = src;
     var next = frames[1 - on];
     var name = item.querySelector("h4");
+    var prevShown = root.querySelector(".menu-item.is-showing");
+    if (prevShown) prevShown.classList.remove("is-showing");
+    item.classList.add("is-showing");
     var swap = function () {
       frames[on].classList.remove("is-on");
       next.classList.add("is-on");
