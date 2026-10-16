@@ -185,11 +185,12 @@
     step(PLUS_SVG, "", "Elige «Agregar a Inicio»", "Desliza la lista hacia arriba si no lo ves", 2) +
     step("Agregar", " is-texto", "Toca «Agregar»", "Arriba a la derecha. Listo: queda junto a tus apps", 3);
 
-  // iOS 26 (Liquid Glass): Compartir está dentro de «⋯» y «Agregar a
+  // iOS 26 (Liquid Glass): Compartir está dentro del menú de Safari («⋯», o
+  // el ícono junto a «atrás» según la barra) y «Agregar a
   // Inicio» aparece al tocar «Ver más» en la hoja de Compartir. Visto en
   // el simulador (iPhone 15, iOS 26.4, español, 16 oct 2026).
   var STEPS_26 =
-    step(MORE_SVG, " is-azul", "Toca «⋯»", "Abajo a la derecha, junto a la dirección", 1) +
+    step(MORE_SVG, " is-azul", "Abre el menú de Safari", "«⋯» a la derecha o, si no está, el ícono junto a «atrás»", 1) +
     step(SHARE_SVG, " is-azul", "Toca «Compartir»", "En el menú que se abre", 2) +
     step(PLUS_SVG, "", "Elige «Agregar a Inicio»", "Primero toca «Ver más», abajo a la derecha", 3) +
     step("Agregar", " is-texto", "Toca «Agregar»", "Arriba a la derecha, con «Abrir como app web» activo", 4);
