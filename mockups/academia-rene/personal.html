@@ -13,6 +13,16 @@
     location.replace(location.pathname + "/" + location.search + location.hash);
   }
 </script>
+<script>
+  // Splash de la app instalada (theme.css): solo en el primer arranque de
+  // la sesión, no en cada cambio de página.
+  try {
+    if (!sessionStorage.getItem("splash-visto")) {
+      document.documentElement.classList.add("splash");
+      sessionStorage.setItem("splash-visto", "1");
+    }
+  } catch (e) {}
+</script>
 <!-- PWA: se instala como app (ver docs/pwa-otra-pagina.md y assets/instalar.js) -->
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">

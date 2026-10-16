@@ -2,15 +2,16 @@
    sw.js — service worker de Academia René (PWA)
    Guarda una copia del mockup para que la app instalada abra rápido
    y sin conexión. Su alcance es solo mockups/academia-rene/.
-   - Las páginas (navegación) van primero a la red: los cambios
-     publicados se ven enseguida; sin señal, sale la copia.
+   - Las páginas (navegación) salen primero de la copia y se actualizan
+     en segundo plano: cambiar de página es instantáneo. Un cambio de
+     texto se ve en la apertura siguiente (o al subir CACHE, que recarga).
    - CSS, JS, fotos y tipografías salen primero de la copia. Las fotos
      no se precargan todas (son ~25 MB): se guardan al verlas.
    Al publicar cambios de CSS, JS o fotos, sube CACHE (v1 → v2): el
    teléfono borra la copia vieja al activarse la nueva.
    ============================================================ */
 
-const CACHE = "academia-rene-v5";
+const CACHE = "academia-rene-v6";
 
 // Lo mínimo para abrir sin conexión: las 10 páginas, estilos, scripts
 // y las imágenes de la portada. Las URL tienen que ser iguales a las
@@ -31,6 +32,7 @@ const PRECACHE = [
   "./nav-dropdown.js",
   "./events-carousel.js",
   "./carousel.js",
+  "./videos.js",
   "./manifest.webmanifest",
   "./favicon.svg",
   "./icons/icon-192.png",
@@ -75,14 +77,21 @@ self.addEventListener("fetch", (event) => {
   if (req.headers.has("range") || req.destination === "video" || /\.mp4$/i.test(url.pathname)) return;
 
   if (req.mode === "navigate") {
+    // Primero la copia (cambiar de página es instantáneo, aun con mala
+    // señal) y en paralelo se pide a la red para la próxima vez. Sin copia,
+    // se espera a la red; sin red ni copia, la portada.
+    const fresh = fetch(req).then((res) => {
+      if (res.ok) {
+        const copy = res.clone();
+        caches.open(CACHE).then((c) => c.put(req, copy));
+      }
+      return res;
+    });
+    event.waitUntil(fresh.catch(() => {}));
     event.respondWith(
-      fetch(req)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(req, copy));
-          return res;
-        })
-        .catch(() => caches.match(req).then((hit) => hit || caches.match("./index.html")))
+      caches.match(req, { ignoreSearch: true }).then(
+        (hit) => hit || fresh.catch(() => caches.match("./index.html"))
+      )
     );
     return;
   }
