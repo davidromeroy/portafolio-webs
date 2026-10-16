@@ -147,6 +147,14 @@ body { font-size: 1.05rem; }
   font-size: 0.84rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  white-space: nowrap;   /* "El fuego" y "El salón" se partían en dos líneas */
+}
+
+/* Siete enlaces + botón: entre 900 y 1180px no entran con el tamaño completo */
+@media (min-width: 901px) and (max-width: 1180px) {
+  .nav-links { gap: 1.1rem; }
+  .nav-links a { font-size: 0.74rem; letter-spacing: 0.04em; }
+  .brand { font-size: 1.3rem; }
 }
 
 .nav-links a::after { background: var(--ink); }
@@ -267,7 +275,7 @@ body { font-size: 1.05rem; }
   content: "";
   position: absolute;
   inset: 0 0 auto;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1;
   background: rgba(38, 2, 18, 0.18);   /* plano: la referencia no usa degradados */
   pointer-events: none;
 }
@@ -404,7 +412,6 @@ body { font-size: 1.05rem; }
 
 .menu-item h4 { color: #fff; }
 .menu-item .price { color: var(--ink); }
-.menu-item--star h4 { color: var(--ink); }
 
 .menu-item p { color: var(--blush); font-size: 0.96rem; }
 
@@ -460,7 +467,7 @@ body { font-size: 1.05rem; }
   --reel-pad: max(var(--gutter), calc((100% - var(--maxw)) / 2 + var(--gutter)));
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: min(76vw, 400px);
+  grid-auto-columns: min(68vw, 300px);
   gap: clamp(0.75rem, 1.5vw, 1.1rem);
   padding: 0 var(--reel-pad) 1.1rem;
   scroll-padding-inline: var(--reel-pad);
@@ -481,7 +488,7 @@ body { font-size: 1.05rem; }
   background: var(--burgundy);
 }
 
-.reel-card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.reel-card img { width: 100%; aspect-ratio: 1; object-fit: cover; }
 
 .reel-card figcaption {
   padding: 1rem 1.15rem 1.1rem;
@@ -677,8 +684,10 @@ body { font-size: 1.05rem; }
   .tabs.is-ready .menu-item p { grid-column: 1 / -1; }
 
   .tabs.is-ready .menu-item[data-photo] { cursor: default; }
-  .tabs.is-ready .menu-item:hover h4,
-  .tabs.is-ready .menu-item:focus-within h4 { color: var(--ink); translate: 6px 0; }
+  /* Rojo = el plato que está en la foto grande (carta.js pone .is-showing).
+     Antes el costillar iba siempre en rojo como "plato estrella" y se leía
+     como si estuviera seleccionado. */
+  .tabs.is-ready .menu-item.is-showing h4 { color: var(--ink); translate: 6px 0; }
 
   .tabs.is-ready .carta-preview {
     position: sticky;
@@ -792,7 +801,10 @@ body { font-size: 1.05rem; }
     scrollbar-color: var(--red) transparent;
   }
   .step { scroll-snap-align: start; }
+}
 
+/* Hasta 899px no hay vista grande: la carta usa la miniatura */
+@media (max-width: 899px) {
   /* Plato en móvil: miniatura | nombre + precio debajo; descripción a lo ancho.
      El precio no se achica: necesita 24px por contraste (rojo sobre burdeos). */
   .menu-item {
@@ -998,7 +1010,9 @@ body { font-size: 1.05rem; }
 
 @media (max-width: 960px) {
   .story { grid-template-columns: 1fr; }
-  .story-visual img { aspect-ratio: 4 / 3; }
+  /* Apilada, la foto a todo el ancho quedaba gigante: se acota */
+  .story-visual { max-width: 560px; }
+  .story-visual img { aspect-ratio: 16 / 10; }
   .stat:nth-child(3) { border-left: 0; }
 }
 
