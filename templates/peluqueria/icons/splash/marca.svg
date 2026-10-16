@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 254">
+  <!-- Marca del splash: la misma luna del ícono y el nombre debajo. Se usa
+       en la pantalla que cubre la app al abrirse (theme.css) para que
+       coincida con las imágenes de arranque de iOS (icons/splash/*.png). -->
+  <path transform="translate(-14 -49) scale(0.5) translate(22 0)" fill="#3F444B" d="M246.2 405.6 A150 150 0 1 1 390.4 189.4 A130 130 0 0 0 246.2 405.6 Z"/>
+  <text x="120" y="240" fill="#3F444B" font-family="Georgia, 'Times New Roman', serif" font-size="36" text-anchor="middle">Luna Studio</text>
+</svg>
