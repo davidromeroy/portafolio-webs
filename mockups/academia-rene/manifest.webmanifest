@@ -1,0 +1,20 @@
+{
+  "name": "Academia René",
+  "short_name": "Acad. René",
+  "description": "Carreras artesanales y cursos prácticos de Academia René en Machala, desde 1968.",
+  "lang": "es-EC",
+  "dir": "ltr",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#054fa0",
+  "theme_color": "#054fa0",
+  "categories": ["education"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
