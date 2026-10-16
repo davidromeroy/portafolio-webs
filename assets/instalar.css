@@ -1,6 +1,7 @@
 /* ============================================================
-   instalar.css — aviso "Instala la app" (ver assets/instalar.js)
-   Cada demo lo tiñe desde su theme.css con estas variables:
+   instalar.css — barra "Instala la app" (ver assets/instalar.js)
+   Una sola línea discreta; los pasos se despliegan solo si se piden.
+   Cada demo la tiñe desde su theme.css con estas variables:
      --instalar-bg, --instalar-fg, --instalar-muted,
      --instalar-accent, --instalar-accent-fg, --instalar-radius
    Los valores por defecto son neutros y oscuros.
@@ -15,48 +16,118 @@
   --_radius: var(--instalar-radius, 16px);
 
   position: fixed;
-  left: 50%;
-  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  left: 12px;
+  /* Deja libre el botón flotante de WhatsApp (abajo a la derecha) */
+  right: 84px;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
   z-index: 130;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 14px;
-  width: min(420px, calc(100% - 24px));
-  padding: 16px;
+  max-width: 420px;
+  padding: 8px 8px 8px 10px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--_radius);
   background: var(--_bg);
   color: var(--_fg);
-  font-size: 0.95rem;
-  line-height: 1.45;
-  box-shadow: 0 18px 48px -12px rgba(0, 0, 0, 0.55);
-  translate: -50% 16px;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  translate: 0 12px;
   opacity: 0;
   transition: translate 0.3s ease, opacity 0.3s ease;
 }
 
-.instalar.is-open { translate: -50% 0; opacity: 1; }
+.instalar.is-open { translate: 0 0; opacity: 1; }
 
 .instalar[hidden] { display: none; }
 
-.instalar-icono {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+.instalar-fila {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.instalar-cuerpo { display: grid; gap: 6px; min-width: 0; }
+.instalar-icono {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
 
-.instalar-titulo { margin: 0; font-weight: 700; font-size: 1rem; }
+.instalar-titulo {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-weight: 600;
+}
 
-.instalar-texto { color: var(--_muted); }
+.instalar-accion { flex-shrink: 0; }
 
-.instalar-texto b { color: var(--_fg); }
+.instalar-btn {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--_accent);
+  color: var(--_accent-fg);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.instalar-btn:disabled { opacity: 0.7; cursor: default; font-weight: 500; }
+
+.instalar-btn--sec {
+  margin-top: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: var(--_fg);
+}
+
+/* La X: área táctil de 40px aunque el ícono sea chico */
+.instalar-cerrar {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin: -2px -2px -2px 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--_muted);
+  cursor: pointer;
+}
+
+.instalar-cerrar:hover { color: var(--_fg); }
+
+.instalar-cerrar svg,
+.instalar-share {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.instalar-cerrar svg { width: 18px; height: 18px; }
+
+.instalar-detalle {
+  margin: 10px 4px 4px 42px;
+  color: var(--_muted);
+  font-size: 0.875rem;
+}
+
+.instalar-detalle[hidden] { display: none; }
+
+.instalar-detalle p { margin: 0; }
+
+.instalar-detalle b { color: var(--_fg); }
 
 .instalar-pasos {
   display: grid;
   gap: 6px;
-  margin: 2px 0 0;
+  margin: 0;
   padding-left: 1.2em;
   list-style: decimal;
 }
@@ -67,54 +138,13 @@
   height: 1.15em;
   margin: 0 0.1em;
   vertical-align: -0.2em;
-  fill: none;
   stroke: var(--_fg);
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.instalar-pie {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin-top: 6px;
-}
-
-.instalar-accion:empty { display: none; }
-
-.instalar-btn,
-.instalar-cerrar {
-  min-height: 44px;
-  padding: 0 18px;
-  border-radius: 999px;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.instalar-btn {
-  border: 0;
-  background: var(--_accent);
-  color: var(--_accent-fg);
-}
-
-.instalar-btn:disabled { opacity: 0.7; cursor: default; font-weight: 500; }
-
-.instalar-cerrar {
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: transparent;
-  color: var(--_fg);
-  font-weight: 500;
 }
 
 .instalar :focus-visible { outline: 2px solid var(--_accent); outline-offset: 2px; }
 
-/* En pantallas anchas va a la izquierda, lejos del botón de WhatsApp */
 @media (min-width: 761px) {
-  .instalar { left: 24px; translate: 0 16px; }
-  .instalar.is-open { translate: 0 0; }
+  .instalar { left: 24px; right: auto; width: 380px; bottom: 24px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
