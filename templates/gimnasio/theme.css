@@ -2,7 +2,8 @@
    theme.css — FORJA Gym
    Laboratorio de rendimiento a medianoche (referencia: WHOOP).
    Secciones negras teatrales que se alternan con secciones
-   blancas clínicas, un solo violeta para la acción principal,
+   blancas clínicas, un solo lima para la acción (rescatado de la
+   versión industrial; WHOOP usaba violeta),
    titulares enormes con tracking negativo y nada de sombras.
    Se carga DESPUES de base.css.
    ============================================================ */
@@ -13,9 +14,9 @@
    la sección donde caen. Contraste medido (WCAG):
    - Texto secundario #5c5f66: 6.4:1 sobre blanco, 5.9:1 sobre #f3f5f9.
      El #808080 de la referencia daba 3.95:1 y no sirve para texto.
-   - Violeta #4a53ff: 5.3:1 con texto blanco encima, 5.3:1 como texto
-     sobre blanco. Sobre negro da 3.97:1: en oscuro el texto y el foco
-     usan #8b91ff (7.6:1).
+   - Lima #d8ff33: 18.3:1 sobre negro, 15.3:1 sobre carbón, pero 1.15:1
+     sobre blanco (invisible). Por eso solo es acento en secciones
+     oscuras y en la barra de anuncio; en las claras la acción es negra.
    - Borde de controles #7d828b: 3.4:1 sobre blanco (1.4.11). El
      hairline #e5e7eb de la referencia queda solo para separadores. */
 
@@ -24,8 +25,7 @@
   --carbon: #191919;
   --paper: #ffffff;
   --mist: #f3f5f9;
-  --violet: #4a53ff;
-  --violet-light: #8b91ff;
+  --lime: #d8ff33;
 
   --bg: var(--paper);
   --surface: var(--mist);
@@ -35,9 +35,10 @@
   --border: #e5e7eb;
   --border-strong: #7d828b;
   --meter-off: #c9ccd2;
-  --accent: var(--violet);
+  --accent: var(--ink);
   --accent-contrast: #ffffff;
-  --focus: var(--violet);
+  --accent-hover: #2b2b2b;
+  --focus: var(--ink);
   --nav-bg: var(--ink);
 
   /* Proxima Nova es de pago: Montserrat es la sustituta que propone la
@@ -67,7 +68,10 @@
   --border: #2b2b2b;
   --border-strong: #6b6b6b;
   --meter-off: #3a3a3a;
-  --focus: var(--violet-light);
+  --accent: var(--lime);
+  --accent-contrast: var(--ink);
+  --accent-hover: #c6ef1a;
+  --focus: var(--lime);
   --map-filter: invert(0.9) hue-rotate(180deg) grayscale(1) contrast(1.05);
 
   background: var(--bg);
@@ -138,7 +142,7 @@ h2.display { font-size: clamp(2.2rem, 4.6vw, 3.6rem); }
 }
 
 /* Plano: sin sombra ni salto al pasar el mouse, solo cambia el relleno. */
-.btn:hover { transform: none; box-shadow: none; background: #3a43f0; }
+.btn:hover { transform: none; box-shadow: none; background: var(--accent-hover); }
 
 .btn--lg { padding: 1.05rem 2rem; font-size: 0.9rem; }
 
@@ -168,8 +172,8 @@ h2.display { font-size: clamp(2.2rem, 4.6vw, 3.6rem); }
   align-items: center;
   gap: 0.25rem 1rem;
   padding: 0.55rem var(--gutter);
-  background: var(--violet);
-  color: #fff;
+  background: var(--lime);
+  color: var(--ink);
   font-size: 0.875rem;
   text-align: center;
 }
@@ -183,7 +187,7 @@ h2.display { font-size: clamp(2.2rem, 4.6vw, 3.6rem); }
   text-underline-offset: 3px;
 }
 
-.announce a:focus-visible { outline-color: #fff; }
+.announce a:focus-visible { outline-color: var(--ink); }
 
 /* ---------- Navegación ---------- */
 
@@ -254,12 +258,25 @@ h2.display { font-size: clamp(2.2rem, 4.6vw, 3.6rem); }
 
 .hero-actions { margin-top: 2.25rem; }
 
+/* Palabra resaltada en lima, rescatada del "SE ENTRENA." de la versión
+   industrial. Solo en secciones oscuras: sobre blanco el lima da 1.15:1.
+   box-decoration-break repite el relleno si la frase parte en dos líneas. */
+.display mark {
+  padding-inline: 0.06em 0.1em;
+  margin-inline: -0.06em -0.1em;
+  background: var(--lime);
+  color: var(--ink);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
 /* Cifras sobre la foto, como los datos de la referencia */
 .metrics {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.5rem;
-  max-width: 760px;
+  /* Acotada para que no se monte sobre el atleta de la foto */
+  max-width: min(680px, 48vw);
   margin-top: clamp(3rem, 6vw, 5rem);
   padding-top: 1.5rem;
   border-top: 1px solid var(--border);
@@ -268,6 +285,9 @@ h2.display { font-size: clamp(2.2rem, 4.6vw, 3.6rem); }
 .metrics div {
   display: flex;
   flex-direction: column-reverse;
+  /* En column-reverse, flex-end es arriba: las cifras quedan alineadas
+     aunque una etiqueta ocupe dos líneas. */
+  justify-content: flex-end;
   gap: 0.35rem;
 }
 
@@ -774,7 +794,7 @@ h2.display { font-size: clamp(2.2rem, 4.6vw, 3.6rem); }
   /* El titular se monta sobre el piso oscuro de la foto */
   .hero-inner { position: relative; margin-top: -2rem; }
 
-  .metrics { grid-template-columns: repeat(2, 1fr); gap: 1.25rem 1rem; }
+  .metrics { grid-template-columns: repeat(2, 1fr); gap: 1.25rem 1rem; max-width: none; }
 
   .plans,
   .coaches,
