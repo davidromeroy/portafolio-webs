@@ -45,4 +45,48 @@
 
   root.classList.add("is-ready");
   select(0, false);
+
+  /* ---------- Vista grande del plato (escritorio) ----------
+     Dos <img> apiladas: la nueva foto carga en la oculta y se cruza
+     con la visible, así el cambio no parpadea mientras baja la imagen. */
+
+  var preview = root.querySelector(".carta-preview");
+  if (!preview) return;
+  var frames = [].slice.call(preview.querySelectorAll("img"));
+  var caption = preview.querySelector("figcaption");
+  var current = frames[0].getAttribute("src");
+  var on = 0;
+
+  function show(item) {
+    var src = item.getAttribute("data-photo");
+    if (!src || src === current) return;
+    current = src;
+    var next = frames[1 - on];
+    var name = item.querySelector("h4");
+    var swap = function () {
+      frames[on].classList.remove("is-on");
+      next.classList.add("is-on");
+      on = 1 - on;
+      if (caption && name) caption.textContent = name.textContent;
+    };
+    next.onload = swap;
+    next.setAttribute("src", src);
+    if (next.complete) { next.onload = null; swap(); }
+  }
+
+  [].forEach.call(root.querySelectorAll(".menu-item"), function (item) {
+    item.addEventListener("mouseenter", function () { show(item); });
+    item.addEventListener("focusin", function () { show(item); });
+  });
+
+  // Al cambiar de pestaña (clic o flechas, que mueven el foco), la vista
+  // arranca en el primer plato con foto
+  tabs.forEach(function (tab, i) {
+    var reset = function () {
+      var first = panels[i].querySelector(".menu-item[data-photo]");
+      if (first) show(first);
+    };
+    tab.addEventListener("click", reset);
+    tab.addEventListener("focus", reset);
+  });
 })();

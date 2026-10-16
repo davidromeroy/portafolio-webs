@@ -101,6 +101,9 @@ body { font-size: 1.05rem; }
 
 .section-head--center .section-sub { margin-inline: auto; max-width: 52ch; }
 
+/* El ancho de 62ch de base.css partía los titulares de afiche en dos líneas */
+.section-head--center { max-width: none; }
+
 /* ---------- Botones ---------- */
 
 .btn {
@@ -252,6 +255,9 @@ body { font-size: 1.05rem; }
 .hero-feature img,
 .story-visual img,
 .reel-card img,
+.menu-thumb,
+.carta-preview img,
+.step img,
 .testimonial img { filter: var(--photo-grade); }
 
 /* Velo vino plano en el carrusel: hunde los fondos claros (manteles, paredes)
@@ -620,6 +626,185 @@ body { font-size: 1.05rem; }
 }
 
 .wa-float:hover { background: #b30500; transform: none; }
+
+/* ---------- Carta con fotos ----------
+   Móvil / sin JS: miniatura a la izquierda de cada plato.
+   Escritorio con JS: lista + vista grande que sigue al puntero. */
+
+.menu-item {
+  grid-template-columns: 96px 1fr auto;
+  align-items: start;
+}
+
+.menu-thumb {
+  grid-row: 1 / span 2;
+  width: 96px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  clip-path: polygon(6% 4%, 60% 0, 97% 10%, 100% 62%, 90% 98%, 38% 100%, 0 88%, 2% 30%);
+}
+
+.menu-thumb--empty {
+  display: grid;
+  place-items: center;
+  background: var(--surface-2);
+  color: var(--ink);
+  font-size: 1.6rem;
+  filter: none;
+}
+
+.menu-item p { grid-column: 2 / -1; }
+
+.menu-item h4 { transition: color 0.2s var(--ease), translate 0.25s var(--ease); }
+
+.carta-preview { display: none; }
+
+@media (min-width: 900px) {
+  .tabs.is-ready .carta-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    align-items: start;
+    gap: clamp(1.5rem, 3vw, 2.75rem);
+    max-width: 1180px;
+    margin-inline: auto;
+  }
+
+  .tabs.is-ready .tab-panel { max-width: none; }
+
+  /* Con la vista grande al lado, la miniatura sobra */
+  .tabs.is-ready .menu-item { grid-template-columns: 1fr auto; }
+  .tabs.is-ready .menu-thumb { display: none; }
+  .tabs.is-ready .menu-item p { grid-column: 1 / -1; }
+
+  .tabs.is-ready .menu-item[data-photo] { cursor: default; }
+  .tabs.is-ready .menu-item:hover h4,
+  .tabs.is-ready .menu-item:focus-within h4 { color: var(--ink); translate: 6px 0; }
+
+  .tabs.is-ready .carta-preview {
+    position: sticky;
+    top: 96px;
+    display: block;
+    margin: 0;
+    aspect-ratio: 4 / 5;
+    clip-path: polygon(5% 2%, 62% 0, 98% 7%, 100% 58%, 95% 97%, 44% 100%, 2% 94%, 0 40%);
+  }
+
+  .carta-preview img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    scale: 1.06;
+    transition: opacity 0.45s var(--ease), scale 0.8s var(--ease);
+  }
+
+  .carta-preview img.is-on { opacity: 1; scale: 1; }
+
+  .carta-preview figcaption {
+    position: absolute;
+    left: 8%;
+    bottom: 7%;
+    padding: 0.45rem 0.8rem 0.5rem;
+    border-radius: var(--radius-pill);
+    background: var(--black);
+    color: var(--blush);
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    line-height: 1;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+}
+
+/* ---------- El fuego: tres pasos ---------- */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
+  counter-reset: none;
+}
+
+.step {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--black);
+  border-radius: var(--radius);
+  background: var(--burgundy);
+  transition: rotate 0.35s var(--ease), translate 0.35s var(--ease);
+}
+
+.step img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: scale 0.6s var(--ease);
+}
+
+/* Número en contorno sobre la foto, como un sello */
+.step-num {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.9rem;
+  color: transparent;
+  font-family: var(--font-heading);
+  font-size: clamp(3.5rem, 6vw, 5rem);
+  line-height: 1;
+  -webkit-text-stroke: 2px var(--ink);
+}
+
+.step h3 {
+  padding: 1.25rem 1.4rem 0;
+  color: #fff;
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.step p {
+  padding: 0.7rem 1.4rem 1.5rem;
+  color: var(--blush);
+  font-size: 0.98rem;
+}
+
+@media (hover: hover) {
+  .step:hover { rotate: -1deg; translate: 0 -6px; }
+  .step:nth-child(2):hover { rotate: 1deg; }
+  .step:hover img { scale: 1.06; }
+}
+
+@media (max-width: 760px) {
+  /* Pasos en carrusel: apilados sumaban ~1.500px de alto */
+  .steps {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 84%;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 0.75rem;
+    scroll-padding-inline: var(--gutter);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--red) transparent;
+  }
+  .step { scroll-snap-align: start; }
+
+  /* Plato en móvil: miniatura | nombre + precio debajo; descripción a lo ancho.
+     El precio no se achica: necesita 24px por contraste (rojo sobre burdeos). */
+  .menu-item {
+    grid-template-columns: 84px 1fr;
+    gap: 0.35rem 0.9rem;
+  }
+  .menu-thumb { width: 84px; grid-row: 1 / span 2; }
+  .menu-item h4 { grid-column: 2; font-size: 1.3rem; }
+  .menu-item .price { grid-column: 2; grid-row: 2; }
+  .menu-item p { grid-column: 1 / -1; }
+  .tab-panel { padding: 1.25rem; }
+}
 
 /* ============================================================
    Movimiento (ver motion.js). Todo cuelga de .motion-on, que el
