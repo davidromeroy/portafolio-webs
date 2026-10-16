@@ -6,6 +6,14 @@
 <title>FORJA Gym — Gimnasio y entrenamiento funcional en Kennedy Norte, Guayaquil</title>
 <meta name="description" content="Gimnasio en Kennedy Norte con 1.100 m², evaluación física con datos, pesas libres, funcional, boxeo y cycling. Abierto de 05:00 a 23:00. Planes desde $35 al mes.">
 <meta name="theme-color" content="#000000">
+<!-- Sin la barra final (/templates/gimnasio) las rutas ./ apuntan a la
+     carpeta de arriba y no cargan ni el CSS ni las fotos. vercel.json ya
+     redirige; esto cubre cualquier otro hosting. -->
+<script>
+  if (!/\/$|\.html$/.test(location.pathname)) {
+    location.replace(location.pathname + "/" + location.search + location.hash);
+  }
+</script>
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_EC">

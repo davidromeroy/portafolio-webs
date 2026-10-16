@@ -22,9 +22,14 @@
      enlace (desde ahí no se puede instalar).
    - Otros navegadores: nada.
 
-   Cuándo aparece: tras mostrar interés (bajar más de una pantalla y
-   media, o 20 s en la página), nunca al entrar. "Ahora no" lo oculta
-   30 días. Cualquier elemento con [data-instalar-abrir] lo abre a mano.
+   Cómo se ve: una barra de una sola línea (ícono, frase y un botón).
+   Los pasos de iPhone o del navegador interno se despliegan solo si la
+   persona toca "Cómo".
+
+   Cuándo aparece: cuando ya recorrió más de la mitad de la página (o
+   tras 45 s), nunca al entrar y como mucho una vez por visita. La X la
+   oculta 30 días en ese navegador. Cualquier elemento con
+   [data-instalar-abrir] la abre a mano.
 
    Para probar o mostrar en una demo: ?instalar=android | ios | inapp
    | instalada fuerza ese caso al instante.
@@ -41,6 +46,7 @@
   };
 
   var KEY = "instalar-oculto-hasta";
+  var SESSION_KEY = "instalar-visto";
   var DAYS = 30;
   var deferred = null; // evento beforeinstallprompt guardado (Chrome/Edge)
   var card = null;
@@ -108,9 +114,10 @@
   function armTriggers() {
     if (armed) return;
     armed = true;
-    var timer = setTimeout(maybeShow, 20000);
+    var timer = setTimeout(maybeShow, 45000);
     function onScroll() {
-      if (window.scrollY > window.innerHeight * 1.5) {
+      var doc = document.documentElement;
+      if (window.scrollY + window.innerHeight > doc.scrollHeight * 0.55) {
         window.removeEventListener("scroll", onScroll);
         clearTimeout(timer);
         maybeShow();
@@ -121,8 +128,13 @@
 
   function maybeShow() {
     var m = mode();
-    if (!m || m === "instalada" || snoozed()) return;
+    if (!m || m === "instalada" || snoozed() || seenThisVisit()) return;
     show(m);
+    try { sessionStorage.setItem(SESSION_KEY, "1"); } catch (e) {}
+  }
+
+  function seenThisVisit() {
+    try { return sessionStorage.getItem(SESSION_KEY) === "1"; } catch (e) { return false; }
   }
 
   // Botones o enlaces de la página que abren el aviso a mano
@@ -143,37 +155,37 @@
 
   function body(m) {
     var name = esc(cfg.name);
+    var how = '<button type="button" class="instalar-btn" data-act="como" aria-expanded="false">Cómo</button>';
     if (m === "android") {
       return {
-        title: "Instala " + name + (isMobile ? " en tu teléfono" : " como app"),
-        text: isMobile
-          ? "Ábrela desde la pantalla de inicio, a pantalla completa y aunque tengas mala señal."
-          : "Ábrela en su propia ventana, sin pestañas, y aunque te quedes sin internet.",
-        action: '<button type="button" class="instalar-btn" data-act="instalar">Instalar</button>'
+        title: isMobile ? "Instala la app" : "Instala " + name + " como app",
+        action: '<button type="button" class="instalar-btn" data-act="instalar">Instalar</button>',
+        detail: ""
       };
     }
     if (m === "ios") {
       return {
-        title: "Agrega " + name + " a tu iPhone",
-        text: '<ol class="instalar-pasos">' +
+        title: "Instala la app",
+        action: how,
+        detail: '<ol class="instalar-pasos">' +
           "<li>Toca " + SHARE_SVG + " <b>Compartir</b> en la barra del navegador.</li>" +
           "<li>Elige " + PLUS_SVG + " <b>Agregar a pantalla de inicio</b> y luego <b>Agregar</b>.</li>" +
-          "</ol>",
-        action: ""
+          "</ol>"
       };
     }
     if (m === "inapp") {
       var where = isIOS ? "Safari" : "Chrome";
       return {
-        title: "Ábrela en " + where + " para instalarla",
-        text: "Desde Instagram o Facebook no se puede instalar. Toca <b>⋯</b> arriba y elige <b>Abrir en el navegador</b>, o copia el enlace y pégalo en " + where + ".",
-        action: '<button type="button" class="instalar-btn" data-act="copiar">Copiar enlace</button>'
+        title: "Ábrela en " + where,
+        action: how,
+        detail: "<p>Desde Instagram o Facebook no se puede instalar. Toca <b>⋯</b> arriba y elige <b>Abrir en el navegador</b>, o copia el enlace y pégalo en " + where + ".</p>" +
+          '<button type="button" class="instalar-btn instalar-btn--sec" data-act="copiar">Copiar enlace</button>'
       };
     }
     return {
       title: "Instalar " + name,
-      text: "Ábrela en Chrome (Android o computadora) o en Safari (iPhone) y vuelve a tocar «Instalar la app».",
-      action: ""
+      action: how,
+      detail: "<p>Ábrela en Chrome (Android o computadora) o en Safari (iPhone) y vuelve a tocar «Instalar la app».</p>"
     };
   }
 
@@ -183,8 +195,10 @@
     var b = body(m);
     card.setAttribute("data-modo", m);
     card.querySelector(".instalar-titulo").innerHTML = b.title;
-    card.querySelector(".instalar-texto").innerHTML = b.text;
     card.querySelector(".instalar-accion").innerHTML = b.action;
+    var detail = card.querySelector(".instalar-detalle");
+    detail.innerHTML = b.detail;
+    detail.hidden = true;
     card.hidden = false;
     requestAnimationFrame(function () { card.classList.add("is-open"); });
     shown = true;
@@ -202,13 +216,14 @@
     card.setAttribute("aria-label", "Instalar la app");
     card.hidden = true;
     card.innerHTML =
-      (cfg.icon ? '<img class="instalar-icono" src="' + esc(cfg.icon) + '" width="48" height="48" alt="">' : "") +
-      '<div class="instalar-cuerpo">' +
+      '<div class="instalar-fila">' +
+        (cfg.icon ? '<img class="instalar-icono" src="' + esc(cfg.icon) + '" width="32" height="32" alt="">' : "") +
         '<p class="instalar-titulo"></p>' +
-        '<div class="instalar-texto"></div>' +
-        '<div class="instalar-pie"><span class="instalar-accion"></span>' +
-          '<button type="button" class="instalar-cerrar" data-act="cerrar">Ahora no</button></div>' +
-      "</div>";
+        '<span class="instalar-accion"></span>' +
+        '<button type="button" class="instalar-cerrar" data-act="cerrar" aria-label="Cerrar (no vuelve a aparecer en 30 días)">' +
+          '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>' +
+      "</div>" +
+      '<div class="instalar-detalle" hidden></div>';
     document.body.appendChild(card);
 
     card.addEventListener("click", function (e) {
@@ -218,6 +233,12 @@
       if (a === "cerrar") { snooze(DAYS); hide(); }
       if (a === "instalar") install(act);
       if (a === "copiar") copy(act);
+      if (a === "como") {
+        var d = card.querySelector(".instalar-detalle");
+        d.hidden = !d.hidden;
+        act.setAttribute("aria-expanded", String(!d.hidden));
+        act.textContent = d.hidden ? "Cómo" : "Ocultar";
+      }
     });
 
     document.addEventListener("keydown", function (e) {
