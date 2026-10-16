@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- Fuente de los íconos de la PWA. La luna va dibujada con dos arcos (no
-       con texto) para que se vea igual sin depender de una tipografía, y
-       cabe en la zona segura del ícono maskable (círculo del 80 %). -->
-  <rect width="512" height="512" fill="#E1E6E1"/>
-  <path transform="translate(22 0)" fill="#3F444B" d="M246.2 405.6 A150 150 0 1 1 390.4 189.4 A130 130 0 0 0 246.2 405.6 Z"/>
+  <!-- Fuente de los íconos de la PWA. Arco del hero (durazno sobre rosa) con la luna; todo dibujado con formas, sin <text>. Cabe en el círculo del 80 % del maskable. -->
+  <rect width="512" height="512" fill="#3F444B"/>
+  <path fill="#FFE4CF" d="M126 216.0 A130.0 130.0 0 0 1 386 216.0 V416 H126 Z"/>
+  <path fill="#3F444B" d="M334.625 326.5Q336.875 327.5 336.875 329.5Q336.875 329.75 336.75 330.125Q336.625 330.5 336.125 331.75L312.625 381.25Q311.625 383.5 309.625 383.5Q309.125 383.5 308.375 383.125Q307.625 382.75 306.125 381.25Q304.875 380.0 301.125 380.0H175.875Q172.125 380.0 172.125 376.25V368.75Q172.125 365.0 175.875 365.0Q194.375 365.0 194.375 341.25V231.5Q194.375 207.75 175.875 207.75Q172.125 207.75 172.125 204.0V196.5Q172.125 192.5 175.875 192.5H251.625Q256.375 192.5 256.375 196.5V204.0Q256.375 207.75 251.875 207.75H234.125V338.5Q234.125 362.25 251.375 362.25H261.125Q279.375 362.25 294.625 354.375Q309.875 346.5 320.625 324.75L321.375 323.25Q322.625 321.0 324.375 321.0Q325.625 321.0 326.625 321.75Z"/>
+  <path transform="translate(246.56 118.32) scale(0.2800)" fill="#D8B8B5" d="M246.2 405.6 A150 150 0 1 1 390.4 189.4 A130 130 0 0 0 246.2 405.6 Z"/>
 </svg>
