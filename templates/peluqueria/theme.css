@@ -1062,8 +1062,8 @@ body {
 }
 
 /* Splash al abrir como app. Solo en modo app (instalada). Arranca igual
-   que la imagen de arranque de iOS (sage, luna y el nombre) y se
-   desvanece cuando la página ya pintó. 116px = el 30 % que usó
+   que la imagen de arranque de iOS (sage, arco con la luna y el nombre) y se
+   desvanece cuando la página ya pintó. 156px = el 40 % que usó
    tools/generar-pwa.py --ancho sobre un iPhone de 390 pt. */
 @media (display-mode: standalone) {
   body::before {
@@ -1071,14 +1071,14 @@ body {
     position: fixed;
     inset: 0;
     z-index: 1000;
-    background: var(--sage-wash) url("./icons/splash/marca.svg") center / 116px auto no-repeat;
+    background: var(--sage-wash) url("./icons/splash/marca.svg") center / 156px auto no-repeat;
     pointer-events: none;
     animation: splash-out 0.45s var(--ease) 0.7s forwards;
   }
 }
 
 @keyframes splash-out {
-  to { opacity: 0; visibility: hidden; background-size: 136px auto; }
+  to { opacity: 0; visibility: hidden; background-size: 176px auto; }
 }
 
 @media (display-mode: standalone) and (prefers-reduced-motion: reduce) {

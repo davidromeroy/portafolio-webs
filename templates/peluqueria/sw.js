@@ -9,14 +9,14 @@
    teléfono borra la copia vieja al activarse la nueva.
    ============================================================ */
 
-const CACHE = "luna-v1";
+const CACHE = "luna-v2";
 
 // Lo mínimo para abrir sin conexión. Las URL tienen que ser iguales a
 // las que pide el HTML (el CSS y los scripts van con su ?v=).
 const PRECACHE = [
   "./",
   "./index.html",
-  "./theme.css?v=2026-10-16",
+  "./theme.css?v=2026-10-16b",
   "./servicios.js?v=2026-10-15c",
   "./motion.js?v=2026-10-15c",
   "./trabajos.js?v=2026-10-15c",
