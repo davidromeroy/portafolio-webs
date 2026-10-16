@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Fuente de los íconos de la PWA. La F va dibujada con rectángulos (no
+       con texto) para que se vea igual sin depender de una tipografía, y
+       cabe en la zona segura del ícono maskable (círculo del 80 %). -->
+  <rect width="512" height="512" fill="#000000"/>
+  <g fill="#D8FF33">
+    <rect x="176" y="128" width="80" height="256"/>
+    <rect x="176" y="128" width="176" height="72"/>
+    <rect x="176" y="228" width="144" height="64"/>
+  </g>
+</svg>
