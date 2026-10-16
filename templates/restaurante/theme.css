@@ -45,7 +45,9 @@
   --maxw: 1280px;
   --section-y: clamp(4rem, 8vw, 6.5rem);
 
-  --map-filter: invert(0.9) hue-rotate(160deg) saturate(0.5) brightness(0.8);
+  /* Mapa oscuro teñido hacia vino: se invierte, se pasa a gris y sepia
+     para fijar un tono, y se gira el tono hasta el burdeos de la paleta. */
+  --map-filter: invert(0.92) grayscale(1) sepia(1) hue-rotate(-50deg) saturate(2.4) brightness(0.62) contrast(1.1);
 }
 
 body { font-size: 1.05rem; }
@@ -217,6 +219,22 @@ body { font-size: 1.05rem; }
   bottom: 4%; right: 4%;
   clip-path: polygon(20% 6%, 70% 0, 100% 36%, 94% 80%, 56% 100%, 10% 88%, 0 44%);
   transform: rotate(-5deg);
+}
+
+/* Foto grande del corte: solo en móvil, donde las flotantes quedan en 96px
+   y la carne pierde protagonismo. Mismo recorte irregular que el resto. */
+.hero-feature {
+  display: none;
+  width: 100%;
+  max-width: 440px;
+  margin: 2.5rem auto 0;
+}
+
+.hero-feature img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  clip-path: polygon(4% 8%, 46% 0, 94% 5%, 100% 52%, 95% 94%, 52% 100%, 6% 95%, 0 48%);
 }
 
 /* ---------- Cifras ---------- */
@@ -563,7 +581,8 @@ body { font-size: 1.05rem; }
 /* ---------- WhatsApp flotante en el rojo de marca ---------- */
 
 .wa-float {
-  border: 1px solid var(--black);
+  /* Borde rosa: sin él, el botón rojo se pierde al pasar sobre la franja roja */
+  border: 2px solid var(--blush);
   border-radius: var(--radius-pill);
   background: var(--red);
   box-shadow: none;
@@ -582,13 +601,20 @@ body { font-size: 1.05rem; }
 }
 
 @media (max-width: 760px) {
-  .hero { padding-block: 8.5rem 8rem; }
+  .hero { padding-block: 8.5rem 3.5rem; }
 
   .float { width: 96px; }
   .float--a { top: 1.25rem; left: -12px; }
   .float--b { top: 1.75rem; right: -10px; }
-  .float--c { bottom: 1rem; left: 8%; }
-  .float--d { bottom: 1.5rem; right: 8%; }
+  /* Abajo manda la foto grande; las dos flotantes de abajo competirían con ella */
+  .float--c,
+  .float--d { display: none; }
+
+  .hero-feature { display: block; }
+
+  /* El WhatsApp flotante (~52px + 1rem) tapaba la última línea del pie,
+     que no puede scrollear más arriba porque ahí termina la página. */
+  .site-footer { padding-bottom: calc(2rem + 76px); }
 
   .tab { padding: 0.55rem 0.8rem 0.55rem 0.95rem; font-size: 0.84rem; }
   .tab-panel { border-radius: 24px; }
