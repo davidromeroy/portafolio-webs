@@ -1332,3 +1332,23 @@ blockquote.founder-quote {
 @media (display-mode: standalone) and (prefers-reduced-motion: reduce) {
   html.splash body::before { animation-duration: 0.01s; animation-delay: 0.3s; }
 }
+
+/* ---------- Transición entre páginas (View Transitions) ----------
+   Cada opción del menú carga otro HTML. Con esto el navegador funde la
+   página vieja con la nueva en vez de cortar en blanco; la cabecera y el
+   botón de WhatsApp quedan quietos. Safari 18.2+ y Chrome 126+; los
+   demás navegan como siempre. Con movimiento reducido, sin transición. */
+@view-transition { navigation: auto; }
+
+.site-nav { view-transition-name: site-nav; }
+.wa-float { view-transition-name: wa-float; }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.22s;
+  animation-timing-function: var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}

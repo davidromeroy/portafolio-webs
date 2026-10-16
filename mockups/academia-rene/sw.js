@@ -11,7 +11,7 @@
    teléfono borra la copia vieja al activarse la nueva.
    ============================================================ */
 
-const CACHE = "academia-rene-v6";
+const CACHE = "academia-rene-v7";
 
 // Lo mínimo para abrir sin conexión: las 10 páginas, estilos, scripts
 // y las imágenes de la portada. Las URL tienen que ser iguales a las
