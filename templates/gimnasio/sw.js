@@ -9,7 +9,7 @@
    teléfono borra la copia vieja al activarse la nueva.
    ============================================================ */
 
-const CACHE = "forja-v7";
+const CACHE = "forja-v8";
 
 // Lo mínimo para abrir sin conexión. Las URL tienen que ser iguales a
 // las que pide el HTML (theme.css va con su ?v=).

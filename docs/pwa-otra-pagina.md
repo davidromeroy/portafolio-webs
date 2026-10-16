@@ -151,7 +151,7 @@ Cómo se comporta:
 |---|---|
 | Android / PC con Chrome, Edge, Samsung | Barra con botón **Instalar** (diálogo del sistema) |
 | iPhone / iPad (hasta iOS 18) | Barra estilo notificación + «Cómo» → hoja: Compartir → «Agregar a Inicio» → «Agregar» |
-| iPhone con iOS 26 (Liquid Glass) | Igual, pero la hoja empieza en «⋯» → Compartir (sin verificar paso a paso) |
+| iPhone con iOS 26 (Liquid Glass) | Igual, pero la hoja dice: «⋯» → Compartir → «Ver más» → «Agregar a Inicio» → «Agregar» |
 | Instagram, Facebook, TikTok | «Ábrela en Safari/Chrome» + Copiar enlace (desde ahí no se puede instalar) |
 | Ya instalada o dentro de un iframe | Nada |
 
