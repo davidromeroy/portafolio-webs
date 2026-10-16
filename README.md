@@ -49,8 +49,8 @@ templates/<nombre>/
 <link rel="stylesheet" href="./theme.css">
 ```
 
-Para crear un template nuevo, copiá cualquier carpeta de `templates/`,
-cambiá el bloque `:root` de su `theme.css` y reemplazá el contenido del
+Para crear un template nuevo, copia cualquier carpeta de `templates/`,
+cambia el bloque `:root` de su `theme.css` y reemplaza el contenido del
 `index.html`.
 
 ## Ver el sitio en local
@@ -58,20 +58,20 @@ cambiá el bloque `:root` de su `theme.css` y reemplazá el contenido del
 Doble clic en `index.html` alcanza para casi todo. Los previews del catálogo
 usan `iframe` con rutas relativas, así que también funcionan sobre `file://`.
 
-Si preferís un servidor local:
+Si prefieres un servidor local:
 
 ```bash
 python3 -m http.server 8000
-# luego abrí http://localhost:8000
+# luego abre http://localhost:8000
 ```
 
 ## Publicar en GitHub Pages
 
-1. Subí el repositorio a GitHub (rama `main`).
-2. En el repo, entrá a **Settings → Pages**.
-3. En **Source**, elegí **Deploy from a branch**.
-4. En **Branch**, elegí `main` y la carpeta `/ (root)`. Guardá.
-5. Esperá uno o dos minutos. La URL queda en
+1. Sube el repositorio a GitHub (rama `main`).
+2. En el repo, entra a **Settings → Pages**.
+3. En **Source**, elige **Deploy from a branch**.
+4. En **Branch**, elige `main` y la carpeta `/ (root)`. Guarda.
+5. Espera uno o dos minutos. La URL queda en
    `https://<usuario>.github.io/<repositorio>/`.
 
 Notas:
@@ -82,8 +82,8 @@ Notas:
 - Todas las rutas del sitio son relativas, así que funciona igual publicado en
   la raíz del dominio (`usuario.github.io`) o en un subpath
   (`usuario.github.io/portafolio-webs`).
-- Si usás un dominio propio, agregá un archivo `CNAME` en la raíz con el
-  dominio y configurá el DNS según la documentación de GitHub Pages.
+- Si usas un dominio propio, agrega un archivo `CNAME` en la raíz con el
+  dominio y configura el DNS según la documentación de GitHub Pages.
 
 ## Créditos y licencias
 

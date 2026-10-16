@@ -21,7 +21,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/base.css">
 <!-- ?v=: theme.css cambió por completo; evita que una caché vieja mezcle versiones -->
-<link rel="stylesheet" href="./theme.css?v=2026-10-15">
+<link rel="stylesheet" href="./theme.css?v=2026-10-16c">
+<!-- Marca el documento antes de pintar para que los titulares arranquen
+     ocultos y no parpadeen. Sin JS o con movimiento reducido no se marca. -->
+<script>
+  if (!window.matchMedia || !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.documentElement.classList.add("motion-on");
+  }
+</script>
 </head>
 <body>
 
@@ -32,11 +39,12 @@
     <a class="brand" href="#inicio">La Parrilla del Sur</a>
 
     <nav id="nav-links" class="nav-links" aria-label="Navegación principal">
+      <a href="#fuego">El fuego</a>
       <a href="#carta">Carta</a>
       <a href="#historia">Historia</a>
       <a href="#galeria">El salón</a>
       <a href="#opiniones">Opiniones</a>
-      <a href="#visitanos">Visitanos</a>
+      <a href="#visitanos">Visítanos</a>
       <a class="btn" href="https://wa.me/593992745510?text=Hola%2C%20quiero%20reservar%20una%20mesa%20en%20La%20Parrilla%20del%20Sur.">Reservar mesa</a>
     </nav>
 
@@ -66,7 +74,7 @@
 
     <div class="container hero-stack reveal">
       <span class="kicker">Parrilla al carbón desde 2007</span>
-      <h1 class="display">Puro fuego <span class="aside">(cero apuro)</span></h1>
+      <h1 class="display"><span class="d-mask"><span>Puro fuego</span></span> <span class="aside"><span class="d-mask"><span>(cero apuro)</span></span></span></h1>
       <p class="hero-lead">
         Cortes madurados 21 días. Costillar cuatro horas sobre algarrobo.
         Sin microondas, sin atajos, sin disculpas. La misma esquina de Urdesa
@@ -80,18 +88,63 @@
         </a>
       </div>
       <p class="hero-note">Martes a domingo · Urdesa Central · Valet desde las 19:00</p>
+      <figure class="hero-feature">
+        <img src="./images/hero.webp" width="1600" height="900" loading="lazy"
+             alt="Cortes de res recién retirados de la parrilla, laminados sobre tabla de madera">
+      </figure>
     </div>
   </section>
+
+  <!-- ================= CINTA ================= -->
+  <!-- Decorativa: repite lo que la página ya dice. El grupo va duplicado
+       para que el bucle no tenga salto (se mueve -50%). -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <div class="ticker-group"><span>Puro fuego</span><i>✺</i><span>21 días de cámara</span><i>✺</i><span>Carbón de algarrobo</span><i>✺</i><span>Costillar de 4 horas</span><i>✺</i><span>Urdesa desde 2007</span><i>✺</i></div>
+      <div class="ticker-group"><span>Puro fuego</span><i>✺</i><span>21 días de cámara</span><i>✺</i><span>Carbón de algarrobo</span><i>✺</i><span>Costillar de 4 horas</span><i>✺</i><span>Urdesa desde 2007</span><i>✺</i></div>
+    </div>
+  </div>
 
   <!-- ================= CIFRAS ================= -->
   <section class="section section--tight" aria-label="La Parrilla del Sur en cifras">
     <div class="container">
       <div class="stats-row reveal-stagger">
-        <div class="stat"><strong>2007</strong><span>Abrimos. No cerramos.</span></div>
-        <div class="stat"><strong>21 días</strong><span>De cámara. Ni uno menos.</span></div>
-        <div class="stat"><strong>92</strong><span>Puestos. Llenos los viernes.</span></div>
-        <div class="stat"><strong>4.8</strong><span>1.240 reseñas. Cero pagadas.</span></div>
+        <div class="stat"><strong data-count="2007" data-from="1980">2007</strong><span>Abrimos. No cerramos.</span></div>
+        <div class="stat"><strong data-count="21" data-suffix=" días">21 días</strong><span>De cámara. Ni uno menos.</span></div>
+        <div class="stat"><strong data-count="92">92</strong><span>Puestos. Llenos los viernes.</span></div>
+        <div class="stat"><strong data-count="4.8" data-decimals="1">4.8</strong><span>1.240 reseñas. Cero pagadas.</span></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ================= EL FUEGO ================= -->
+  <section class="section" id="fuego" aria-labelledby="fuego-title">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <span class="kicker">El método</span>
+        <h2 class="display display--lg" id="fuego-title"><span class="d-mask"><span>Tres reglas</span></span> <span class="aside"><span class="d-mask"><span>(cero atajos)</span></span></span></h2>
+      </div>
+
+      <ol class="steps reveal-stagger">
+        <li class="step">
+          <img src="./images/carta-lomo.webp" width="900" height="675" loading="lazy" alt="Cortes de res crudos sobre pizarra, listos para madurar">
+          <span class="step-num" aria-hidden="true">01</span>
+          <h3>21 días de cámara</h3>
+          <p>La carne madura en nuestra cámara propia antes de ver el fuego. Ni un día menos. Por eso el ojo de bife se corta con el tenedor.</p>
+        </li>
+        <li class="step">
+          <img src="./images/lena.webp" width="1000" height="750" loading="lazy" alt="Leña de algarrobo ardiendo bajo la parrilla">
+          <span class="step-num" aria-hidden="true">02</span>
+          <h3>Algarrobo desde las 10:30</h3>
+          <p>Prendemos la leña cada mañana y esperamos la brasa. Nada de gas, nada de carbón de bolsa. El humo es parte de la receta.</p>
+        </li>
+        <li class="step">
+          <img src="./images/fuego.webp" width="1200" height="900" loading="lazy" alt="Llamas envolviendo un corte de carne sobre la parrilla">
+          <span class="step-num" aria-hidden="true">03</span>
+          <h3>Al punto, y a la mesa</h3>
+          <p>El parrillero saca cada corte cuando está listo, no cuando hay apuro. Llega a tu mesa entero y se corta frente a ti.</p>
+        </li>
+      </ol>
     </div>
   </section>
 
@@ -100,7 +153,7 @@
     <div class="container">
       <div class="section-head section-head--center reveal">
         <span class="kicker">La carta</span>
-        <h2 class="display display--lg">Carne <span class="aside">(y algo más)</span></h2>
+        <h2 class="display display--lg"><span class="d-mask"><span>Carne</span></span> <span class="aside"><span class="d-mask"><span>(y algo más)</span></span></span></h2>
         <p class="section-sub">
           Las guarniciones cambian con la temporada. Los cortes y el chimichurri,
           jamás. Precios en dólares, IVA incluido.
@@ -116,33 +169,40 @@
           <button class="tab" type="button" role="tab" id="tab-postres" aria-controls="panel-postres" aria-selected="false" tabindex="-1">Postres <span class="badge">2</span></button>
         </div>
 
+        <div class="carta-body">
+        <div class="carta-panels">
         <div class="tab-panel" role="tabpanel" id="panel-parrilla" aria-labelledby="tab-parrilla" tabindex="0">
           <h3 class="panel-title">Parrilla</h3>
           <div class="menu-list">
-            <article class="menu-item menu-item--star">
+            <article data-photo="./images/carta-costillar.webp" class="menu-item is-showing">
+              <img class="menu-thumb" src="./images/carta-costillar.webp" width="900" height="675" loading="lazy" alt="">
               <h4>Costillar a fuego lento</h4>
               <span class="price">$24.90</span>
               <p>Cuatro horas sobre algarrobo. Llega entero. Se desarma con el tenedor. Fin del debate.</p>
             </article>
-            <article class="menu-item">
+            <article data-photo="./images/carta-bife.webp" class="menu-item">
+              <img class="menu-thumb" src="./images/carta-bife.webp" width="900" height="675" loading="lazy" alt="">
               <h4>Ojo de bife 400 g</h4>
               <span class="price">$26.50</span>
               <p>Madurado 21 días. Punto a elección, aunque jugoso es la respuesta correcta.</p>
             </article>
-            <article class="menu-item">
+            <article data-photo="./images/carta-lomo.webp" class="menu-item">
+              <img class="menu-thumb" src="./images/carta-lomo.webp" width="900" height="675" loading="lazy" alt="">
               <h4>Lomo fino 300 g</h4>
               <span class="price">$22.90</span>
               <p>El corte más tierno de la casa, con manteca de hierbas y sal marina.</p>
             </article>
-            <article class="menu-item">
+            <article data-photo="./images/carta-picanha.webp" class="menu-item">
+              <img class="menu-thumb" src="./images/carta-picanha.webp" width="900" height="675" loading="lazy" alt="">
               <h4>Picanha 350 g</h4>
               <span class="price">$23.50</span>
-              <p>Con su tapa de grasa sellada. Se corta en la mesa, frente a vos.</p>
+              <p>Con su tapa de grasa sellada. Se corta en la mesa, frente a ti.</p>
             </article>
-            <article class="menu-item">
+            <article data-photo="./images/carta-parrillada.webp" class="menu-item">
+              <img class="menu-thumb" src="./images/carta-parrillada.webp" width="900" height="675" loading="lazy" alt="">
               <h4>Parrillada del Sur · para dos</h4>
               <span class="price">$46.00</span>
-              <p>Ojo de bife, costillar, chorizo, morcilla, mollejas y dos guarniciones. Traé hambre.</p>
+              <p>Ojo de bife, costillar, chorizo, morcilla, mollejas y dos guarniciones. Trae hambre.</p>
             </article>
           </div>
         </div>
@@ -150,22 +210,26 @@
         <div class="tab-panel" role="tabpanel" id="panel-entradas" aria-labelledby="tab-entradas" tabindex="0">
           <h3 class="panel-title">Entradas</h3>
           <div class="menu-list">
-            <article class="menu-item">
+            <article data-photo="./images/carta-provoleta.webp" class="menu-item">
+              <img class="menu-thumb" src="./images/carta-provoleta.webp" width="900" height="675" loading="lazy" alt="">
               <h4>Provoleta al horno de barro</h4>
               <span class="price">$8.90</span>
-              <p>Provolone gratinado, orégano fresco, oliva y pan de campo. Pedila primero.</p>
+              <p>Provolone gratinado, orégano fresco, oliva y pan de campo. Pídela primero.</p>
             </article>
-            <article class="menu-item">
+            <article data-photo="./images/carta-empanadas.webp" class="menu-item">
+              <img class="menu-thumb" src="./images/carta-empanadas.webp" width="900" height="675" loading="lazy" alt="">
               <h4>Empanadas a cuchillo</h4>
               <span class="price">$7.50</span>
               <p>Tres. Carne, cebolla morada y huevo. Masa hecha cada mañana.</p>
             </article>
-            <article class="menu-item">
+            <article data-photo="./images/carta-chorizo.webp" class="menu-item">
+              <img class="menu-thumb" src="./images/carta-chorizo.webp" width="900" height="675" loading="lazy" alt="">
               <h4>Chorizo criollo</h4>
               <span class="price">$6.90</span>
               <p>Abierto a la brasa, con el chimichurri de don Aníbal. La receta no se negocia.</p>
             </article>
-            <article class="menu-item">
+            <article class="menu-item menu-item--nophoto">
+              <span class="menu-thumb menu-thumb--empty" aria-hidden="true">✺</span>
               <h4>Mollejas al limón</h4>
               <span class="price">$11.50</span>
               <p>Crocantes por fuera, sal en escamas y limón. Las que te convierten.</p>
@@ -176,17 +240,20 @@
         <div class="tab-panel" role="tabpanel" id="panel-guarniciones" aria-labelledby="tab-guarniciones" tabindex="0">
           <h3 class="panel-title">Guarniciones</h3>
           <div class="menu-list">
-            <article class="menu-item">
+            <article data-photo="./images/carta-papas.webp" class="menu-item">
+              <img class="menu-thumb" src="./images/carta-papas.webp" width="900" height="675" loading="lazy" alt="">
               <h4>Papas rústicas al romero</h4>
               <span class="price">$5.50</span>
               <p>Con piel, en grasa de res, terminadas al horno.</p>
             </article>
-            <article class="menu-item">
+            <article data-photo="./images/carta-ensalada.webp" class="menu-item">
+              <img class="menu-thumb" src="./images/carta-ensalada.webp" width="900" height="675" loading="lazy" alt="">
               <h4>Ensalada de la huerta</h4>
               <span class="price">$4.90</span>
               <p>Hojas verdes, tomate riñón, cebolla encurtida y vinagreta de mostaza.</p>
             </article>
-            <article class="menu-item">
+            <article data-photo="./images/carta-zapallo.webp" class="menu-item">
+              <img class="menu-thumb" src="./images/carta-zapallo.webp" width="900" height="675" loading="lazy" alt="">
               <h4>Puré de zapallo asado</h4>
               <span class="price">$5.90</span>
               <p>Zapallo quemado en la parrilla, mantequilla y nuez moscada.</p>
@@ -197,17 +264,29 @@
         <div class="tab-panel" role="tabpanel" id="panel-postres" aria-labelledby="tab-postres" tabindex="0">
           <h3 class="panel-title">Postres</h3>
           <div class="menu-list">
-            <article class="menu-item">
+            <article data-photo="./images/carta-flan.webp" class="menu-item">
+              <img class="menu-thumb" src="./images/carta-flan.webp" width="900" height="675" loading="lazy" alt="">
               <h4>Flan con dulce de leche</h4>
               <span class="price">$6.50</span>
               <p>Dulce de leche que hacemos los martes. Por eso los martes huele así.</p>
             </article>
-            <article class="menu-item">
+            <article data-photo="./images/carta-tiramisu.webp" class="menu-item">
+              <img class="menu-thumb" src="./images/carta-tiramisu.webp" width="900" height="675" loading="lazy" alt="">
               <h4>Tiramisú de la casa</h4>
               <span class="price">$7.20</span>
               <p>Café de altura de Loja y cacao amargo al momento.</p>
             </article>
           </div>
+        </div>
+        </div>
+
+        <!-- Vista grande del plato bajo el puntero o con foco (escritorio, carta.js).
+             Decorativa: cada plato ya tiene su nombre y su miniatura. -->
+        <figure class="carta-preview" aria-hidden="true">
+          <img class="is-on" src="./images/carta-costillar.webp" width="900" height="675" alt="">
+          <img src="./images/carta-costillar.webp" width="900" height="675" alt="">
+          <figcaption>Costillar a fuego lento</figcaption>
+        </figure>
         </div>
       </div>
 
@@ -221,13 +300,13 @@
   <section class="section section--alt" id="historia">
     <div class="container story">
       <figure class="story-visual reveal">
-        <img src="./images/salon.webp" width="1000" height="700" loading="lazy"
-             alt="Salón principal de La Parrilla del Sur con mesas de madera y luz cálida">
+        <img src="./images/salon-rustico.webp" width="1000" height="700" loading="lazy"
+             alt="Salón de La Parrilla del Sur con vigas y mesas de madera, luz cálida de noche">
       </figure>
 
       <div class="reveal">
         <span class="kicker kicker--left">La historia</span>
-        <h2 class="display display--md">6 mesas <span class="aside">(y una parrilla prestada)</span></h2>
+        <h2 class="display display--md"><span class="d-mask"><span>6 mesas</span></span> <span class="aside"><span class="d-mask"><span>(y una parrilla prestada)</span></span></span></h2>
         <p class="section-sub">
           Don Aníbal Sarmiento llegó de Mendoza en 2005. Dos años después abrió
           acá, con seis mesas y una parrilla que le prestó un vecino. Hoy manda
@@ -252,16 +331,16 @@
     <div class="container">
       <div class="section-head section-head--center reveal">
         <span class="kicker">Un viernes cualquiera</span>
-        <h2 class="display display--lg">Así se ve <span class="aside">(imaginate cómo huele)</span></h2>
+        <h2 class="display display--lg"><span class="d-mask"><span>Así se ve</span></span> <span class="aside"><span class="d-mask"><span>(imagínate cómo huele)</span></span></span></h2>
       </div>
     </div>
 
     <!-- Carrusel con scroll-snap: la siguiente foto asoma por el borde -->
-    <div class="reel reveal" tabindex="0" role="region" aria-label="Fotos del salón y los platos (desplazable)">
+    <div class="reel reveal" data-reel tabindex="0" role="region" aria-label="Fotos del salón y los platos (desplazable)">
       <figure class="reel-card">
-        <img src="./images/salon-noche.webp" width="800" height="600" loading="lazy"
-             alt="Salón de La Parrilla del Sur de noche, con mesas ocupadas y luz baja">
-        <figcaption>El salón · viernes 21:00</figcaption>
+        <img src="./images/carta-parrillada.webp" width="900" height="675" loading="lazy"
+             alt="Canasta de carnes a la parrilla con chorizo y vegetales asados">
+        <figcaption>Parrillada · para compartir</figcaption>
       </figure>
       <figure class="reel-card">
         <img src="./images/corte-parrilla.webp" width="800" height="600" loading="lazy"
@@ -284,10 +363,15 @@
         <figcaption>Lomo fino · vegetales</figcaption>
       </figure>
       <figure class="reel-card">
-        <img src="./images/entrada-fresca.webp" width="800" height="600" loading="lazy"
-             alt="Ensalada fresca de hojas verdes y vegetales servida en bowl">
-        <figcaption>Ensalada · sí, también hay</figcaption>
+        <img src="./images/carta-empanadas.webp" width="900" height="675" loading="lazy"
+             alt="Plato de empanadas doradas recién horneadas">
+        <figcaption>Empanadas · a cuchillo</figcaption>
       </figure>
+    </div>
+
+    <div class="container reel-nav">
+      <button class="reel-btn" type="button" data-reel-prev aria-label="Foto anterior">‹</button>
+      <button class="reel-btn" type="button" data-reel-next aria-label="Foto siguiente">›</button>
     </div>
   </section>
 
@@ -296,7 +380,7 @@
     <div class="container">
       <div class="section-head section-head--center reveal">
         <span class="kicker">Opiniones</span>
-        <h2 class="display display--lg">Lo dicen ellos <span class="aside">(no nosotros)</span></h2>
+        <h2 class="display display--lg"><span class="d-mask"><span>Lo dicen ellos</span></span> <span class="aside"><span class="d-mask"><span>(no nosotros)</span></span></span></h2>
       </div>
 
       <div class="testimonials reveal-stagger">
@@ -341,15 +425,15 @@
     </div>
   </section>
 
-  <!-- ================= VISITANOS ================= -->
+  <!-- ================= VISÍTANOS ================= -->
   <section class="section" id="visitanos">
     <div class="container">
       <div class="section-head reveal">
-        <span class="kicker kicker--left">Visitanos</span>
-        <h2 class="display display--lg">Vení <span class="aside">(con hambre)</span></h2>
+        <span class="kicker kicker--left">Visítanos</span>
+        <h2 class="display display--lg"><span class="d-mask"><span>Ven</span></span> <span class="aside"><span class="d-mask"><span>(con hambre)</span></span></span></h2>
         <p class="section-sub">
           Reservas hasta con 30 días de anticipación. Grupos de más de ocho:
-          confirmá por WhatsApp.
+          confirma por WhatsApp.
         </p>
       </div>
 
@@ -400,9 +484,9 @@
   <!-- ================= CTA ================= -->
   <section class="cta-slab" aria-labelledby="cta-title">
     <div class="container">
-      <h2 class="display display--lg" id="cta-title">¿Mesa hoy? <span class="aside">(escribinos ya)</span></h2>
+      <h2 class="display display--lg" id="cta-title"><span class="d-mask"><span>¿Mesa hoy?</span></span> <span class="aside"><span class="d-mask"><span>(escríbenos ya)</span></span></span></h2>
       <p>
-        WhatsApp de 10:00 a 22:00. Decinos cuántos son y a qué hora llegan.
+        WhatsApp de 10:00 a 22:00. Dinos cuántos son y a qué hora llegan.
         Nosotros prendemos el fuego.
       </p>
       <div class="hero-actions">
@@ -453,7 +537,7 @@
       </div>
     </div>
 
-    <p class="footer-mark" aria-hidden="true">Parrilla del Sur</p>
+    <p class="footer-mark" aria-hidden="true"><span class="d-mask"><span>Parrilla del Sur</span></span></p>
 
     <div class="footer-bottom">
       <p>© 2026 La Parrilla del Sur. Negocio ficticio creado como demostración.</p>
@@ -470,5 +554,6 @@
 <script src="../../assets/nav.js" defer></script>
 <script src="../../assets/reveal.js" defer></script>
 <script src="./carta.js" defer></script>
+<script src="./motion.js" defer></script>
 </body>
 </html>

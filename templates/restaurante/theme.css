@@ -45,7 +45,14 @@
   --maxw: 1280px;
   --section-y: clamp(4rem, 8vw, 6.5rem);
 
-  --map-filter: invert(0.9) hue-rotate(160deg) saturate(0.5) brightness(0.8);
+  /* Gradación común de fotos: más contraste, sombras hundidas y un giro
+     cálido hacia el rojo. Unifica fotos de stock de luz y tono distintos
+     sin sacarlas de la paleta (la referencia no admite tonos nuevos). */
+  --photo-grade: contrast(1.14) saturate(1.18) sepia(0.16) hue-rotate(-10deg) brightness(0.9);
+
+  /* Mapa en gris oscuro neutro. Teñido de vino no se leía (probado y
+     descartado el 16 oct): gris no suma tono y conserva el contraste. */
+  --map-filter: invert(0.9) hue-rotate(180deg) grayscale(1) contrast(1.05);
 }
 
 body { font-size: 1.05rem; }
@@ -94,6 +101,9 @@ body { font-size: 1.05rem; }
 
 .section-head--center .section-sub { margin-inline: auto; max-width: 52ch; }
 
+/* El ancho de 62ch de base.css partía los titulares de afiche en dos líneas */
+.section-head--center { max-width: none; }
+
 /* ---------- Botones ---------- */
 
 .btn {
@@ -137,6 +147,14 @@ body { font-size: 1.05rem; }
   font-size: 0.84rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  white-space: nowrap;   /* "El fuego" y "El salón" se partían en dos líneas */
+}
+
+/* Siete enlaces + botón: entre 900 y 1180px no entran con el tamaño completo */
+@media (min-width: 901px) and (max-width: 1180px) {
+  .nav-links { gap: 1.1rem; }
+  .nav-links a { font-size: 0.74rem; letter-spacing: 0.04em; }
+  .brand { font-size: 1.3rem; }
 }
 
 .nav-links a::after { background: var(--ink); }
@@ -196,27 +214,70 @@ body { font-size: 1.05rem; }
   width: clamp(104px, 15vw, 220px);
   aspect-ratio: 1;
   object-fit: cover;
+  /* Propiedades individuales: el giro, el parallax (motion.js) y la
+     entrada se animan por separado sin pisarse en un solo transform. */
+  rotate: var(--r, 0deg);
+  translate: var(--px, 0px) calc(var(--py, 0px) + var(--pyp, 0px));
+  transition: translate 0.5s var(--ease);
 }
 
 .float--a {
   top: 5%; left: 4%;
   clip-path: polygon(14% 4%, 62% 0, 96% 22%, 100% 68%, 70% 98%, 22% 94%, 0 58%, 4% 20%);
-  transform: rotate(-7deg);
+  --r: -7deg;
 }
 .float--b {
   top: 8%; right: 5%;
   clip-path: polygon(30% 0, 84% 8%, 100% 46%, 88% 90%, 44% 100%, 6% 80%, 0 34%);
-  transform: rotate(6deg);
+  --r: 6deg;
 }
 .float--c {
   bottom: 6%; left: 7%;
   clip-path: polygon(8% 18%, 48% 0, 92% 10%, 100% 56%, 78% 100%, 26% 92%, 0 64%);
-  transform: rotate(5deg);
+  --r: 5deg;
 }
 .float--d {
   bottom: 4%; right: 4%;
   clip-path: polygon(20% 6%, 70% 0, 100% 36%, 94% 80%, 56% 100%, 10% 88%, 0 44%);
-  transform: rotate(-5deg);
+  --r: -5deg;
+}
+
+/* Foto grande del corte: solo en móvil, donde las flotantes quedan en 96px
+   y la carne pierde protagonismo. Mismo recorte irregular que el resto. */
+.hero-feature {
+  display: none;
+  width: 100%;
+  max-width: 440px;
+  margin: 2.5rem auto 0;
+}
+
+.hero-feature img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  clip-path: polygon(4% 8%, 46% 0, 94% 5%, 100% 52%, 95% 94%, 52% 100%, 6% 95%, 0 48%);
+}
+
+/* Todas las fotos pasan por la misma gradación */
+.float,
+.hero-feature img,
+.story-visual img,
+.reel-card img,
+.menu-thumb,
+.carta-preview img,
+.step img,
+.testimonial img { filter: var(--photo-grade); }
+
+/* Velo vino plano en el carrusel: hunde los fondos claros (manteles, paredes)
+   para que ninguna foto salte más brillante que las demás. */
+.reel-card { position: relative; }
+.reel-card::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  aspect-ratio: 1;
+  background: rgba(38, 2, 18, 0.18);   /* plano: la referencia no usa degradados */
+  pointer-events: none;
 }
 
 /* ---------- Cifras ---------- */
@@ -351,7 +412,6 @@ body { font-size: 1.05rem; }
 
 .menu-item h4 { color: #fff; }
 .menu-item .price { color: var(--ink); }
-.menu-item--star h4 { color: var(--ink); }
 
 .menu-item p { color: var(--blush); font-size: 0.96rem; }
 
@@ -407,7 +467,7 @@ body { font-size: 1.05rem; }
   --reel-pad: max(var(--gutter), calc((100% - var(--maxw)) / 2 + var(--gutter)));
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: min(76vw, 400px);
+  grid-auto-columns: min(68vw, 300px);
   gap: clamp(0.75rem, 1.5vw, 1.1rem);
   padding: 0 var(--reel-pad) 1.1rem;
   scroll-padding-inline: var(--reel-pad);
@@ -428,7 +488,7 @@ body { font-size: 1.05rem; }
   background: var(--burgundy);
 }
 
-.reel-card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.reel-card img { width: 100%; aspect-ratio: 1; object-fit: cover; }
 
 .reel-card figcaption {
   padding: 1rem 1.15rem 1.1rem;
@@ -462,7 +522,7 @@ body { font-size: 1.05rem; }
   text-transform: uppercase;
 }
 
-/* ---------- Visitanos ---------- */
+/* ---------- Visítanos ---------- */
 
 .contact-list dt {
   color: var(--blush);
@@ -563,7 +623,8 @@ body { font-size: 1.05rem; }
 /* ---------- WhatsApp flotante en el rojo de marca ---------- */
 
 .wa-float {
-  border: 1px solid var(--black);
+  /* Borde rosa: sin él, el botón rojo se pierde al pasar sobre la franja roja */
+  border: 2px solid var(--blush);
   border-radius: var(--radius-pill);
   background: var(--red);
   box-shadow: none;
@@ -573,22 +634,403 @@ body { font-size: 1.05rem; }
 
 .wa-float:hover { background: #b30500; transform: none; }
 
+/* ---------- Carta con fotos ----------
+   Móvil / sin JS: miniatura a la izquierda de cada plato.
+   Escritorio con JS: lista + vista grande que sigue al puntero. */
+
+.menu-item {
+  grid-template-columns: 96px 1fr auto;
+  align-items: start;
+}
+
+.menu-thumb {
+  grid-row: 1 / span 2;
+  width: 96px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  clip-path: polygon(6% 4%, 60% 0, 97% 10%, 100% 62%, 90% 98%, 38% 100%, 0 88%, 2% 30%);
+}
+
+.menu-thumb--empty {
+  display: grid;
+  place-items: center;
+  background: var(--surface-2);
+  color: var(--ink);
+  font-size: 1.6rem;
+  filter: none;
+}
+
+.menu-item p { grid-column: 2 / -1; }
+
+.menu-item h4 { transition: color 0.2s var(--ease), translate 0.25s var(--ease); }
+
+.carta-preview { display: none; }
+
+@media (min-width: 900px) {
+  .tabs.is-ready .carta-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    align-items: start;
+    gap: clamp(1.5rem, 3vw, 2.75rem);
+    max-width: 1180px;
+    margin-inline: auto;
+  }
+
+  .tabs.is-ready .tab-panel { max-width: none; }
+
+  /* Con la vista grande al lado, la miniatura sobra */
+  .tabs.is-ready .menu-item { grid-template-columns: 1fr auto; }
+  .tabs.is-ready .menu-thumb { display: none; }
+  .tabs.is-ready .menu-item p { grid-column: 1 / -1; }
+
+  .tabs.is-ready .menu-item[data-photo] { cursor: default; }
+  /* Rojo = el plato que está en la foto grande (carta.js pone .is-showing).
+     Antes el costillar iba siempre en rojo como "plato estrella" y se leía
+     como si estuviera seleccionado. */
+  .tabs.is-ready .menu-item.is-showing h4 { color: var(--ink); translate: 6px 0; }
+
+  .tabs.is-ready .carta-preview {
+    position: sticky;
+    top: 96px;
+    display: block;
+    margin: 0;
+    aspect-ratio: 4 / 5;
+    clip-path: polygon(5% 2%, 62% 0, 98% 7%, 100% 58%, 95% 97%, 44% 100%, 2% 94%, 0 40%);
+  }
+
+  .carta-preview img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    scale: 1.06;
+    transition: opacity 0.45s var(--ease), scale 0.8s var(--ease);
+  }
+
+  .carta-preview img.is-on { opacity: 1; scale: 1; }
+
+  .carta-preview figcaption {
+    position: absolute;
+    left: 8%;
+    bottom: 7%;
+    padding: 0.45rem 0.8rem 0.5rem;
+    border-radius: var(--radius-pill);
+    background: var(--black);
+    color: var(--blush);
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    line-height: 1;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+}
+
+/* ---------- El fuego: tres pasos ---------- */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
+  counter-reset: none;
+}
+
+.step {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--black);
+  border-radius: var(--radius);
+  background: var(--burgundy);
+  transition: rotate 0.35s var(--ease), translate 0.35s var(--ease);
+}
+
+.step img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: scale 0.6s var(--ease);
+}
+
+/* Número en contorno sobre la foto, como un sello */
+.step-num {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.9rem;
+  color: transparent;
+  font-family: var(--font-heading);
+  font-size: clamp(3.5rem, 6vw, 5rem);
+  line-height: 1;
+  -webkit-text-stroke: 2px var(--ink);
+}
+
+.step h3 {
+  padding: 1.25rem 1.4rem 0;
+  color: #fff;
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.step p {
+  padding: 0.7rem 1.4rem 1.5rem;
+  color: var(--blush);
+  font-size: 0.98rem;
+}
+
+@media (hover: hover) {
+  .step:hover { rotate: -1deg; translate: 0 -6px; }
+  .step:nth-child(2):hover { rotate: 1deg; }
+  .step:hover img { scale: 1.06; }
+}
+
+@media (max-width: 760px) {
+  /* Pasos en carrusel: apilados sumaban ~1.500px de alto */
+  .steps {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 84%;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 0.75rem;
+    scroll-padding-inline: var(--gutter);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--red) transparent;
+  }
+  .step { scroll-snap-align: start; }
+}
+
+/* Hasta 899px no hay vista grande: la carta usa la miniatura */
+@media (max-width: 899px) {
+  /* Plato en móvil: miniatura | nombre + precio debajo; descripción a lo ancho.
+     El precio no se achica: necesita 24px por contraste (rojo sobre burdeos). */
+  .menu-item {
+    grid-template-columns: 84px 1fr;
+    gap: 0.35rem 0.9rem;
+  }
+  .menu-thumb { width: 84px; grid-row: 1 / span 2; }
+  .menu-item h4 { grid-column: 2; font-size: 1.3rem; }
+  .menu-item .price { grid-column: 2; grid-row: 2; }
+  .menu-item p { grid-column: 1 / -1; }
+  .tab-panel { padding: 1.25rem; }
+}
+
+/* ============================================================
+   Movimiento (ver motion.js). Todo cuelga de .motion-on, que el
+   <head> solo pone si no hay prefers-reduced-motion.
+   ============================================================ */
+
+/* ---------- Titulares que suben desde una máscara ---------- */
+
+.d-mask {
+  display: block;
+  overflow: hidden;
+  /* Aire arriba para las tildes de las mayúsculas (Á, Í): con
+     line-height 0.84 la máscara las cortaría. */
+  padding-top: 0.14em;
+  margin-top: -0.14em;
+}
+
+.d-mask > span { display: block; }
+
+.motion-on .d-mask > span {
+  transform: translateY(110%);
+  transition: transform 0.95s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.motion-on .is-in .d-mask > span { transform: none; }
+.motion-on .is-in .aside .d-mask > span { transition-delay: 0.14s; }
+
+/* Red de seguridad: si motion.js no carga, se destapan solos */
+.motion-on:not(.motion-js) .d-mask > span {
+  animation: d-unmask 0.01s 1.5s forwards;
+}
+@keyframes d-unmask { to { transform: none; } }
+
+/* ---------- Fotos del hero: entrada y vaivén ---------- */
+
+.motion-on .float {
+  animation:
+    float-in 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+    float-sway 5s ease-in-out 1s infinite alternate;
+}
+.motion-on .float--a { animation-delay: 0.35s, 1.25s; }
+.motion-on .float--b { animation-delay: 0.5s, 1.4s; }
+.motion-on .float--c { animation-delay: 0.65s, 1.55s; }
+.motion-on .float--d { animation-delay: 0.8s, 1.7s; }
+
+@keyframes float-in {
+  from { opacity: 0; scale: 0.4; rotate: calc(var(--r, 0deg) - 24deg); }
+  to   { opacity: 1; scale: 1;   rotate: var(--r, 0deg); }
+}
+
+@keyframes float-sway {
+  from { rotate: var(--r, 0deg); }
+  to   { rotate: calc(var(--r, 0deg) + 5deg); }
+}
+
+/* ---------- Cinta de texto corrido ---------- */
+
+.ticker {
+  overflow: hidden;
+  margin-block: 0.5rem;
+  padding-block: 0.85rem;
+  background: var(--red);
+  color: #fff;
+  rotate: -1.5deg;
+  /* Más ancha que la pantalla para que el giro no deje esquinas vacías */
+  margin-inline: -2vw;
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+}
+
+.ticker-group {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding-right: 1.4rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ticker-group i { color: var(--wine); font-style: normal; }
+
+.motion-on .ticker-track { animation: ticker 32s linear infinite; }
+.ticker:hover .ticker-track { animation-play-state: paused; }
+
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+/* ---------- Botones: la flecha empuja ---------- */
+
+.caret {
+  display: inline-block;
+  transition: transform 0.25s var(--ease);
+}
+.btn:hover .caret { transform: translateX(4px); }
+
+/* ---------- Carta: el panel entra al cambiar de pestaña ---------- */
+
+.motion-on .tabs.is-ready .tab-panel:not([hidden]) .menu-item {
+  animation: item-in 0.5s var(--ease) both;
+}
+.motion-on .tab-panel .menu-item:nth-child(2) { animation-delay: 0.05s; }
+.motion-on .tab-panel .menu-item:nth-child(3) { animation-delay: 0.1s; }
+.motion-on .tab-panel .menu-item:nth-child(4) { animation-delay: 0.15s; }
+.motion-on .tab-panel .menu-item:nth-child(5) { animation-delay: 0.2s; }
+
+@keyframes item-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.menu-item .price { transition: transform 0.25s var(--ease); }
+.menu-item:hover .price { transform: rotate(-4deg) scale(1.08); }
+
+/* ---------- Carrusel: controles, arrastre y foto que se inclina ---------- */
+
+.reel-nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 1rem;
+}
+
+.reel-btn {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #fff;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.18s var(--ease), color 0.18s var(--ease),
+    opacity 0.18s var(--ease);
+}
+
+.reel-btn:hover:not(:disabled) { background: var(--red); border-color: var(--red); }
+.reel-btn:disabled { opacity: 0.35; cursor: default; }
+
+.reel { cursor: grab; }
+.reel.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+
+.reel-card { transition: rotate 0.35s var(--ease), translate 0.35s var(--ease); }
+.reel-card img { transition: scale 0.6s var(--ease), filter 0.3s var(--ease); }
+
+@media (hover: hover) {
+  .reel-card:hover { rotate: -1.5deg; translate: 0 -6px; }
+  .reel-card:nth-child(even):hover { rotate: 1.5deg; }
+  .reel-card:hover img { scale: 1.06; }
+}
+
+/* ---------- Opiniones: inclinación de calcomanía ---------- */
+
+.testimonial { transition: rotate 0.35s var(--ease), translate 0.35s var(--ease); }
+
+@media (hover: hover) {
+  .testimonial:hover { rotate: -1.2deg; translate: 0 -4px; }
+  .testimonial:nth-child(even):hover { rotate: 1.2deg; }
+}
+
+/* ---------- Historia: la foto se acomoda al pasar ---------- */
+
+.story-visual img { transition: clip-path 0.6s var(--ease), scale 0.6s var(--ease); }
+
+@media (hover: hover) {
+  .story-visual:hover img {
+    scale: 1.03;
+    clip-path: polygon(2% 6%, 52% 2%, 99% 4%, 96% 56%, 98% 99%, 46% 96%, 4% 98%, 1% 44%);
+  }
+}
+
+/* ---------- Movimiento reducido ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+  .float { translate: none; animation: none; }
+  .reel-card:hover,
+  .testimonial:hover { rotate: none; translate: none; }
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 960px) {
   .story { grid-template-columns: 1fr; }
-  .story-visual img { aspect-ratio: 4 / 3; }
+  /* Apilada, la foto a todo el ancho quedaba gigante: se acota */
+  .story-visual { max-width: 560px; }
+  .story-visual img { aspect-ratio: 16 / 10; }
   .stat:nth-child(3) { border-left: 0; }
 }
 
 @media (max-width: 760px) {
-  .hero { padding-block: 8.5rem 8rem; }
+  .hero { padding-block: 8.5rem 3.5rem; }
 
   .float { width: 96px; }
   .float--a { top: 1.25rem; left: -12px; }
   .float--b { top: 1.75rem; right: -10px; }
-  .float--c { bottom: 1rem; left: 8%; }
-  .float--d { bottom: 1.5rem; right: 8%; }
+  /* Abajo manda la foto grande; las dos flotantes de abajo competirían con ella */
+  .float--c,
+  .float--d { display: none; }
+
+  .hero-feature { display: block; }
+
+  /* El WhatsApp flotante (~52px + 1rem) tapaba la última línea del pie,
+     que no puede scrollear más arriba porque ahí termina la página. */
+  .site-footer { padding-bottom: calc(2rem + 76px); }
 
   .tab { padding: 0.55rem 0.8rem 0.55rem 0.95rem; font-size: 0.84rem; }
   .tab-panel { border-radius: 24px; }
