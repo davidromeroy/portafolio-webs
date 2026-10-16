@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Fuente de los íconos de la PWA. La luna va dibujada con dos arcos (no
+       con texto) para que se vea igual sin depender de una tipografía, y
+       cabe en la zona segura del ícono maskable (círculo del 80 %). -->
+  <rect width="512" height="512" fill="#E1E6E1"/>
+  <path transform="translate(22 0)" fill="#3F444B" d="M246.2 405.6 A150 150 0 1 1 390.4 189.4 A130 130 0 0 0 246.2 405.6 Z"/>
+</svg>

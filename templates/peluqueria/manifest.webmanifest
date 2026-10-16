@@ -1,0 +1,20 @@
+{
+  "name": "Luna Studio",
+  "short_name": "Luna Studio",
+  "description": "Servicios, precios y citas de Luna Studio en Plaza Lagos, Samborondón.",
+  "lang": "es-EC",
+  "dir": "ltr",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#e1e6e1",
+  "theme_color": "#e1e6e1",
+  "categories": ["beauty", "lifestyle"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
