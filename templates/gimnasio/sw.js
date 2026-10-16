@@ -9,7 +9,7 @@
    teléfono borra la copia vieja al activarse la nueva.
    ============================================================ */
 
-const CACHE = "forja-v3";
+const CACHE = "forja-v5";
 
 // Lo mínimo para abrir sin conexión. Las URL tienen que ser iguales a
 // las que pide el HTML (theme.css va con su ?v=).
@@ -29,7 +29,8 @@ const PRECACHE = [
   "../../assets/nav.js",
   "../../assets/reveal.js",
   "../../assets/instalar.js",
-  "../../assets/instalar.css"
+  "../../assets/instalar.css",
+  "../../assets/whatsapp.js"
 ];
 
 // Tipografías de Google: se guardan la primera vez que se usan.
