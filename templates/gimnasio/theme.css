@@ -717,6 +717,18 @@ h2.display { font-size: clamp(2.2rem, 4.6vw, 3.6rem); }
 
 .footer-brand .brand { font-size: 2rem; }
 
+/* ---------- Aviso de instalación (assets/instalar.css) ---------- */
+
+.instalar {
+  --instalar-bg: var(--carbon);
+  --instalar-fg: var(--paper);
+  --instalar-muted: #a3a3a3;
+  --instalar-accent: var(--lime);
+  --instalar-accent-fg: var(--ink);
+  --instalar-radius: var(--radius);
+  font-family: var(--font-body);
+}
+
 /* ---------- WhatsApp ---------- */
 
 .wa-float {
